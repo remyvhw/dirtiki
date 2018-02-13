@@ -15,4 +15,13 @@ class Page extends Model
     {
         return 'slug';
     }
+
+    /**
+     * Get the Body record associated with the Page.
+     */
+    public function body()
+    {
+        return $this->hasOne(Body::class);
+    }
+
 }
