@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Resources\PageCollection;
 use App\Page;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
@@ -15,7 +16,9 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize("view", Page::class);
+
+        return new PageCollection(Page::paginate());
     }
 
     /**
