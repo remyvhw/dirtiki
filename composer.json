@@ -1,7 +1,10 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "remyvhw/dirtiki",
+    "description": "A quick and dirty wiki engine.",
+    "keywords": [
+        "wiki",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -34,8 +37,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-            ]
+            "dont-discover": []
         }
     },
     "scripts": {
