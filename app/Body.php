@@ -21,6 +21,13 @@ class Body extends Model
     public $timestamps = false;
 
     /**
+     * All of the relationships to be touched.
+     *
+     * @var array
+     */
+    protected $touches = ['page'];
+
+    /**
      * Get the Page that owns the Body.
      */
     public function page()
