@@ -11,8 +11,16 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::namespace("Api")->group(['middleware' => ['auth:api']], function () {
+
+    Route::get('/users/self', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::apiResources([
+        'pages' => 'PageController',
+    ]);
+
 });
