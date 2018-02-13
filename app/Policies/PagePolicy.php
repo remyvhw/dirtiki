@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Page;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PagePolicy
@@ -19,7 +19,10 @@ class PagePolicy
      */
     public function view(User $user, Page $page)
     {
-        //
+        if (!$user && !config("dirtiki.allow_anonymous.views")) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -30,7 +33,10 @@ class PagePolicy
      */
     public function create(User $user)
     {
-        //
+        if (!$user && !config("dirtiki.allow_anonymous.creates")) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -42,7 +48,10 @@ class PagePolicy
      */
     public function update(User $user, Page $page)
     {
-        //
+        if (!$user && !config("dirtiki.allow_anonymous.updates")) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -54,6 +63,9 @@ class PagePolicy
      */
     public function delete(User $user, Page $page)
     {
-        //
+        if (!$user && !config("dirtiki.allow_anonymous.deletes")) {
+            return false;
+        }
+        return true;
     }
 }
