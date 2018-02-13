@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateBodiesTable extends Migration
 {
@@ -14,8 +14,10 @@ class CreateBodiesTable extends Migration
     public function up()
     {
         Schema::create('bodies', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+            $table->integer('page_id')->unsigned();
+            $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');
+            $table->string("type", 32)->default("text/markdown");
+            $table->text("content");
         });
     }
 
