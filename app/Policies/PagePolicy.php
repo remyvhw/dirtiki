@@ -17,7 +17,22 @@ class PagePolicy
      * @param  \App\Page  $page
      * @return mixed
      */
-    public function view(User $user, Page $page)
+    public function index(?User $user): bool
+    {
+        if (!$user && !config("dirtiki.allow_anonymous.views")) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Determine whether the user can view the page.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Page  $page
+     * @return mixed
+     */
+    public function view(?User $user, Page $page): bool
     {
         if (!$user && !config("dirtiki.allow_anonymous.views")) {
             return false;
@@ -31,7 +46,7 @@ class PagePolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(?User $user): bool
     {
         if (!$user && !config("dirtiki.allow_anonymous.creates")) {
             return false;
@@ -46,7 +61,7 @@ class PagePolicy
      * @param  \App\Page  $page
      * @return mixed
      */
-    public function update(User $user, Page $page)
+    public function update(?User $user, Page $page): bool
     {
         if (!$user && !config("dirtiki.allow_anonymous.updates")) {
             return false;
@@ -61,7 +76,7 @@ class PagePolicy
      * @param  \App\Page  $page
      * @return mixed
      */
-    public function delete(User $user, Page $page)
+    public function delete(?User $user, Page $page): bool
     {
         if (!$user && !config("dirtiki.allow_anonymous.deletes")) {
             return false;

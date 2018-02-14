@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PageCollection;
 use App\Http\Resources\PageResource;
 use App\Page;
+use Auth;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -17,7 +18,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $this->authorize("view", Page::class);
+        abort_if(!policy(Page::class)->index(Auth::user()), 403);
 
         return new PageCollection(Page::paginate());
     }
@@ -41,7 +42,7 @@ class PageController extends Controller
      */
     public function show(Page $page)
     {
-        $this->authorize("view", Page::class);
+        abort_if(!policy(Page::class)->view(Auth::user(), $page), 403);
         return new PageResource($page);
     }
 
