@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use App\PageRedirection;
+use Auth;
+use Illuminate\Http\Request;
+use Route;
 
 class PageController extends Controller
 {
@@ -32,9 +36,18 @@ class PageController extends Controller
      * @param  \App\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function show(Page $page)
+    public function show(Request $request, string $page)
     {
-        //
+        $slug = $page;
+        $page = Page::with("body")->where("slug", $slug)->first();
+        if (!$page && $pageRedirection = PageRedirection::where("slug", $slug)->first()) {
+            return redirect()->route(Route::currentRouteName(), [$pageRedirection->page]);
+        } elseif (!$page) {
+            abort(404);
+        }
+
+        abort_if(!policy(Page::class)->view(Auth::user(), $page), 403);
+
     }
 
     /**
