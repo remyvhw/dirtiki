@@ -18,4 +18,11 @@ class PageRedirection extends Model
         return $this->belongsTo(Page::class);
     }
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['slug', 'page_id'];
+
 }
