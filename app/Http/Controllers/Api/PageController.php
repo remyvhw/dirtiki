@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PageCollection;
+use App\Http\Resources\PageResource;
 use App\Page;
 use Illuminate\Http\Request;
 
@@ -40,7 +41,8 @@ class PageController extends Controller
      */
     public function show(Page $page)
     {
-        //
+        $this->authorize("view", Page::class);
+        return new PageResource($page);
     }
 
     /**
