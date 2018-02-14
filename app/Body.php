@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use \OwenIt\Auditing\Auditable;
 
-class Body extends Model
+class Body extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
+
     /**
      * Indicates if the IDs are auto-incrementing. They are not.
      *
