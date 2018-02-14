@@ -2,10 +2,29 @@
 
 namespace App;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
+    use Sluggable;
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+                'maxLength' => 512,
+                'onUpdate' => true,
+                'unique' => true,
+            ],
+        ];
+    }
+
     /**
      * Get the route key for the model.
      *
