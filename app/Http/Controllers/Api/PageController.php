@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PageCollection;
 use App\Http\Resources\PageResource;
 use App\Page;
 use Auth;
@@ -20,7 +19,7 @@ class PageController extends Controller
     {
         abort_if(!policy(Page::class)->index(Auth::user()), 403);
 
-        return new PageCollection(Page::paginate());
+        return PageResource::collection(Page::paginate());
     }
 
     /**
