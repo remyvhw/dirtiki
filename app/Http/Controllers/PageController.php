@@ -27,7 +27,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        //
+        abort_if(!policy(Page::class)->create(Auth::user(), $page), 403);
     }
 
     /**
@@ -45,7 +45,6 @@ class PageController extends Controller
         } elseif (!$page) {
             abort(404);
         }
-
         abort_if(!policy(Page::class)->view(Auth::user(), $page), 403);
 
     }
@@ -58,7 +57,7 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        //
+        abort_if(!policy(Page::class)->update(Auth::user(), $page), 403);
     }
 
 }

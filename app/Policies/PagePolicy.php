@@ -46,7 +46,7 @@ class PagePolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(?User $user): bool
+    public function store(?User $user): bool
     {
         if (!$user && !config("dirtiki.allow_anonymous.creates")) {
             return false;
