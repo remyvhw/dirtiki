@@ -19,8 +19,8 @@ Route::group(['middleware' => ['auth:api']], function () {
         return $request->user();
     });
 
-    Route::apiResources([
-        'pages' => 'Api\PageController',
-    ]);
-
 });
+
+Route::apiResources([
+    'pages' => 'Api\PageController',
+]);
