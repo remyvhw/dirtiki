@@ -76,6 +76,7 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
-        //
+        abort_if(!policy(Page::class)->delete(Auth::user(), $page), 403);
+        $page->delete();
     }
 }
