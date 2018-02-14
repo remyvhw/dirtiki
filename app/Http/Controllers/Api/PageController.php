@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    protected function getRules()
+    {
+        return [
+            'name' => 'required|max:512',
+            'archived' => 'nullable|boolean',
+            'body.content' => 'required',
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +39,8 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        abort_if(!policy(Page::class)->store(Auth::user(), $page), 403);
+        $this->validate($request, $this->getRules());
     }
 
     /**
@@ -54,7 +64,8 @@ class PageController extends Controller
      */
     public function update(Request $request, Page $page)
     {
-        //
+        abort_if(!policy(Page::class)->update(Auth::user(), $page), 403);
+        $this->validate($request, $this->getRules());
     }
 
     /**
