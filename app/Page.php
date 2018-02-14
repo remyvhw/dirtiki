@@ -24,4 +24,12 @@ class Page extends Model
         return $this->hasOne(Body::class)->withDefault();
     }
 
+    /**
+     * Get the redirections for the page.
+     */
+    public function pageRedirections()
+    {
+        return $this->hasMany(PageRedirection::class);
+    }
+
 }
