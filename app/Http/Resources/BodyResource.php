@@ -14,6 +14,9 @@ class BodyResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            "type" => $this->type,
+            "content" => $this->content,
+        ];
     }
 }
