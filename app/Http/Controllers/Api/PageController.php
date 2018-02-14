@@ -43,7 +43,7 @@ class PageController extends Controller
     public function show(Page $page)
     {
         abort_if(!policy(Page::class)->view(Auth::user(), $page), 403);
-        return new PageResource($page);
+        return new PageResource($page->load(["body"]));
     }
 
     /**
