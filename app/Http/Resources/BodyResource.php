@@ -17,6 +17,7 @@ class BodyResource extends JsonResource
         return [
             "type" => $this->type,
             "content" => $this->content,
+            'page' => new PageResource($this->whenLoaded('page')),
         ];
     }
 }
