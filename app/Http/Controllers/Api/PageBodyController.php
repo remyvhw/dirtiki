@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Body;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BodyResource;
 use App\Page;
+use Auth;
 use Illuminate\Http\Request;
 
 class PageBodyController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +21,7 @@ class PageBodyController extends Controller
     public function index(Page $page)
     {
         abort_if(!policy(Page::class)->view(Auth::user(), $page), 403);
+        return new BodyResource($page->body);
     }
 
     /**
@@ -31,6 +35,10 @@ class PageBodyController extends Controller
     public function update(Request $request, Page $page)
     {
         abort_if(!policy(Page::class)->update(Auth::user(), $page), 403);
+        $this->validate($request, [
+            'content' => 'required',
+        ]);
+        $page->body->update($request->only(["content"]));
     }
 
     /**
