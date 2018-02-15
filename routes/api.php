@@ -12,26 +12,30 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
  */
+Route::name('api.')->group(function () {
 
-Route::group(['middleware' => ['auth:api']], function () {
+    Route::group(['middleware' => ['auth:api']], function () {
 
-    Route::get('/users/self', function (Request $request) {
-        return $request->user();
+        Route::get('/users/self', function (Request $request) {
+            return $request->user();
+        })->name("users.self");
+
     });
 
+    /**
+     * History routes
+     */
+    Route::get('pages/{page}/history', 'Api\PageController@getHistory')->name("pages.history");
+    Route::get('pages/{page}/body/history', 'Api\PageBodyController@getHistory')->name("pages.body.history");
+
+    /**
+     * API resources routes
+     */
+    Route::get('pages/{page}/body', 'Api\PageBodyController@index')->name("pages.body.show");
+    Route::put('pages/{page}/body', 'Api\PageBodyController@update')->name("pages.body.update");
+
+    Route::apiResources([
+        'pages' => 'Api\PageController',
+    ]);
+
 });
-/**
- * History routes
- */
-Route::get('pages/{page}/history', 'Api\PageController@getHistory');
-Route::get('pages/{page}/body/history', 'Api\PageBodyController@getHistory');
-
-/**
- * API resources routes
- */
-Route::get('pages/{page}/body', 'Api\PageBodyController@index');
-Route::put('pages/{page}/body', 'Api\PageBodyController@update');
-
-Route::apiResources([
-    'pages' => 'Api\PageController',
-]);

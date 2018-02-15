@@ -13,7 +13,7 @@ class PageController extends Controller
     protected function getRules()
     {
         return [
-            'name' => 'required|max:512',
+            'data.name' => 'required|max:512',
         ];
     }
 
@@ -40,10 +40,10 @@ class PageController extends Controller
         abort_if(!policy(Page::class)->store(Auth::user(), $page), 403);
 
         $rules = $this->getRules();
-        $rules["body.content"] = "required";
+        $rules["relationships.body.data.content"] = "required";
         $this->validate($request, $rules);
-        $page->create($request->only(["name"]));
-        $page->body->update(["content" => $request->input("body.content")]);
+        $page->create($request->only(["data.name"]));
+        $page->body->update(["content" => $request->input("relationships.body.data.content")]);
 
     }
 
@@ -72,8 +72,8 @@ class PageController extends Controller
         $this->validate($request, $this->getRules());
 
         $page->update($request->only(["name"]));
-        if ($request->has("body")) {
-            $page->body->update(["content" => $request->input("body.content")]);
+        if ($request->has("relationships.body.data")) {
+            $page->body->update(["content" => $request->input("relationships.body.data.content")]);
         }
 
     }

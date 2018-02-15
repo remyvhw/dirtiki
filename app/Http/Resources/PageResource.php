@@ -15,13 +15,37 @@ class PageResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "created_at" => $this->created_at,
-            "updated_at" => $this->updated_at,
-            "archived_at" => $this->archived_at,
-            "name" => $this->name,
-            "slug" => $this->slug,
-            'body' => new BodyResource($this->whenLoaded('body')),
+            "data" => [
+                "id" => $this->id,
+                "created_at" => $this->created_at,
+                "updated_at" => $this->updated_at,
+                "archived_at" => $this->archived_at,
+                "name" => $this->name,
+                "slug" => $this->slug,
+            ],
+        ];
+    }
+
+    /**
+     * Get additional data that should be returned with the resource array.
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function with($request)
+    {
+        return [
+            'links' => [
+                'self' => route("api.pages.show", ["page" => $this]),
+            ],
+            'relationships' => [
+                'body' => [
+                    'links' => [
+                        'self' => route("api.pages.body.show", ["page" => $this]),
+                    ],
+                    'data' => new BodyResource($this->whenLoaded('body')),
+                ],
+            ],
         ];
     }
 }
