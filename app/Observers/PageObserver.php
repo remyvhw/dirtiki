@@ -32,7 +32,7 @@ class PageObserver
              * A page slug was updated. We'll create a Page Redirection so the old
              * link still works.
              */
-            PageRedirection::create(['slug' => $slug, "page_id" => $page->id]);
+            PageRedirection::create(['slug' => $originalSlug, "page_id" => $page->id]);
         }
 
     }
