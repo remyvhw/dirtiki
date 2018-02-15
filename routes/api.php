@@ -20,8 +20,15 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
 });
-
+/**
+ * History routes
+ */
 Route::get('pages/{page}/history', 'Api\PageController@getHistory');
+
+/**
+ * API resources routes
+ */
+Route::resource('pages.body', 'Api\PageBodyController', ['only' => ['index', 'update']]);
 
 Route::apiResources([
     'pages' => 'Api\PageController',
