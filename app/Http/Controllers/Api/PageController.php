@@ -39,7 +39,12 @@ class PageController extends Controller
     public function store(Request $request)
     {
         abort_if(!policy(Page::class)->store(Auth::user(), $page), 403);
+
         $this->validate($request, $this->getRules());
+        $page->create($request->only(["name"]));
+        $page->body->content = $request->input("body.content");
+        $page->body->save();
+
     }
 
     /**
