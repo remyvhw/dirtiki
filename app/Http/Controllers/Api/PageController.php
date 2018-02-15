@@ -14,7 +14,6 @@ class PageController extends Controller
     {
         return [
             'name' => 'required|max:512',
-            'archived' => 'nullable|boolean',
             'body.content' => 'required',
         ];
     }
@@ -66,6 +65,11 @@ class PageController extends Controller
     {
         abort_if(!policy(Page::class)->update(Auth::user(), $page), 403);
         $this->validate($request, $this->getRules());
+
+        $page->update($request->only(["name"]));
+        $page->body->content = $request->input("body.content");
+        $page->body->save();
+
     }
 
     /**
