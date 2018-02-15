@@ -30,8 +30,16 @@ class BodyResource extends JsonResource
     public function with($request)
     {
         return [
-            'meta' => [
-                'key' => 'value',
+            'links' => [
+                'self' => route("api.pages.body.show", ["page" => $this->page]),
+            ],
+            'relationships' => [
+                'page' => [
+                    'links' => [
+                        'self' => route("api.pages.show", ["page" => $this->page]),
+                    ],
+                    'data' => new PageResource($this->whenLoaded('page')),
+                ],
             ],
         ];
     }
