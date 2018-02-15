@@ -34,6 +34,9 @@ class AuditResource extends JsonResource
                             'self' => "#",
                         ],
                         'data' => new UserResource($this->user),
+                        "meta" => [
+                            "role" => "Author",
+                        ],
                     ];
                 }),
             ],
