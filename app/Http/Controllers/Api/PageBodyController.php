@@ -17,7 +17,7 @@ class PageBodyController extends Controller
      */
     public function index(Page $page)
     {
-        //
+        abort_if(!policy(Page::class)->view(Auth::user(), $page), 403);
     }
 
     /**
@@ -30,7 +30,19 @@ class PageBodyController extends Controller
      */
     public function update(Request $request, Page $page)
     {
-        //
+        abort_if(!policy(Page::class)->update(Auth::user(), $page), 403);
+    }
+
+    /**
+     * List audited changes to a given resource.
+     *
+     * @param  \App\Page  $page
+     * @return \Illuminate\Http\Response
+     */
+    public function getHistory(Page $page)
+    {
+        abort_if(!policy(Page::class)->view(Auth::user(), $page), 403);
+
     }
 
 }
