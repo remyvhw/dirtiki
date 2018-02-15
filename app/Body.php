@@ -17,6 +17,13 @@ class Body extends Model implements Auditable
     public $incrementing = false;
 
     /**
+     * The primary key for the model.
+     *
+     * @var string
+     */
+    public $primaryKey = "page_id";
+
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
