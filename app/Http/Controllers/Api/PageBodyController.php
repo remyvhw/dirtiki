@@ -28,7 +28,7 @@ class PageBodyController extends Controller
      * @param  \App\Body  $body
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Page $page, Body $body)
+    public function update(Request $request, Page $page)
     {
         //
     }

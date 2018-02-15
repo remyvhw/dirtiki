@@ -28,7 +28,8 @@ Route::get('pages/{page}/history', 'Api\PageController@getHistory');
 /**
  * API resources routes
  */
-Route::resource('pages.body', 'Api\PageBodyController', ['only' => ['index', 'update']]);
+Route::get('pages/{page}/body', 'Api\PageBodyController@index');
+Route::put('pages/{page}/body', 'Api\PageBodyController@update');
 
 Route::apiResources([
     'pages' => 'Api\PageController',
