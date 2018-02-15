@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use \OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable;
 
 class Body extends Model implements Auditable
 {
