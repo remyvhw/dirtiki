@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AuditResource;
 use App\Http\Resources\PageResource;
 use App\Page;
 use Auth;
@@ -99,7 +100,7 @@ class PageController extends Controller
     public function getHistory(Page $page)
     {
         abort_if(!policy(Page::class)->view(Auth::user(), $page), 403);
-        dd($page->audits);
+        return AuditResource::collection($page->audits()->latest()->paginate());
 
     }
 }
