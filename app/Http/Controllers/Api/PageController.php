@@ -42,8 +42,7 @@ class PageController extends Controller
 
         $this->validate($request, $this->getRules());
         $page->create($request->only(["name"]));
-        $page->body->content = $request->input("body.content");
-        $page->body->save();
+        $page->body->update(["content" => $request->input("body.content")]);
 
     }
 
@@ -72,8 +71,7 @@ class PageController extends Controller
         $this->validate($request, $this->getRules());
 
         $page->update($request->only(["name"]));
-        $page->body->content = $request->input("body.content");
-        $page->body->save();
+        $page->body->update(["content" => $request->input("body.content")]);
 
     }
 
