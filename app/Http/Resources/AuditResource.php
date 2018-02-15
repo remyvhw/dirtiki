@@ -17,6 +17,7 @@ class AuditResource extends JsonResource
         return [
             "data" => [
                 "created_at" => $this->created_at,
+                "type" => $this->event,
                 "changes" => [
                     "before" => $this->old_values,
                     "after" => $this->new_values,
