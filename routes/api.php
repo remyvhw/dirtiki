@@ -21,6 +21,8 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 });
 
+Route::get('pages/{page}/history', 'Api\PageController@getHistory');
+
 Route::apiResources([
     'pages' => 'Api\PageController',
 ]);

@@ -86,4 +86,16 @@ class PageController extends Controller
         abort_if(!policy(Page::class)->delete(Auth::user(), $page), 403);
         $page->delete();
     }
+
+    /**
+     * List audited changes to a given resource.
+     *
+     * @param  \App\Page  $page
+     * @return \Illuminate\Http\Response
+     */
+    public function getHistory(Page $page)
+    {
+        abort_if(!policy(Page::class)->view(Auth::user(), $page), 403);
+
+    }
 }
