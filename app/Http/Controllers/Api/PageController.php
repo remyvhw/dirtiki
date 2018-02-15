@@ -14,7 +14,6 @@ class PageController extends Controller
     {
         return [
             'name' => 'required|max:512',
-            'body.content' => 'required',
         ];
     }
 
@@ -40,7 +39,9 @@ class PageController extends Controller
     {
         abort_if(!policy(Page::class)->store(Auth::user(), $page), 403);
 
-        $this->validate($request, $this->getRules());
+        $rules = $this->getRules();
+        $rules["body.content"] = "required";
+        $this->validate($request, $rules);
         $page->create($request->only(["name"]));
         $page->body->update(["content" => $request->input("body.content")]);
 
@@ -71,7 +72,9 @@ class PageController extends Controller
         $this->validate($request, $this->getRules());
 
         $page->update($request->only(["name"]));
-        $page->body->update(["content" => $request->input("body.content")]);
+        if ($request->has("body")) {
+            $page->body->update(["content" => $request->input("body.content")]);
+        }
 
     }
 
