@@ -59,4 +59,15 @@ class Image extends Model implements Auditable
         return self::filePrefixForId($this->id);
     }
 
+    /**
+     * Retrieve the original image file path, so it can
+     * be used in conjonction with Storage;
+     *
+     * @return string
+     */
+    public function getOriginalFilePathAttribute(): string
+    {
+        return $this->getFilePrefixAttribute() . "source";
+    }
+
 }
