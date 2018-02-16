@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('images/{image}', 'ImageController@getShow')->name("images.show");
+
 Route::resource('pages', 'PageController', ['only' => [
     'index', 'create', 'show', 'edit',
 ]]);
