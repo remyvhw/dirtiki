@@ -12,11 +12,11 @@ class UserPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\User  $user
+     * @param  \App\User|void  $user
      * @param  \App\User  $model
      * @return mixed
      */
-    public function view(User $user, User $model)
+    public function view(?User $user, User $model)
     {
         if (!$user && !config("dirtiki.allow_anonymous.views")) {
             return false;

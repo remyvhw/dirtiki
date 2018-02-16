@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Auth;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -16,6 +17,7 @@ class UserResource extends JsonResource
     {
         return [
             "name" => $this->name,
+            "email" => $this->when(Auth::id() === $this->id, $this->email),
         ];
     }
 }
