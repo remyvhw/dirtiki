@@ -45,6 +45,16 @@ class UserController extends Controller
     }
 
     /**
+     * Display the current user's resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getSelf()
+    {
+        return $this->show(Auth::user());
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

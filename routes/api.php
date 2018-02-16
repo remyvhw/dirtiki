@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,9 +14,7 @@ Route::name('api.')->group(function () {
 
     Route::group(['middleware' => ['auth:api']], function () {
 
-        Route::get('/users/self', function (Request $request) {
-            return $request->user();
-        })->name("users.self");
+        Route::get('users/self', 'Api\UserController@getSelf')->name("users.self");
 
     });
 
