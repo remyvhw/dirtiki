@@ -38,6 +38,16 @@ class Body extends Model implements Auditable
     protected $touches = ['page'];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'content',
+        'type',
+    ];
+
+    /**
      * Get the Page that owns the Body.
      */
     public function page()

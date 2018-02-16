@@ -38,6 +38,15 @@ class Page extends Model implements Auditable
     }
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+    ];
+
+    /**
      * Get the Body record associated with the Page.
      */
     public function body()

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Page;
 use App\User;
+use Faker\Factory as Faker;
 use Tests\TestCase;
 
 class PageBodyApiTest extends TestCase
@@ -99,5 +100,64 @@ class PageBodyApiTest extends TestCase
 
                 ],
             ]);
+    }
+
+    /**
+     * Create a new page and body.
+     *
+     * @return void
+     */
+    public function testPageCreate()
+    {
+        $faker = Faker::create();
+        $response = $this
+            ->actingAs(User::inRandomOrder()->first(), 'api')
+            ->withHeaders([
+                "User-Agent" => $faker->userAgent(),
+            ])
+            ->json('POST', "/api/pages/", [
+                "data" => [
+                    "name" => $faker->sentence(4, true),
+                ],
+                "relationships" => [
+                    "body" => [
+                        "data" => [
+                            "content" => $faker->paragraphs(4, true),
+                        ],
+                    ],
+                ],
+            ]);
+        $response
+            ->assertStatus(200);
+    }
+
+    /**
+     * Update a given page.
+     *
+     * @return void
+     */
+    public function testPageUpdate()
+    {
+        $faker = Faker::create();
+        $page = Page::inRandomOrder()->first();
+        $response = $this
+            ->actingAs(User::inRandomOrder()->first(), 'api')
+            ->withHeaders([
+                "User-Agent" => $faker->userAgent(),
+            ])
+            ->json('PUT', "/api/pages/" . $page->slug, [
+                "data" => [
+                    "name" => $faker->sentence(4, true),
+                ],
+                "relationships" => [
+                    "body" => [
+                        "data" => [
+                            "content" => $faker->paragraphs(4, true),
+                        ],
+                    ],
+                ],
+            ]);
+        $response
+            ->assertStatus(200);
     }
 }

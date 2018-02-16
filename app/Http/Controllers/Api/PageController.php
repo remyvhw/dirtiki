@@ -38,13 +38,16 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        abort_if(!policy(Page::class)->store(Auth::user(), $page), 403);
+        abort_if(!policy(Page::class)->store(Auth::user(), null), 403);
 
         $rules = $this->getRules();
         $rules["relationships.body.data.content"] = "required";
         $this->validate($request, $rules);
-        $page->create($request->only(["data.name"]));
-        $page->body->update(["content" => $request->input("relationships.body.data.content")]);
+        $page = new Page;
+        $page->name = $request->input("data.name");
+        $page->save();
+        $page->body->content = $request->input("relationships.body.data.content");
+        $page->body->save();
 
     }
 
@@ -72,7 +75,7 @@ class PageController extends Controller
         abort_if(!policy(Page::class)->update(Auth::user(), $page), 403);
         $this->validate($request, $this->getRules());
 
-        $page->update($request->only(["name"]));
+        $page->update(["name" => $request->input("data.name")]);
         if ($request->has("relationships.body.data")) {
             $page->body->update(["content" => $request->input("relationships.body.data.content")]);
         }
