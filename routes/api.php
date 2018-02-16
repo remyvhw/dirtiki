@@ -13,9 +13,7 @@
 Route::name('api.')->group(function () {
 
     Route::group(['middleware' => ['auth:api']], function () {
-
         Route::get('users/self', 'Api\UserController@getSelf')->name("users.self");
-
     });
 
     /**
