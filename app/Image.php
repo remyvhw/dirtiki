@@ -15,4 +15,12 @@ class Image extends Model
     {
         return 'slug';
     }
+
+    /**
+     * The pages that belong to the image.
+     */
+    public function images()
+    {
+        return $this->belongsToMany(Page::class);
+    }
 }

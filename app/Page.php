@@ -72,4 +72,12 @@ class Page extends Model implements Auditable
         return $this->hasMany(PageRedirection::class);
     }
 
+    /**
+     * The images that belong to the page.
+     */
+    public function pages()
+    {
+        return $this->belongsToMany(Image::class);
+    }
+
 }
