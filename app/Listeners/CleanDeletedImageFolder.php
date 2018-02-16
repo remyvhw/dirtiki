@@ -3,19 +3,12 @@
 namespace App\Listeners;
 
 use App\Events\ImageDeleted;
+use App\Image;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Storage;
 
 class CleanDeletedImageFolder implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
 
     /**
      * Handle the event.
@@ -25,6 +18,7 @@ class CleanDeletedImageFolder implements ShouldQueue
      */
     public function handle(ImageDeleted $event)
     {
-        //
+        Storage::deleteDirectory(Image::filePrefixForId($event->imageId));
+        dump("Deleted!");
     }
 }

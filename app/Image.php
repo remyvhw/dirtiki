@@ -37,4 +37,26 @@ class Image extends Model implements Auditable
         return $this->belongsToMany(Page::class);
     }
 
+    /**
+     * Retrieve the directory in which all versions and source of the
+     * image will be saved, for any given model id.
+     *
+     * @return string
+     */
+    public static function filePrefixForId(string $id): string
+    {
+        return "images/" . $id . "/";
+    }
+
+    /**
+     * Retrieve the directory in which all versions and source of the
+     * image will be saved.
+     *
+     * @return string
+     */
+    public function getFilePrefixAttribute(): string
+    {
+        return self::filePrefixForId($this->id);
+    }
+
 }
