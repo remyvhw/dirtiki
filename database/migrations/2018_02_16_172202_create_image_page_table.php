@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateImagePageTable extends Migration
 {
@@ -14,8 +14,10 @@ class CreateImagePageTable extends Migration
     public function up()
     {
         Schema::create('image_page', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+            $table->integer('image_id')->unsigned()->index();
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
+            $table->integer('page_id')->unsigned()->index();
+            $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');
         });
     }
 
