@@ -23,11 +23,9 @@ class PageBodyApiTest extends TestCase
                 'links',
                 'data' => [
                     '*' => [
-                        'data' => [
-                            "name",
-                            "id",
-                            "slug",
-                        ],
+                        "name",
+                        "id",
+                        "slug",
                     ],
                 ],
             ]);
@@ -61,6 +59,41 @@ class PageBodyApiTest extends TestCase
                         "data" => [
                             "type",
                             "content",
+                        ],
+                    ],
+
+                ],
+            ]);
+    }
+
+    /**
+     * Retrieve a given page's Body.
+     *
+     * @return void
+     */
+    public function testBodyShow()
+    {
+        $page = Page::inRandomOrder()->first();
+        $response = $this->actingAs(User::inRandomOrder()->first(), 'api')->json('GET', "/api/pages/{$page->slug}/body");
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    "type",
+                    "content",
+                ],
+                'links' => [
+                    "self",
+                ],
+                'relationships' => [
+                    "page" => [
+                        "links" => [
+                            "self",
+                        ],
+                        "data" => [
+                            "id",
+                            "name",
+                            "slug",
                         ],
                     ],
 
