@@ -27,6 +27,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize("create", $user);
         abort(501);
     }
 
@@ -38,6 +39,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        abort_if(!policy(User::class)->view(Auth::user(), $user), 403);
         return new UserResource($user);
     }
 
@@ -50,6 +52,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->authorize("update", $user);
         abort(501);
     }
 
@@ -61,6 +64,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize("delete", $user);
         abort(501);
     }
 }
