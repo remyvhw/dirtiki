@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Image;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ImagePolicy
@@ -17,9 +17,12 @@ class ImagePolicy
      * @param  \App\Image  $image
      * @return mixed
      */
-    public function view(User $user, Image $image)
+    public function view(?User $user, Image $image)
     {
-        //
+        if (!$user && !config("dirtiki.allow_anonymous.views")) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -28,9 +31,12 @@ class ImagePolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(?User $user)
     {
-        //
+        if (!$user && !config("dirtiki.allow_anonymous.updates")) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -40,9 +46,12 @@ class ImagePolicy
      * @param  \App\Image  $image
      * @return mixed
      */
-    public function update(User $user, Image $image)
+    public function update(?User $user, Image $image)
     {
-        //
+        if (!$user && !config("dirtiki.allow_anonymous.updates")) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -52,8 +61,11 @@ class ImagePolicy
      * @param  \App\Image  $image
      * @return mixed
      */
-    public function delete(User $user, Image $image)
+    public function delete(?User $user, Image $image)
     {
-        //
+        if (!$user && !config("dirtiki.allow_anonymous.updates")) {
+            return false;
+        }
+        return true;
     }
 }
