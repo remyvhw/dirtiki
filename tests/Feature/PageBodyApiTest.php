@@ -160,4 +160,23 @@ class PageBodyApiTest extends TestCase
         $response
             ->assertStatus(200);
     }
+
+    /**
+     * Delete a given page.
+     *
+     * @return void
+     */
+    public function testPageDelete()
+    {
+        $faker = Faker::create();
+        $page = Page::inRandomOrder()->first();
+        $response = $this
+            ->actingAs(User::inRandomOrder()->first(), 'api')
+            ->withHeaders([
+                "User-Agent" => $faker->userAgent(),
+            ])
+            ->json('DELETE', "/api/pages/" . $page->slug);
+        $response
+            ->assertStatus(200);
+    }
 }

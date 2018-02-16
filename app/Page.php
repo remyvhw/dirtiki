@@ -4,12 +4,15 @@ namespace App;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Page extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
     use Sluggable;
+    use SoftDeletes;
+
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -36,6 +39,13 @@ class Page extends Model implements Auditable
     {
         return 'slug';
     }
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
