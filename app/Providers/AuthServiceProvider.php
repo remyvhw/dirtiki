@@ -15,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Page::class => PagePolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**
