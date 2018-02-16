@@ -19,6 +19,5 @@ class CleanDeletedImageFolder implements ShouldQueue
     public function handle(ImageDeleted $event)
     {
         Storage::deleteDirectory(Image::filePrefixForId($event->imageId));
-        dump("Deleted!");
     }
 }
