@@ -32,7 +32,7 @@ class AuditResource extends JsonResource
                 'user' => $this->when($this->user_id, function () {
                     return [
                         'links' => [
-                            'self' => "#",
+                            'self' => route("api.users.show", ["user" => $this->user]),
                         ],
                         'data' => new UserResource($this->user),
                         "meta" => [
