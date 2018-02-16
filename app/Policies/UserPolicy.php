@@ -18,7 +18,10 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        //
+        if (!$user && !config("dirtiki.allow_anonymous.views")) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -29,7 +32,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -41,7 +44,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        //
+        return $user->id === $model->id;
     }
 
     /**
@@ -53,6 +56,6 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        //
+        return $user->isAdmin() || $user->id === $model->id;
     }
 }
