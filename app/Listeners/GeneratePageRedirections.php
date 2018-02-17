@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Observers;
+namespace App\Listeners;
 
+use App\Events\PageSaved;
 use App\Page;
 use App\PageRedirection;
 
-class PageObserver
+class GeneratePageRedirections
 {
-
     /**
-     * Handle anything related to slugs and redirections of Pages.
-     * #TODO We might have to split this into another model at some point.
+     * Handle the event.
      *
-     * @param Page $page
+     * @param  PageSaved  $event
      * @return void
      */
-    protected function handleSlugSavingMethods(Page $page)
+    public function handle(PageSaved $event)
     {
-
+        $page = $event->page;
         $originalSlug = $page->getOriginal('slug');
         $newSlug = $page->slug;
         if (PageRedirection::where("slug", $newSlug)->exists()) {
@@ -34,11 +33,5 @@ class PageObserver
              */
             PageRedirection::create(['slug' => $originalSlug, "page_id" => $page->id]);
         }
-
-    }
-
-    public function saving(Page $page)
-    {
-        $this->handleSlugSavingMethods($page);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\PageSaved;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,6 +13,15 @@ class Page extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
     use Sluggable;
     use SoftDeletes;
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'saved' => PageSaved::class,
+    ];
 
     /**
      * Return the sluggable configuration array for this model.
