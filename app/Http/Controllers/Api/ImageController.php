@@ -42,7 +42,7 @@ class ImageController extends Controller
         $image->save();
 
         $file->storeAs($image->getFilePrefixAttribute(), "source");
-
+        return ImageResource($image);
     }
 
     /**
