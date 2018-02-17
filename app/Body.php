@@ -2,12 +2,22 @@
 
 namespace App;
 
+use App\Events\BodySaved;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Body extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'saved' => BodySaved::class,
+    ];
 
     /**
      * Indicates if the IDs are auto-incrementing. They are not.

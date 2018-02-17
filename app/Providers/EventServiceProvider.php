@@ -19,6 +19,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\PageSaved' => [
             'App\Listeners\GeneratePageRedirections',
         ],
+        'App\Events\BodySaved' => [
+            'App\Listeners\RegeneratePageImagePivots',
+        ],
     ];
 
     /**
