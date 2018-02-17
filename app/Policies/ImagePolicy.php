@@ -11,6 +11,20 @@ class ImagePolicy
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user can view a list of images.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function index(?User $user)
+    {
+        if (!$user && !config("dirtiki.allow_anonymous.views")) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Determine whether the user can view the image.
      *
      * @param  \App\User  $user
