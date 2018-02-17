@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +31,17 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         abort_if(!policy(Image::class)->store(Auth::user()), 403);
+        $this->validate($request, [
+            "image" => "image",
+        ]);
+
+        $file = $request->file("image");
+        $image = new Image;
+        $image->name = $file->getClientOriginalName() ?? str_random(32);
+        $image->type = $request->image->getMimeType();
+        $image->save();
+
+        $request->photo->storeAs($image->getFilePrefixAttribute(), "source");
 
     }
 
@@ -54,8 +66,7 @@ class ImageController extends Controller
      */
     public function update(Request $request, Image $image)
     {
-        abort_if(!policy(Image::class)->update(Auth::user(), $image), 403);
-
+        abort(405);
     }
 
     /**

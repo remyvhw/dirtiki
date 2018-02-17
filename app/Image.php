@@ -3,12 +3,38 @@
 namespace App;
 
 use App\Events\ImageDeleted;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Image extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
+    use Sluggable;
+
+    /**
+     * A name that will not be saved but used by the sluggable
+     * trait to generate a unique slug.
+     *
+     * @var string
+     */
+    public $name;
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+                'maxLength' => 512,
+                'unique' => true,
+            ],
+        ];
+    }
 
     /**
      * The event map for the model.
