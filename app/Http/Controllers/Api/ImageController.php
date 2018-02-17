@@ -30,7 +30,7 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        abort_if(!policy(Image::class)->store(Auth::user()), 403);
+        abort_if(!policy(Image::class)->create(Auth::user()), 403);
         $this->validate($request, [
             "image" => "image",
         ]);
@@ -38,10 +38,10 @@ class ImageController extends Controller
         $file = $request->file("image");
         $image = new Image;
         $image->name = $file->getClientOriginalName() ?? str_random(32);
-        $image->type = $request->image->getMimeType();
+        $image->type = $file->getMimeType();
         $image->save();
 
-        $request->photo->storeAs($image->getFilePrefixAttribute(), "source");
+        $file->storeAs($image->getFilePrefixAttribute(), "source");
 
     }
 

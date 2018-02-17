@@ -54,21 +54,6 @@ class ImagePolicy
     }
 
     /**
-     * Determine whether the user can update the image.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Image  $image
-     * @return mixed
-     */
-    public function update(?User $user, Image $image)
-    {
-        if (!$user && !config("dirtiki.allow_anonymous.updates")) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * Determine whether the user can delete the image.
      *
      * @param  \App\User  $user
