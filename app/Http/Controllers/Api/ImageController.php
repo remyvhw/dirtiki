@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Image;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class ImageController extends Controller
 {
@@ -15,7 +15,8 @@ class ImageController extends Controller
      */
     public function index()
     {
-        //
+        abort_if(!policy(Image::class)->index(Auth::user()), 403);
+
     }
 
     /**
@@ -26,7 +27,8 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        abort_if(!policy(Image::class)->store(Auth::user()), 403);
+
     }
 
     /**
@@ -37,7 +39,8 @@ class ImageController extends Controller
      */
     public function show(Image $image)
     {
-        //
+        abort_if(!policy(Image::class)->show(Auth::user(), $image), 403);
+
     }
 
     /**
@@ -49,7 +52,8 @@ class ImageController extends Controller
      */
     public function update(Request $request, Image $image)
     {
-        //
+        abort_if(!policy(Image::class)->update(Auth::user(), $image), 403);
+
     }
 
     /**
@@ -60,6 +64,7 @@ class ImageController extends Controller
      */
     public function destroy(Image $image)
     {
-        //
+        abort_if(!policy(Image::class)->delete(Auth::user(), $image), 403);
+
     }
 }
