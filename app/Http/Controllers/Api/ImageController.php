@@ -42,7 +42,7 @@ class ImageController extends Controller
         $image->save();
 
         $file->storeAs($image->getFilePrefixAttribute(), "source");
-        return ImageResource($image);
+        return new ImageResource($image);
     }
 
     /**
@@ -78,6 +78,6 @@ class ImageController extends Controller
     public function destroy(Image $image)
     {
         abort_if(!policy(Image::class)->delete(Auth::user(), $image), 403);
-
+        $image->delete();
     }
 }
