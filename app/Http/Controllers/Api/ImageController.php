@@ -41,8 +41,8 @@ class ImageController extends Controller
      */
     public function show(Image $image)
     {
-        abort_if(!policy(Image::class)->show(Auth::user(), $image), 403);
-
+        abort_if(!policy(Image::class)->view(Auth::user(), $image), 403);
+        return new ImageResource($image);
     }
 
     /**
