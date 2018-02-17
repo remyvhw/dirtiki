@@ -31,6 +31,7 @@ Route::name('api.')->group(function () {
     Route::apiResources([
         'pages' => 'Api\PageController',
         'users' => 'Api\UserController',
+        'images' => 'Api\ImageController',
     ]);
 
 });
