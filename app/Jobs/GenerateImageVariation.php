@@ -42,7 +42,7 @@ class GenerateImageVariation implements ShouldQueue
         $path = $this->image->getFilePathAttribute(collect($this->parameters)->only(Image::ALLOWED_VARIATION_PARAMETERS)->toArray());
 
         // Avoid regenerating a variation if it already exists on disk.
-        if (!$force && Storage::exists($path)) {
+        if (!$this->force && Storage::exists($path)) {
             return;
         }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ImageResource;
 use App\Image;
+use App\Jobs\GenerateImageVariation;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -42,6 +43,11 @@ class ImageController extends Controller
         $image->save();
 
         $file->storeAs($image->getFilePrefixAttribute(), "source");
+
+        collect(config("dirtiki.images.presets"))->each(function ($preset) use ($image) {
+            dispatch(new GenerateImageVariation($image, $preset, $force = false));
+        });
+
         return new ImageResource($image);
     }
 
