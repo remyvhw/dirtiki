@@ -28,4 +28,39 @@ class ImageResource extends JsonResource
             "variations" => $variations,
         ];
     }
+
+    /**
+     * Get additional data that should be returned with the resource array.
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function with($request)
+    {
+        /**
+        [[
+        'links' => [
+        'self' => route("api.pages.body.show", ["page" => $this]),
+        ],
+        'data' => new BodyResource($this->whenLoaded('body')),
+        ]]
+         */
+        $pages = $this->pages->map(function ($page) {
+            return [
+                'links' => [
+                    'self' => route("api.pages.show", ["page" => $page]),
+                ],
+                'data' => new PageResource($page),
+            ];
+        })->toArray();
+
+        return [
+            'links' => [
+                'self' => route("api.images.show", ["image" => $this]),
+            ],
+            'relationships' => [
+                'pages' => $pages,
+            ],
+        ];
+    }
 }
