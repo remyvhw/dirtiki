@@ -13,6 +13,11 @@ class Image extends Model implements Auditable
     use Sluggable;
 
     /**
+     * An array of variations allowed when serving an image.
+     */
+    const ALLOWED_VARIATION_PARAMETERS = ["width", "height"];
+
+    /**
      * A name that will not be saved but used by the sluggable
      * trait to generate a unique slug.
      *
@@ -75,6 +80,23 @@ class Image extends Model implements Auditable
     }
 
     /**
+     * Given an array of parameters, generate a hash.
+     *
+     * @param array $parameters
+     * @return string
+     */
+    public static function storageHashForParameters(array $parameters): string
+    {
+        return collect($parameters)->sortBy(function ($value, $parameter) {
+            return $parameter;
+        })->unique()->map(function ($value, $parameter) {
+            return $value . $parameter;
+        })->pipe(function ($collection) {
+            return md5($collection->implode(","));
+        });
+    }
+
+    /**
      * Retrieve the directory in which all versions and source of the
      * image will be saved.
      *
@@ -94,6 +116,17 @@ class Image extends Model implements Auditable
     public function getOriginalFilePathAttribute(): string
     {
         return $this->getFilePrefixAttribute() . "source";
+    }
+
+    /**
+     * Retrieve the storage path of a given image variation.
+     *
+     * @param array $parameters anything like ["width"=>123, "height"=>456]
+     * @return string
+     */
+    public function getFilePathAttribute(array $parameters): string
+    {
+        return $this->getFilePrefixAttribute() . self::storageHashForParameters($parameters);
     }
 
 }
