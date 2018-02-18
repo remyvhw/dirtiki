@@ -12,11 +12,11 @@ use Tests\TestCase;
 class ImageApiTest extends TestCase
 {
     /**
-     * A basic test example.
+     * Create a new image.
      *
      * @return void
      */
-    public function testExample()
+    public function testImageCreate()
     {
         $faker = Faker::create();
         $response = $this->actingAs(User::inRandomOrder()->first(), 'api')->json('POST', '/api/images/', [
@@ -31,5 +31,38 @@ class ImageApiTest extends TestCase
         $image = Image::find(data_get($response->json(), "data.id"));
         Storage::assertExists($image->getOriginalFilePathAttribute());
 
+    }
+
+    /**
+     * Show an image.
+     *
+     * @return void
+     */
+    public function testImageShow()
+    {
+        $image = Image::latest()->first();
+        $response = $this->actingAs(User::inRandomOrder()->first(), 'api')->json('GET', '/api/images/' . $image->slug);
+
+        $response->assertStatus(200)->assertJson([
+            'data' => [
+                "id" => true,
+                "type" => true,
+            ],
+        ]);
+
+    }
+
+    /**
+     * Delete an image
+     */
+    public function testImageDelete()
+    {
+
+        $image = Image::latest()->first();
+        $response = $this->actingAs(User::inRandomOrder()->first(), 'api')->json('DELETE', '/api/images/' . $image->slug);
+
+        $response->assertStatus(200);
+
+        Storage::assertMissing($image->getOriginalFilePathAttribute());
     }
 }
