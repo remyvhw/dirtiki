@@ -14,10 +14,28 @@ class ImageController extends Controller
     public function getShow(Request $request, Image $image)
     {
         abort_if(!policy(Image::class)->view(Auth::user(), $image), 403);
-        $path = $image->getFilePathAttribute($request->only(Image::ALLOWED_VARIATION_PARAMETERS));
 
-        if ($image->type !== "image/svg+xml" && !Storage::exists($path)) {
-            $this->dispatchNow(new GenerateImageVariation($image, $request->only(Image::ALLOWED_VARIATION_PARAMETERS)));
+        $path = $image->getFilePathAttribute($request->only(Image::ALLOWED_VARIATION_PARAMETERS));
+        if ($image->type !== "image/svg+xml") {
+
+            // Compare requested parameters with defined presets. This way we avoid cluttering
+            // our storage with every single imaginable image variation.
+            $requestedVariationCollection = collect($request->only(Image::ALLOWED_VARIATION_PARAMETERS));
+            collect(config("dirtiki.images.presets"))->map(function ($preset) use ($requestedVariationCollection) {
+                return collect($preset)->diff($requestedVariationCollection);
+            })->reject(function ($variation) {
+                return $variation->count();
+            })->pipe(function ($remaining) {
+                if (!$remaining->count()) {
+                    abort(404, "Requested variation is not a registred preset.");
+                }
+            });
+            //collect($request->only(Image::ALLOWED_VARIATION_PARAMETERS))->diff(->dd())->dd();
+
+            if (!Storage::exists($path)) {
+                $this->dispatchNow(new GenerateImageVariation($image, $request->only(Image::ALLOWED_VARIATION_PARAMETERS)));
+            }
+
         }
 
         return response(Storage::get($path))

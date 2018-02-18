@@ -37,6 +37,9 @@ return [
          * recommended processor but `gd` is also supported.
          */
         "processor" => env('IMAGE_PROCESSOR', "imagick"),
+        "presets" => [
+            ["width" => 250, "height" => 100, "fit" => "center"],
+        ],
     ],
 
 ];
