@@ -19,6 +19,10 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+/**
+ * Next, registrer Axios on the Vue object so we can just call this.$http like
+ * we did with vue-resource. Idiot proofing future debugging.
+ */
 Vue.prototype.$http = axios;
 
 /**
