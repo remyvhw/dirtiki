@@ -33,6 +33,14 @@ class PageResource extends JsonResource
      */
     public function with($request)
     {
+        $images = $this->images->map(function ($image) {
+            return [
+                'links' => [
+                    'self' => route("api.images.show", ["image" => $image]),
+                ],
+                'data' => new ImageResource($image),
+            ];
+        })->toArray();
         return [
             'links' => [
                 'self' => route("api.pages.show", ["page" => $this]),
@@ -44,6 +52,7 @@ class PageResource extends JsonResource
                     ],
                     'data' => new BodyResource($this->whenLoaded('body')),
                 ],
+                'images' => $images,
             ],
         ];
     }

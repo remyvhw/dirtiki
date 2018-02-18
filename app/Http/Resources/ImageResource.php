@@ -37,14 +37,7 @@ class ImageResource extends JsonResource
      */
     public function with($request)
     {
-        /**
-        [[
-        'links' => [
-        'self' => route("api.pages.body.show", ["page" => $this]),
-        ],
-        'data' => new BodyResource($this->whenLoaded('body')),
-        ]]
-         */
+
         $pages = $this->pages->map(function ($page) {
             return [
                 'links' => [
