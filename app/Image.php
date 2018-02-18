@@ -15,7 +15,7 @@ class Image extends Model implements Auditable
     /**
      * An array of variations allowed when serving an image.
      */
-    const ALLOWED_VARIATION_PARAMETERS = ["width", "height"];
+    const ALLOWED_VARIATION_PARAMETERS = ["width", "height", "fit"];
 
     /**
      * A name that will not be saved but used by the sluggable
@@ -126,6 +126,10 @@ class Image extends Model implements Auditable
      */
     public function getFilePathAttribute(array $parameters): string
     {
+        if ($this->type === "image/svg+xml") {
+            return $this->getOriginalFilePathAttribute();
+        }
+
         return $this->getFilePrefixAttribute() . self::storageHashForParameters($parameters);
     }
 

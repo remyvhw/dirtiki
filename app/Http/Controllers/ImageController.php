@@ -17,7 +17,7 @@ class ImageController extends Controller
         $path = $image->getFilePathAttribute($request->only(Image::ALLOWED_VARIATION_PARAMETERS));
 
         if ($image->type !== "image/svg+xml" && !Storage::exists($path)) {
-            dispatchNow(new GenerateImageVariation($image, $request->only(Image::ALLOWED_VARIATION_PARAMETERS)));
+            $this->dispatchNow(new GenerateImageVariation($image, $request->only(Image::ALLOWED_VARIATION_PARAMETERS)));
         }
 
         return response(Storage::get($path))
