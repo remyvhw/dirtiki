@@ -20,3 +20,7 @@ Route::get('images/{image}', 'ImageController@getShow')->name("images.show");
 Route::resource('pages', 'PageController', ['only' => [
     'index', 'create', 'show', 'edit',
 ]]);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
