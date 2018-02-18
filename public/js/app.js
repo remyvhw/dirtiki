@@ -25,7 +25,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/ExampleComponent.vue"
+Component.options.__file = "resources/assets/js/components/dirtiki-input.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -34,9 +34,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7168fb6a", Component.options)
+    hotAPI.createRecord("data-v-b32e8554", Component.options)
   } else {
-    hotAPI.reload("data-v-7168fb6a", Component.options)
+    hotAPI.reload("data-v-b32e8554", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -179,11 +179,380 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+  props: {
+    /**
+     * Type of the input. Basically mimics HTML input type but enhance it
+     * with a couple supported types.
+     *     - text: a standard text input. By default, no validation is applied.
+     *     - email
+     *     - tel
+     *     - number
+     *     - password
+     *     - date
+     *     - datetime
+     *     - digits: not using the html 5 number field but preventing entry of non digit characters.
+     */
+    type: {
+      type: String,
+      default: "text"
+    },
+
+    /**
+     * The input's value. Retrive it by using v-model on this component.
+     */
+    value: {
+      type: String,
+      default: ""
+    },
+
+    /**
+     * A boolean, true if the field is mandatory.
+     */
+    required: {
+      type: Boolean,
+      default: false
+    },
+
+    /**
+     * Minimum length of the entry
+     */
+    minLength: {
+      type: Number
+    },
+
+    /**
+     * Maximum length of the entry
+     */
+    maxLength: {
+      type: Number
+    },
+
+    /**
+     * A string that the input must match (e.g. the value of a nearby password field
+     * for a password confirmation input). Type weak.
+     */
+    mustMatch: {
+      type: String
+    },
+
+    /**
+     * In the case of a 'number' type, step between numbers.
+     */
+    step: {
+      type: Number
+    },
+
+    /**
+     * In the case of a 'number' type, minimum numeric value.
+     */
+    min: {
+      type: Number
+    },
+
+    /**
+     * In the case of a 'number' type, maximum numeric value.
+     */
+    max: {
+      type: Number
+    },
+
+    /**
+     * For textarea only, rows attribute.
+     */
+    rows: {
+      type: Number
+    },
+
+    /**
+     * For textarea only, cols attribute.
+     */
+    cols: {
+      type: Number
+    },
+
+    /**
+     * A label. Will be displayed outside of the field.
+     */
+    label: {
+      type: String
+    },
+
+    /**
+     * The value of the autocomplete html attribute. If no 'name' is
+     * provided, this value will be used in the 'name' field as
+     * well.
+     */
+    autocomplete: {
+      type: String
+    },
+
+    /**
+     * The value of the name attribute
+     */
+    name: {
+      type: String
+    },
+
+    /**
+     * An array of custom classes to add to the field div. (eg. ['eight', 'wide']).
+     */
+
+    divClasses: {
+      type: Array
+    },
+
+    /**
+     * An array of custom classes to add to the html input.
+     */
+
+    inputClasses: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    },
+
+    /**
+     * When true, the field cannot be edited but a user can tab to it, highlight it, and copy the text from it
+     */
+    readonly: {
+      type: Boolean
+    },
+
+    /**
+     * When true, the field is completely disabled and will not be sent with a form
+     */
+    disabled: {
+      type: Boolean
+    },
+
+    /**
+     * A list of error messages to display next to the field.
+     */
+    messages: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    },
+
+    /**
+     * True if the field should present a red color.
+     */
+    error: {
+      type: Boolean
+    },
+
+    /**
+     * An icon to add to input (does not work on textareas). Can be any class name that will render an icon.
+     * For example, for a font-awesome checkmark icon, use "fa fa-check".
+     */
+    icon: {
+      type: String
     }
+  },
+
+  computed: {
+    htmlType: function htmlType() {
+      switch (this.type) {
+        case "textarea":
+          return "textarea";
+        case "email":
+          return "email";
+        case "password":
+          return "password";
+        case "number":
+          return "number";
+        case "digits":
+        case "tel":
+          return "tel";
+        case "date":
+        case "datetime":
+          return "date";
+      }
+      return "text";
+    },
+    dynamicInputClasses: function dynamicInputClasses() {
+      var classes = this.inputClasses.slice();
+      if (this.error) classes.push("is-danger");
+      return classes;
+    }
+  },
+
+  methods: {
+    /*
+    methodOnKeyUp() {
+      if (this.onKeyUp) {
+        this.onKeyUp(this);
+      }
+    },
+     methodOnBlur() {
+      if (this.onBlurBeforeValidate) {
+        this.onBlurBeforeValidate(this);
+      }
+       this.validate(this.shouldHardValidateOnBlur);
+       if (this.onBlurAfterValidate) {
+        this.onBlurAfterValidate(this);
+      }
+    },
+     methodOnChange() {
+      if (this.onChange) {
+        this.onChange(this);
+      }
+    },
+    */
+
+    updateValue: function updateValue(value) {
+      this.$emit("input", value);
+    },
+
+
+    /**
+     * Validate a field's minimum length.
+     * @return boolean false if the name is valid, true if invalid.
+     */
+    isMinLengthInvalid: function isMinLengthInvalid() {
+      if (!this.required && this.value == "") return false;
+      var invalid = this.minLength && this.value.length < this.minLength;
+      return invalid;
+    },
+
+
+    /**
+     * Validate a field's maximum length.
+     * @return boolean false if the name is valid, true if invalid.
+     */
+    isMaxLengthInvalid: function isMaxLengthInvalid() {
+      var invalid = this.maxLength && this.value.length > this.maxLength;
+      return invalid;
+    },
+
+
+    /**
+     * Validate the email field.
+     * @return boolean true if the email is invalid, false if valid.
+     */
+    isEmailInvalid: function isEmailInvalid() {
+      if (this.value === "") return false;
+
+      var reg = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+      return !reg.test(this.value);
+    },
+
+
+    /**
+     * Validate the number field. Unlike digits, number accepts decimals.
+     * @return boolean true if the value is invalid, false if valid.
+     */
+    isNumberInvalid: function isNumberInvalid() {
+      var reg = /^-?\d*\.?\d*$/;
+      return !reg.test(this.value);
+    },
+
+
+    /**
+     * Validate the number field. Unlike digits, number accepts decimals.
+     * @return boolean true if the value is invalid, false if valid.
+     */
+    isDigitsInvalid: function isDigitsInvalid() {
+      return !isNaN(parseFloat(this.value)) && isFinite(this.value);
+    },
+
+
+    /**
+     * Triggering this function will check the value of the field and validate
+     * it. If the trigger is set to hard, error messages will be set for the
+     * field and be displayed next to it.
+     * @param  boolean hard If true, error messages will be displayed next to the field.
+     * @return boolean      True if valid.
+     */
+    validate: function validate(hard) {
+      var valid = true;
+      var messages = [];
+
+      // Make sure that we at least have an empty string to work with
+      // since we can't even check for length on undefined.
+      if (this.value === null) {
+        this.value = "";
+      }
+
+      if (typeof this.value == "undefined") {
+        this.value = "";
+      }
+
+      // Check for required fields.
+      if (this.required && this.value === "") {
+        valid = false;
+        messages.push(_.replace(this.trans.required, ":attribute", this.label));
+      }
+
+      // Check length
+      if (this.isMinLengthInvalid()) {
+        valid = false;
+        messages.push(_.replace(_.replace(this.trans.min.string, ":min", this.minLength), ":attribute", this.label));
+      }
+      if (this.isMaxLengthInvalid()) {
+        valid = false;
+        messages.push(_.replace(_.replace(this.trans.max.string, ":max", this.maxLength), ":attribute", this.label));
+      }
+
+      // Check for min and max values for numeric fields
+      if ((this.type == "number" || this.type == "digit") && this.min != null && this.value < this.min) {
+        valid = false;
+        messages.push(_.replace(_.replace(this.trans.min.numeric, ":min", this.min), ":attribute", this.label));
+      } else if ((this.type == "number" || this.type == "digit") && this.max != null && this.value > this.max) {
+        valid = false;
+        messages.push(_.replace(_.replace(this.trans.max.numeric, ":max", this.max), ":attribute", this.label));
+      }
+
+      // Email validation
+      if (this.type == "email" && this.isEmailInvalid()) {
+        valid = false;
+        messages.push(_.replace(this.trans.email, ":attribute", this.label));
+      }
+
+      // Number validation (for decimal steps)
+      if (this.type == "number" && this.step % 1 != 0 && this.isNumberInvalid()) {
+        valid = false;
+        messages.push(_.replace(this.trans.numeric, ":attribute", this.label));
+      }
+
+      // Digit validation (or number with an integer step)
+      if ((this.type == "digit" || this.type == "number" && this.step % 1 == 0) && this.isDigitsInvalid()) {
+        valid = false;
+        messages.push(_.replace(this.trans.integer, ":attribute", this.label));
+      }
+
+      // Exact match validation
+      if (this.mustMatch && this.mustMatch != this.value) {
+        valid = false;
+        messages.push(_.replace(this.trans.confirmed, ":attribute", this.label));
+      }
+
+      this.error = !valid;
+
+      if (hard) {
+        this.messages = messages;
+      } else {
+        this.messages = [];
+      }
+
+      return valid;
+    }
+  }
 });
 
 /***/ }),
@@ -195,38 +564,81 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "field" }, [
+    _vm.label
+      ? _c(
+          "label",
+          { staticClass: "label", attrs: { for: "input_" + _vm._uid } },
+          [_vm._v(_vm._s(_vm.label))]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "control",
+        class: {
+          "has-icons-left": _vm.error || _vm.icon,
+          "has-icon-right": _vm.messages.length || _vm.icon
+        }
+      },
+      [
+        _vm.htmlType === "textarea"
+          ? _c("textarea", {
+              staticClass: "textarea",
+              class: { "is-danger": _vm.error },
+              attrs: {
+                placeholder: _vm.label,
+                name: _vm.name ? _vm.name : _vm.autocomplete,
+                autocomplete: _vm.autocomplete,
+                rows: _vm.rows,
+                cols: _vm.cols,
+                readonly: _vm.readonly,
+                disabled: _vm.disabled
+              },
+              domProps: { value: _vm.value },
+              on: {
+                input: function($event) {
+                  _vm.updateValue($event.target.value)
+                },
+                keyup: _vm.methodOnKeyUp,
+                change: _vm.methodOnChange,
+                blur: _vm.methodOnBlur
+              }
+            })
+          : _c("input", {
+              staticClass: "input",
+              class: _vm.dynamicInputClasses,
+              attrs: {
+                id: "input_" + _vm._uid,
+                type: _vm.htmlType,
+                placeholder: _vm.label,
+                name: _vm.name ? _vm.name : _vm.autocomplete,
+                autocomplete: _vm.autocomplete,
+                step: _vm.step,
+                min: _vm.min,
+                max: _vm.max,
+                readonly: _vm.readonly,
+                disabled: _vm.disabled
+              },
+              domProps: { value: _vm.value },
+              on: {
+                input: function($event) {
+                  _vm.updateValue($event.target.value)
+                }
+              }
+            })
+      ]
+    )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7168fb6a", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-b32e8554", module.exports)
   }
 }
 
@@ -278,16 +690,15 @@ window.Vue = __webpack_require__(14);
  */
 Vue.prototype.$http = axios;
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('example-component', __webpack_require__(130));
+Vue.component('dirtiki-input', __webpack_require__(130));
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: function data() {
+    return {
+      myVar: "This is my var"
+    };
+  }
 });
 
 /***/ }),
