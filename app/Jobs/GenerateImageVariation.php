@@ -17,16 +17,18 @@ class GenerateImageVariation implements ShouldQueue
 
     public $image;
     public $parameters;
+    public $force;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Image $image, array $parameters)
+    public function __construct(Image $image, array $parameters, bool $force = false)
     {
         $this->image = $image;
         $this->parameters = $parameters;
+        $this->force = $force;
     }
 
     /**
@@ -36,6 +38,14 @@ class GenerateImageVariation implements ShouldQueue
      */
     public function handle()
     {
+
+        $path = $this->image->getFilePathAttribute(collect($this->parameters)->only(Image::ALLOWED_VARIATION_PARAMETERS)->toArray());
+
+        // Avoid regenerating a variation if it already exists on disk.
+        if (!$force && Storage::exists($path)) {
+            return;
+        }
+
         $manager = new ImageManager(['driver' => config("dirtiki.images.processor")]);
         $interventionImage = $manager->make(Storage::get($this->image->getOriginalFilePathAttribute()));
 
@@ -47,6 +57,6 @@ class GenerateImageVariation implements ShouldQueue
             $interventionImage->fit(array_get($this->parameters, "width"), array_get($this->parameters, "height"), null, array_get($this->parameters, "fit", "center"));
         }
 
-        Storage::put($this->image->getFilePathAttribute(collect($this->parameters)->only(Image::ALLOWED_VARIATION_PARAMETERS)->toArray()), $interventionImage->encode());
+        Storage::put($path, $interventionImage->encode());
     }
 }
