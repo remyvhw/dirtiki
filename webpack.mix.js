@@ -12,8 +12,7 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js').extract(['vue', 'axios', 'collect.js'])
-    .sass('resources/assets/sass/app.scss', 'public/css')
-    .copyDirectory('resources/assets/static', 'public/static');
+    .sass('resources/assets/sass/app.scss', 'public/css');
 
 if (mix.inProduction()) {
     mix.version();
