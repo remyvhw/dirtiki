@@ -17,6 +17,7 @@
 
 require('./bootstrap');
 
+
 window.Vue = require('vue');
 
 /**
@@ -26,9 +27,8 @@ window.Vue = require('vue');
 Vue.prototype.$http = axios;
 
 
-
 Vue.component('dirtiki-input', require('./components/dirtiki-input.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
 });
