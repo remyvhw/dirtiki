@@ -11,19 +11,22 @@
                     <dirtiki-input 
                         type="email"
                         :should-hard-validate-on-blur="true"
+                        :required="true"
                         label="Email" 
                         name="email" 
                         value="{{ old('email') }}"
                         @if ($errors->has('email'))
-                        message="['{{$errors->first('email')}}']"
+                        :error-messages="['{{$errors->first('email')}}']"
                         @endif
                         ></dirtiki-input>
 
-                        <dirtiki-input 
+                    <dirtiki-input 
                         label="Password" 
                         name="password" 
+                        type="password"
+                        :required="true"
                         @if ($errors->has('password'))
-                        message="['{{$errors->first('password')}}']"
+                        :error-messages="['{{$errors->first('password')}}']"
                         @endif
                         ></dirtiki-input>
 
