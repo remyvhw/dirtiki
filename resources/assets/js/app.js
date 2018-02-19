@@ -30,10 +30,5 @@ Vue.prototype.$http = axios;
 Vue.component('dirtiki-input', require('./components/dirtiki-input.vue'));
 
 const app = new Vue({
-    el: '#app',
-    data() {
-        return {
-            myVar: "This is my var",
-        }
-    }
+    el: '#app'
 });
