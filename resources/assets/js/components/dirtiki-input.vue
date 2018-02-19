@@ -344,6 +344,7 @@ export default {
 
     methodOnUpdateValue(value) {
       this.$emit("input", value);
+      this.value = value;
     },
 
     /**
