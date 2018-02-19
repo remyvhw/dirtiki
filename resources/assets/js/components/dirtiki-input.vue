@@ -5,13 +5,9 @@
 
     <div class="control" :class="{'has-icons-left': (error || icon), 'has-icon-right': (messages.length || icon)}">
 
-      <textarea v-if="htmlType === 'textarea'" class="textarea" :class="{'is-danger': error}" :placeholder="label" :value="value" @input="updateValue($event.target.value)" @keyup="methodOnKeyUp" @change="methodOnChange" @blur="methodOnBlur" :name="name ? name : autocomplete" :autocomplete="autocomplete" :rows="rows" :cols="cols" :readonly="readonly" :disabled="disabled"></textarea>
+      <textarea v-if="htmlType === 'textarea'" class="textarea" :class="{'is-danger': error}" :placeholder="label" :value="value" @input="methodOnUpdateValue($event.target.value)" @keyup="methodOnKeyUp" @change="methodOnChange" @blur="methodOnBlur" :name="name ? name : autocomplete" :autocomplete="autocomplete" :rows="rows" :cols="cols" :readonly="readonly" :disabled="disabled"></textarea>
 
-      <input v-else :id="'input_' + _uid" class="input" :class="dynamicInputClasses" :type="htmlType" :placeholder="label" :value="value" @input="updateValue($event.target.value)" :name="name ? name : autocomplete" :autocomplete="autocomplete" :step="step" :min="min" :max="max" :readonly="readonly" :disabled="disabled">
-      <!--
-
-        @keyup="methodOnKeyUp" @change="methodOnChange" @blur="methodOnBlur"
-
+      <input v-else :id="'input_' + _uid" class="input" :class="dynamicInputClasses" :type="htmlType" :placeholder="label" :value="value" @input="methodOnUpdateValue($event.target.value)" :name="name ? name : autocomplete" :autocomplete="autocomplete" :step="step" :min="min" :max="max" :readonly="readonly" :disabled="disabled" @keyup="methodOnKeyUp" @change="methodOnChange" @blur="methodOnBlur">
 
       <i v-if="error" class="fa fa-warning"></i>
       <i v-if="icon" :class="icon"></i>
@@ -19,7 +15,7 @@
       <span v-if="messages.length" class="help is-danger">
         <span v-for="message in messages" :key="message">{{ message }}<br></span>
       </span>
--->
+
     </div>
 
   </div>
@@ -229,33 +225,23 @@ export default {
   },
 
   methods: {
-    /*
-    methodOnKeyUp() {
-      if (this.onKeyUp) {
-        this.onKeyUp(this);
-      }
+    methodOnKeyUp(value) {
+      this.$emit("keyup", value);
     },
 
-    methodOnBlur() {
-      if (this.onBlurBeforeValidate) {
-        this.onBlurBeforeValidate(this);
-      }
+    methodOnBlur(value) {
+      this.$emit("onBlurBeforeValidate", this);
 
       this.validate(this.shouldHardValidateOnBlur);
 
-      if (this.onBlurAfterValidate) {
-        this.onBlurAfterValidate(this);
-      }
+      this.$emit("onBlurAfterValidate", this);
     },
 
     methodOnChange() {
-      if (this.onChange) {
-        this.onChange(this);
-      }
+      this.$emit("onChange", this);
     },
-    */
 
-    updateValue(value) {
+    methodOnUpdateValue(value) {
       this.$emit("input", value);
     },
 

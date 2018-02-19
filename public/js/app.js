@@ -186,10 +186,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -393,29 +389,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    /*
-    methodOnKeyUp() {
-      if (this.onKeyUp) {
-        this.onKeyUp(this);
-      }
+    methodOnKeyUp: function methodOnKeyUp(value) {
+      this.$emit("keyup", value);
     },
-     methodOnBlur() {
-      if (this.onBlurBeforeValidate) {
-        this.onBlurBeforeValidate(this);
-      }
-       this.validate(this.shouldHardValidateOnBlur);
-       if (this.onBlurAfterValidate) {
-        this.onBlurAfterValidate(this);
-      }
-    },
-     methodOnChange() {
-      if (this.onChange) {
-        this.onChange(this);
-      }
-    },
-    */
+    methodOnBlur: function methodOnBlur(value) {
+      this.$emit("onBlurBeforeValidate", this);
 
-    updateValue: function updateValue(value) {
+      this.validate(this.shouldHardValidateOnBlur);
+
+      this.$emit("onBlurAfterValidate", this);
+    },
+    methodOnChange: function methodOnChange() {
+      this.$emit("onChange", this);
+    },
+    methodOnUpdateValue: function methodOnUpdateValue(value) {
       this.$emit("input", value);
     },
 
@@ -599,7 +586,7 @@ var render = function() {
               domProps: { value: _vm.value },
               on: {
                 input: function($event) {
-                  _vm.updateValue($event.target.value)
+                  _vm.methodOnUpdateValue($event.target.value)
                 },
                 keyup: _vm.methodOnKeyUp,
                 change: _vm.methodOnChange,
@@ -624,10 +611,30 @@ var render = function() {
               domProps: { value: _vm.value },
               on: {
                 input: function($event) {
-                  _vm.updateValue($event.target.value)
-                }
+                  _vm.methodOnUpdateValue($event.target.value)
+                },
+                keyup: _vm.methodOnKeyUp,
+                change: _vm.methodOnChange,
+                blur: _vm.methodOnBlur
               }
-            })
+            }),
+        _vm._v(" "),
+        _vm.error ? _c("i", { staticClass: "fa fa-warning" }) : _vm._e(),
+        _vm._v(" "),
+        _vm.icon ? _c("i", { class: _vm.icon }) : _vm._e(),
+        _vm._v(" "),
+        _vm.messages.length
+          ? _c(
+              "span",
+              { staticClass: "help is-danger" },
+              _vm._l(_vm.messages, function(message) {
+                return _c("span", { key: message }, [
+                  _vm._v(_vm._s(message)),
+                  _c("br")
+                ])
+              })
+            )
+          : _vm._e()
       ]
     )
   ])
