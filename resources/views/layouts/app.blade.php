@@ -18,8 +18,9 @@
     <body>
         <section id="app">
 
-            @include("layouts.header") @yield('content')
-
+            @include("layouts.header")
+            @yield('content')
+            
         </section>
 
         <!-- Scripts -->

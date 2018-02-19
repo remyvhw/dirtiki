@@ -1,7 +1,10 @@
 @extends('layouts.app') @section('content')
 <main class="section">
-    <section class="section">
 
+
+
+    <section class="container">
+    {{ Breadcrumbs::render('login') }}
         <div class="columns">
             <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered">
                 <h2 class="title is-2">Login</h2>

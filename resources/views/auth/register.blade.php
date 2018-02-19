@@ -1,8 +1,8 @@
 @extends('layouts.app') @section('content')
 
 <main class="section">
-    <section class="section">
-
+    <section class="container">
+    {{ Breadcrumbs::render('register') }}
         <div class="columns">
             <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered">
                 <h2 class="title is-2">Login</h2>
@@ -35,7 +35,7 @@
 
                     <div class="field">
                         <p class="control">
-                            <button type="submit" class="button is-success">
+                            <button type="submit" class="button is-primary">
                                 Register
                             </button>
                         </p>
