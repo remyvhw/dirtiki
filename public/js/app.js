@@ -338,7 +338,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     /**
      * A list of error messages to display next to the field.
      */
-    messages: {
+    errorMessages: {
       type: Array,
       default: function _default() {
         return [];
@@ -370,6 +370,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   data: function data() {
     return {
+      messages: [],
       trans: {
         accepted: "The :attribute must be accepted.",
         active_url: "The :attribute is not a valid URL.",
@@ -474,6 +475,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var classes = this.inputClasses.slice();
       if (this.error) classes.push("is-danger");
       return classes;
+    },
+    dynamicMessages: function dynamicMessages() {
+      return this.messages.concat(this.errorMessages);
     }
   },
 
@@ -655,7 +659,7 @@ var render = function() {
         staticClass: "control",
         class: {
           "has-icons-left": _vm.error || _vm.icon,
-          "has-icon-right": _vm.messages.length || _vm.icon
+          "has-icon-right": _vm.dynamicMessages.length || _vm.icon
         }
       },
       [
@@ -712,11 +716,11 @@ var render = function() {
         _vm._v(" "),
         _vm.icon ? _c("i", { class: _vm.icon }) : _vm._e(),
         _vm._v(" "),
-        _vm.messages.length
+        _vm.dynamicMessages.length
           ? _c(
               "span",
               { staticClass: "help is-danger" },
-              _vm._l(_vm.messages, function(message) {
+              _vm._l(_vm.dynamicMessages, function(message) {
                 return _c("span", { key: message }, [
                   _vm._v(_vm._s(message)),
                   _c("br")

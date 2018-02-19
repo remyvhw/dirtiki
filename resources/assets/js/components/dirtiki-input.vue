@@ -3,7 +3,7 @@
   <div class="field">
     <label v-if="label" :for="'input_' + _uid " class="label">{{ label }}</label>
 
-    <div class="control" :class="{'has-icons-left': (error || icon), 'has-icon-right': (messages.length || icon)}">
+    <div class="control" :class="{'has-icons-left': (error || icon), 'has-icon-right': (dynamicMessages.length || icon)}">
 
       <textarea v-if="htmlType === 'textarea'" class="textarea" :class="{'is-danger': error}" :placeholder="label" :value="value" @input="methodOnUpdateValue($event.target.value)" @keyup="methodOnKeyUp" @change="methodOnChange" @blur="methodOnBlur" :name="name ? name : autocomplete" :autocomplete="autocomplete" :rows="rows" :cols="cols" :readonly="readonly" :disabled="disabled"></textarea>
 
@@ -12,8 +12,8 @@
       <i v-if="error" class="fa fa-warning"></i>
       <i v-if="icon" :class="icon"></i>
 
-      <span v-if="messages.length" class="help is-danger">
-        <span v-for="message in messages" :key="message">{{ message }}<br></span>
+      <span v-if="dynamicMessages.length" class="help is-danger">
+        <span v-for="message in dynamicMessages" :key="message">{{ message }}<br></span>
       </span>
 
     </div>
@@ -173,7 +173,7 @@ export default {
     /**
      * A list of error messages to display next to the field.
      */
-    messages: {
+    errorMessages: {
       type: Array,
       default: function() {
         return [];
@@ -205,6 +205,7 @@ export default {
 
   data() {
     return {
+      messages: [],
       trans: {
         accepted: "The :attribute must be accepted.",
         active_url: "The :attribute is not a valid URL.",
@@ -317,6 +318,10 @@ export default {
       let classes = this.inputClasses.slice();
       if (this.error) classes.push("is-danger");
       return classes;
+    },
+
+    dynamicMessages() {
+      return this.messages.concat(this.errorMessages);
     }
   },
 
