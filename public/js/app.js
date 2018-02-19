@@ -713,7 +713,9 @@ var render = function() {
               }
             }),
         _vm._v(" "),
-        _vm.error ? _c("i", { staticClass: "fa fa-warning" }) : _vm._e(),
+        _vm.error
+          ? _c("i", { staticClass: "fas fa-exclamation-triangle" })
+          : _vm._e(),
         _vm._v(" "),
         _vm.icon ? _c("i", { class: _vm.icon }) : _vm._e(),
         _vm._v(" "),
