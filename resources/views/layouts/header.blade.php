@@ -5,7 +5,9 @@
             <div class="level-left">
                 <div class="level-item">
                     <p class="title is-5">
-                        <strong>{{ config("app.name") }}</strong>
+                        <strong>
+                            <a href="{{ route('home') }}">{{ config("app.name") }}</a>
+                        </strong>
                     </p>
                 </div>
             </div>
