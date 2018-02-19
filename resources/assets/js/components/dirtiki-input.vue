@@ -193,6 +193,13 @@ export default {
      */
     icon: {
       type: String
+    },
+
+    /**
+     * If true, the field will validate itself on blur but will also display error messages.
+     */
+    shouldHardValidateOnBlur: {
+      Type: Boolean
     }
   },
 
@@ -316,28 +323,24 @@ export default {
       // Check for required fields.
       if (this.required && this.value === "") {
         valid = false;
-        messages.push(_.replace(this.trans.required, ":attribute", this.label));
+        messages.push(this.trans.required.replace(":attribute", this.label));
       }
 
       // Check length
       if (this.isMinLengthInvalid()) {
         valid = false;
-        messages.push(
-          _.replace(
-            _.replace(this.trans.min.string, ":min", this.minLength),
-            ":attribute",
-            this.label
-          )
+        let message = messages.push(
+          this.trans.min.string
+            .replace(":min", this.minLength)
+            .replace(":attribute", this.label)
         );
       }
       if (this.isMaxLengthInvalid()) {
         valid = false;
         messages.push(
-          _.replace(
-            _.replace(this.trans.max.string, ":max", this.maxLength),
-            ":attribute",
-            this.label
-          )
+          this.trans.max.string
+            .replace(":max", this.maxLength)
+            .replace(":attribute", this.label)
         );
       }
 
@@ -349,11 +352,9 @@ export default {
       ) {
         valid = false;
         messages.push(
-          _.replace(
-            _.replace(this.trans.min.numeric, ":min", this.min),
-            ":attribute",
-            this.label
-          )
+          this.trans.min.numeric
+            .replace(":min", this.min)
+            .replace(":attribute", this.label)
         );
       } else if (
         (this.type == "number" || this.type == "digit") &&
@@ -362,18 +363,16 @@ export default {
       ) {
         valid = false;
         messages.push(
-          _.replace(
-            _.replace(this.trans.max.numeric, ":max", this.max),
-            ":attribute",
-            this.label
-          )
+          this.trans.max.numeric
+            .replace(":max", this.max)
+            .replace(":attribute", this.label)
         );
       }
 
       // Email validation
       if (this.type == "email" && this.isEmailInvalid()) {
         valid = false;
-        messages.push(_.replace(this.trans.email, ":attribute", this.label));
+        messages.push(this.trans.email.replace(":attribute", this.label));
       }
 
       // Number validation (for decimal steps)
@@ -383,7 +382,7 @@ export default {
         this.isNumberInvalid()
       ) {
         valid = false;
-        messages.push(_.replace(this.trans.numeric, ":attribute", this.label));
+        messages.push(this.trans.numeric.replace(":attribute", this.label));
       }
 
       // Digit validation (or number with an integer step)
@@ -393,15 +392,13 @@ export default {
         this.isDigitsInvalid()
       ) {
         valid = false;
-        messages.push(_.replace(this.trans.integer, ":attribute", this.label));
+        messages.push(this.trans.integer.replace(":attribute", this.label));
       }
 
       // Exact match validation
       if (this.mustMatch && this.mustMatch != this.value) {
         valid = false;
-        messages.push(
-          _.replace(this.trans.confirmed, ":attribute", this.label)
-        );
+        messages.push(this.trans.confirmed.replace(":attribute", this.label));
       }
 
       this.error = !valid;

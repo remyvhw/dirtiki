@@ -358,6 +358,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      */
     icon: {
       type: String
+    },
+
+    /**
+     * If true, the field will validate itself on blur but will also display error messages.
+     */
+    shouldHardValidateOnBlur: {
+      Type: Boolean
     }
   },
 
