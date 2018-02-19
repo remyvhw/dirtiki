@@ -49,7 +49,7 @@ class PageController extends Controller
             abort(404);
         }
         abort_if(!policy(Page::class)->view(Auth::user(), $page), 403);
-
+        return view('pages.show', ['page' => $page]);
     }
 
     /**
