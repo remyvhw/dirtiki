@@ -186,6 +186,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -713,11 +715,15 @@ var render = function() {
               }
             }),
         _vm._v(" "),
-        _vm.error
-          ? _c("i", { staticClass: "fas fa-exclamation-triangle" })
+        _vm.error || _vm.icon
+          ? _c("span", { staticClass: "icon is-small is-left" }, [
+              _vm.error
+                ? _c("i", { staticClass: "fas fa-exclamation-triangle" })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.icon ? _c("i", { class: _vm.icon }) : _vm._e()
+            ])
           : _vm._e(),
-        _vm._v(" "),
-        _vm.icon ? _c("i", { class: _vm.icon }) : _vm._e(),
         _vm._v(" "),
         _vm.dynamicMessages.length
           ? _c(

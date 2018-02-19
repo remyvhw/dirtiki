@@ -9,8 +9,10 @@
 
       <input v-else :id="'input_' + _uid" class="input" :class="dynamicInputClasses" :type="htmlType" :placeholder="label" :value="value" @input="methodOnUpdateValue($event.target.value)" :name="name ? name : autocomplete" :autocomplete="autocomplete" :step="step" :min="min" :max="max" :readonly="readonly" :disabled="disabled" @keyup="methodOnKeyUp" @change="methodOnChange" @blur="methodOnBlur">
 
-      <i v-if="error" class="fas fa-exclamation-triangle"></i>
-      <i v-if="icon" :class="icon"></i>
+      <span v-if="error || icon" class="icon is-small is-left">
+        <i v-if="error" class="fas fa-exclamation-triangle"></i>
+        <i v-if="icon" :class="icon"></i>
+      </span>
 
       <span v-if="dynamicMessages.length" class="help is-danger">
         <span v-for="message in dynamicMessages" :key="message">{{ message }}<br></span>
