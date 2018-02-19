@@ -12,13 +12,13 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Styles -->
+        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     </head>
 
     <body>
         <div id="app">
-            <dirtiki-input v-model="myVar"></dirtiki-input>
-
             <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
