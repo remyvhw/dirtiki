@@ -15,7 +15,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('images/{image}', 'ImageController@getShow')->name("images.show");
 
 Route::resource('pages', 'PageController', ['only' => [
-    'index', 'create', 'show', 'edit',
+    'create', 'show', 'edit',
 ]]);
 
 Auth::routes();
