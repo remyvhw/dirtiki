@@ -19,6 +19,18 @@
         <section id="app">
 
             @include("layouts.header")
+
+            @if (session('status'))
+            <aside class="section">
+                <container class="container">
+                    <div class="notification is-info">
+                        {{ session('status') }}
+                    </div>
+                </container>
+            </aside>
+            @endif
+
+
             @yield('content')
             
         </section>

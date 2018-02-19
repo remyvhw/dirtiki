@@ -7,12 +7,6 @@
             <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered">
                 <h2 class="title is-2">Reset Password</h2>
 
-                @if (session('status'))
-                <div class="notification is-success">
-                    {{ session('status') }}
-                </div>
-                @endif
-
                 <form method="POST" action="{{ route('password.email') }}">
                     @csrf
 
