@@ -61,6 +61,7 @@ class PageController extends Controller
     public function edit(Page $page)
     {
         abort_if(!policy(Page::class)->update(Auth::user(), $page), 403);
+        return view('pages.edit', ['page' => $page]);
     }
 
 }

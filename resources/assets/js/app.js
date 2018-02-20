@@ -24,7 +24,7 @@ window.Vue = require('vue');
  * Next, registrer Axios on the Vue object so we can just call this.$http like
  * we did with vue-resource. Idiot proofing future debugging.
  */
-Vue.prototype.$http = axios;
+Vue.prototype.$http = window.axios;
 
 
 Vue.component('dirtiki-input', require('./components/dirtiki-input.vue'));
@@ -32,6 +32,7 @@ Vue.component('dirtiki-input', require('./components/dirtiki-input.vue'));
 const app = new Vue({
     el: '#app',
     components: {
-        pageViewer: require("./components/page-viewer.vue")
+        pageViewer: require("./components/page-viewer.vue"),
+        pageEditor: require("./components/page-editor.vue")
     }
 });
