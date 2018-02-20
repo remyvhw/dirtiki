@@ -2698,6 +2698,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2705,6 +2706,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
+      loading: false,
       page: null,
       body: null,
       images: null
@@ -2718,12 +2720,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     loadPage: function loadPage() {
       var _this = this;
 
+      this.loading = true;
       this.$http.get("/api/pages/" + this.pageSlug).then(function (_ref) {
         var data = _ref.data;
 
         _this.page = data.data;
         _this.body = data.relationships.body.data;
         _this.images = data.relationships.images;
+        _this.loading = false;
       });
     }
   }
@@ -2741,11 +2745,11 @@ var render = function() {
   return _c(
     "article",
     [
+      _vm.loading ? _c("loading-indicator") : _vm._e(),
+      _vm._v(" "),
       _vm.page
         ? _c("h1", { staticClass: "title" }, [_vm._v(_vm._s(_vm.page.name))])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("loading-indicator")
+        : _vm._e()
     ],
     1
   )

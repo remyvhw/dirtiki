@@ -1,7 +1,8 @@
 <template>
     <article>
+        <loading-indicator v-if="loading"></loading-indicator>
         <h1 v-if="page" class="title">{{ page.name }}</h1>
-        <loading-indicator></loading-indicator>
+
     </article>
 </template>
 
@@ -12,6 +13,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       page: null,
       body: null,
       images: null
@@ -22,10 +24,12 @@ export default {
   },
   methods: {
     loadPage() {
+      this.loading = true;
       this.$http.get("/api/pages/" + this.pageSlug).then(({ data }) => {
         this.page = data.data;
         this.body = data.relationships.body.data;
         this.images = data.relationships.images;
+        this.loading = false;
       });
     }
   }
