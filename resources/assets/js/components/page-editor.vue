@@ -11,7 +11,9 @@ export default {
   },
   data() {
     return {
-      page: null
+      page: null,
+      body: null,
+      images: null
     };
   },
   mounted() {
@@ -19,8 +21,10 @@ export default {
   },
   methods: {
     loadPage() {
-      this.$http.get("/api/pages/" + this.pageSlug).then(function({ data }) {
-        console.log(data);
+      this.$http.get("/api/pages/" + this.pageSlug).then(({ data }) => {
+        this.page = data.data;
+        this.body = data.relationships.body.data;
+        this.images = data.relationships.images;
       });
     }
   }

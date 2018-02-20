@@ -2626,7 +2626,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      page: null
+      page: null,
+      body: null,
+      images: null
     };
   },
   mounted: function mounted() {
@@ -2635,10 +2637,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     loadPage: function loadPage() {
+      var _this = this;
+
       this.$http.get("/api/pages/" + this.pageSlug).then(function (_ref) {
         var data = _ref.data;
 
-        console.log(data);
+        _this.page = data.data;
+        _this.body = data.relationships.body.data;
+        _this.images = data.relationships.images;
       });
     }
   }
