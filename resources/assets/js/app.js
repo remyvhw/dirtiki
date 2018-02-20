@@ -31,4 +31,7 @@ Vue.component('dirtiki-input', require('./components/dirtiki-input.vue'));
 
 const app = new Vue({
     el: '#app',
+    components: {
+        pageViewer: require("./components/page-viewer.vue")
+    }
 });
