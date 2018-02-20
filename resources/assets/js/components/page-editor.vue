@@ -1,6 +1,7 @@
 <template>
     <article>
         <h1 v-if="page" class="title">{{ page.name }}</h1>
+        <loading-indicator></loading-indicator>
     </article>
 </template>
 

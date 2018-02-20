@@ -28,6 +28,7 @@ Vue.prototype.$http = window.axios;
 
 
 Vue.component('dirtiki-input', require('./components/dirtiki-input.vue'));
+Vue.component('loading-indicator', require('./components/loading-indicator.vue'));
 
 const app = new Vue({
     el: '#app',
