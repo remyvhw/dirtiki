@@ -1107,6 +1107,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 var marked = __webpack_require__(141);
 marked.setOptions({
@@ -1124,7 +1125,7 @@ marked.setOptions({
       page: null
     };
   },
-  ready: function ready() {
+  mounted: function mounted() {
     this.page = JSON.parse(this.pageJson);
   },
 
@@ -2534,11 +2535,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "columns" }, [
-    _c("div", {
-      staticClass: "column content",
-      domProps: { innerHTML: _vm._s(_vm.content) }
-    })
+  return _c("article", [
+    _vm.page
+      ? _c("h1", { staticClass: "title" }, [_vm._v(_vm._s(_vm.page.name))])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "columns" }, [
+      _c("div", {
+        staticClass: "column content",
+        domProps: { innerHTML: _vm._s(_vm.content) }
+      })
+    ])
   ])
 }
 var staticRenderFns = []

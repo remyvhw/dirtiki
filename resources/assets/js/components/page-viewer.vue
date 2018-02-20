@@ -7,13 +7,14 @@
 }
 </style>
 <template>
-    <div class="columns">
+    <article>
+        <h1 v-if="page" class="title">{{ page.name }}</h1>
+        <div class="columns">
+            <div class="column content" v-html="content">
 
-        <div class="column content" v-html="content">
-
+            </div>
         </div>
-
-    </div>
+    </article>
 </template>
 
 <script type="text/babel">
@@ -33,7 +34,7 @@ export default {
       page: null
     };
   },
-  ready() {
+  mounted() {
     this.page = JSON.parse(this.pageJson);
   },
   computed: {
