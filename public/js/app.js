@@ -3324,7 +3324,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.saving = true;
-      this.$http.put("/api/pages/" + this.page.data.slug, this.editedPageCopy).then(function (_ref) {
+      this.$http.put(this.page.links.self, this.editedPageCopy).then(function (_ref) {
         var data = _ref.data;
 
         _this.editedPageCopy = data;
@@ -3501,8 +3501,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {},
-  methods: {}
+  props: {
+    body: { Type: Object, Required: true }
+  },
+  data: function data() {
+    return {
+      saving: false,
+      editedBodyCopy: null
+    };
+  },
+  mounted: function mounted() {
+    this.editedBodyCopy = this.body;
+  },
+
+  methods: {
+    saveBody: function saveBody() {
+      var _this = this;
+
+      this.saving = true;
+      this.$http.put(this.body.links.self, this.editedPageCopy).then(function (_ref) {
+        var data = _ref.data;
+
+        _this.editedBodyCopy = data;
+        _this.saving = false;
+        _this.$emit("input", _this);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -3513,16 +3538,29 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("textarea", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.editedBodyCopy.data.content,
+          expression: "editedBodyCopy.data.content"
+        }
+      ],
+      domProps: { value: _vm.editedBodyCopy.data.content },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.$set(_vm.editedBodyCopy.data, "content", $event.target.value)
+        }
+      }
+    })
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("Body Editor!")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -3579,7 +3617,7 @@ var render = function() {
                 },
                 [
                   _c("body-editor", {
-                    attrs: { page: _vm.page },
+                    attrs: { body: _vm.page.relationships.body },
                     on: { input: _vm.reloadWithUpdatedBody }
                   })
                 ],

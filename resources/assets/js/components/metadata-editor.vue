@@ -30,7 +30,7 @@ export default {
     savePage() {
       this.saving = true;
       this.$http
-        .put("/api/pages/" + this.page.data.slug, this.editedPageCopy)
+        .put(this.page.links.self, this.editedPageCopy)
         .then(({ data }) => {
           this.editedPageCopy = data;
           this.saving = false;

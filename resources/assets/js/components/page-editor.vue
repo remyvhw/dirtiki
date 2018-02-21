@@ -1,6 +1,6 @@
 <template>
     <article>
-        <loading-indicator v-if="loading"></loading-indicator>
+        <loading-indicator v-if="!page"></loading-indicator>
 
         <div v-else>
             <folding-panel :deployed="activePanel === 'metadata'" title="Settings" ref="metadata" @toggle="toggleFolding">
@@ -8,7 +8,7 @@
             </folding-panel>
 
             <folding-panel :deployed="activePanel === 'body'" title="Body" ref="body" @toggle="toggleFolding">
-                <body-editor @input="reloadWithUpdatedBody" :page="page"></body-editor>
+                <body-editor @input="reloadWithUpdatedBody" :body="page.relationships.body"></body-editor>
             </folding-panel>
         </div>
 
@@ -26,7 +26,6 @@ export default {
   },
   data() {
     return {
-      loading: false,
       page: null,
       activePanel: "body"
     };
@@ -36,10 +35,8 @@ export default {
   },
   methods: {
     loadPage() {
-      this.loading = true;
       this.$http.get("/api/pages/" + this.pageSlug).then(({ data }) => {
         this.page = data;
-        this.loading = false;
       });
     },
     reloadWithUpdatedMetadata(component) {
