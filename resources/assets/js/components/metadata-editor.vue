@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <dirtiki-input v-if="page" type="text" :should-hard-validate-on-blur="true" :required="true" label="Page Name" name="page-name" v-model="page.data.name">
+    <div class="control">
+        <dirtiki-input v-if="editedPageCopy" type="text" :should-hard-validate-on-blur="true" :required="true" label="Page Name" name="page-name" v-model="editedPageCopy.data.name">
         </dirtiki-input>
         <div class="field">
             <p class="control">
@@ -19,18 +19,22 @@ export default {
   },
   data() {
     return {
-      saving: false
+      saving: false,
+      editedPageCopy: null
     };
+  },
+  mounted() {
+    this.editedPageCopy = this.page;
   },
   methods: {
     savePage() {
       this.saving = true;
       this.$http
-        .put("/api/pages/" + this.page.data.slug, this.page)
+        .put("/api/pages/" + this.page.data.slug, this.editedPageCopy)
         .then(({ data }) => {
-          this.$emit("input", data);
-          this.page = data;
+          this.editedPageCopy = data;
           this.saving = false;
+          this.$emit("input", this);
         });
     }
   }

@@ -48,7 +48,7 @@ class PageController extends Controller
         $page->save();
         $page->body->content = $request->input("relationships.body.data.content");
         $page->body->save();
-
+        return new PageResource($page);
     }
 
     /**
@@ -79,7 +79,7 @@ class PageController extends Controller
         if ($request->has("relationships.body.data")) {
             $page->body->update(["content" => $request->input("relationships.body.data.content")]);
         }
-
+        return new PageResource($page);
     }
 
     /**

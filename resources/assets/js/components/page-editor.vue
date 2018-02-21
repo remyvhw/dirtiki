@@ -3,10 +3,12 @@
         <loading-indicator v-if="loading"></loading-indicator>
         <div class="panel" v-else>
             <p class="panel-heading">
-                repositories
+                Page Metadata
             </p>
             <div class="panel-block">
-                <metadata-editor :page="page"></metadata-editor>
+
+                <metadata-editor @input="reloadWithUpdatedMetadata" :page="page"></metadata-editor>
+
             </div>
 
         </div>
@@ -37,6 +39,9 @@ export default {
         this.page = data;
         this.loading = false;
       });
+    },
+    reloadWithUpdatedMetadata(component) {
+      document.location.href = "/pages/" + component.editedPageCopy.data.slug;
     }
   }
 };

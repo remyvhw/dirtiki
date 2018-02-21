@@ -2706,6 +2706,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2735,6 +2737,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.page = data;
         _this.loading = false;
       });
+    },
+    reloadWithUpdatedMetadata: function reloadWithUpdatedMetadata(component) {
+      document.location.href = "/pages/" + component.editedPageCopy.data.slug;
     }
   }
 });
@@ -2815,8 +2820,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      saving: false
+      saving: false,
+      editedPageCopy: null
     };
+  },
+  mounted: function mounted() {
+    this.editedPageCopy = this.page;
   },
 
   methods: {
@@ -2824,12 +2833,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.saving = true;
-      this.$http.put("/api/pages/" + this.page.data.slug, this.page).then(function (_ref) {
+      this.$http.put("/api/pages/" + this.page.data.slug, this.editedPageCopy).then(function (_ref) {
         var data = _ref.data;
 
-        _this.$emit("input", data);
-        _this.page = data;
+        _this.editedPageCopy = data;
         _this.saving = false;
+        _this.$emit("input", _this);
       });
     }
   }
@@ -2846,8 +2855,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "control" },
     [
-      _vm.page
+      _vm.editedPageCopy
         ? _c("dirtiki-input", {
             attrs: {
               type: "text",
@@ -2857,11 +2867,11 @@ var render = function() {
               name: "page-name"
             },
             model: {
-              value: _vm.page.data.name,
+              value: _vm.editedPageCopy.data.name,
               callback: function($$v) {
-                _vm.$set(_vm.page.data, "name", $$v)
+                _vm.$set(_vm.editedPageCopy.data, "name", $$v)
               },
-              expression: "page.data.name"
+              expression: "editedPageCopy.data.name"
             }
           })
         : _vm._e(),
@@ -2909,13 +2919,18 @@ var render = function() {
         ? _c("loading-indicator")
         : _c("div", { staticClass: "panel" }, [
             _c("p", { staticClass: "panel-heading" }, [
-              _vm._v("\n            repositories\n        ")
+              _vm._v("\n            Page Metadata\n        ")
             ]),
             _vm._v(" "),
             _c(
               "div",
               { staticClass: "panel-block" },
-              [_c("metadata-editor", { attrs: { page: _vm.page } })],
+              [
+                _c("metadata-editor", {
+                  attrs: { page: _vm.page },
+                  on: { input: _vm.reloadWithUpdatedMetadata }
+                })
+              ],
               1
             )
           ])
