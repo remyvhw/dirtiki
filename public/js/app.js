@@ -3203,7 +3203,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      loading: false,
       page: null,
       activePanel: "body"
     };
@@ -3216,16 +3215,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     loadPage: function loadPage() {
       var _this = this;
 
-      this.loading = true;
       this.$http.get("/api/pages/" + this.pageSlug).then(function (_ref) {
         var data = _ref.data;
 
         _this.page = data;
-        _this.loading = false;
       });
     },
     reloadWithUpdatedMetadata: function reloadWithUpdatedMetadata(component) {
       document.location.href = "/pages/" + component.editedPageCopy.data.slug;
+    },
+    reloadWithUpdatedBody: function reloadWithUpdatedBody(component) {
+      document.location.href = "/pages/" + this.page.data.slug;
     },
     toggleFolding: function toggleFolding(component) {
       if (component === this.$refs.metadata) {
@@ -3479,7 +3479,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\n.textarea[data-v-8aa2d09e] {\n  min-height: 70vh;\n}\n", ""]);
 
 // exports
 
@@ -3490,6 +3490,16 @@ exports.push([module.i, "\n\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3519,7 +3529,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.saving = true;
-      this.$http.put(this.body.links.self, this.editedPageCopy).then(function (_ref) {
+      this.$http.put(this.body.links.self, this.editedBodyCopy).then(function (_ref) {
         var data = _ref.data;
 
         _this.editedBodyCopy = data;
@@ -3538,7 +3548,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "control" }, [
     _c("textarea", {
       directives: [
         {
@@ -3548,6 +3558,7 @@ var render = function() {
           expression: "editedBodyCopy.data.content"
         }
       ],
+      staticClass: "textarea",
       domProps: { value: _vm.editedBodyCopy.data.content },
       on: {
         input: function($event) {
@@ -3557,7 +3568,21 @@ var render = function() {
           _vm.$set(_vm.editedBodyCopy.data, "content", $event.target.value)
         }
       }
-    })
+    }),
+    _vm._v(" "),
+    _c("div", { staticClass: "field" }, [
+      _c("p", { staticClass: "control" }, [
+        _c(
+          "button",
+          {
+            staticClass: "button is-primary is-fullwidth",
+            class: { "is-loading": _vm.saving },
+            on: { click: _vm.saveBody }
+          },
+          [_vm._v("\n                Save\n            ")]
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -3581,7 +3606,7 @@ var render = function() {
   return _c(
     "article",
     [
-      _vm.loading
+      !_vm.page
         ? _c("loading-indicator")
         : _c(
             "div",

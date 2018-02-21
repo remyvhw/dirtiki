@@ -37,7 +37,7 @@ class PageBodyController extends Controller
     {
         abort_if(!policy(Page::class)->update(Auth::user(), $page), 403);
         $this->validate($request, [
-            'content' => 'required',
+            'data.content' => 'required',
         ]);
         $page->body->update($request->only(["content"]));
     }

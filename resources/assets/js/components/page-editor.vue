@@ -43,6 +43,10 @@ export default {
       document.location.href = "/pages/" + component.editedPageCopy.data.slug;
     },
 
+    reloadWithUpdatedBody(component) {
+      document.location.href = "/pages/" + this.page.data.slug;
+    },
+
     toggleFolding(component) {
       if (component === this.$refs.metadata) {
         this.activePanel = "metadata";
