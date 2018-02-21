@@ -1,22 +1,30 @@
 <template>
     <article>
         <loading-indicator v-if="loading"></loading-indicator>
-        <h1 v-if="page" class="title">{{ page.name }}</h1>
+        <div class="panel" v-else>
+            <p class="panel-heading">
+                repositories
+            </p>
+            <div class="panel-block">
+                <metadata-editor :page="page"></metadata-editor>
+            </div>
 
+        </div>
     </article>
 </template>
 
 <script type="text/babel">
 export default {
+  components: {
+    metadataEditor: require("./metadata-editor.vue")
+  },
   props: {
     pageSlug: { Type: String, Required: true }
   },
   data() {
     return {
       loading: false,
-      page: null,
-      body: null,
-      images: null
+      page: null
     };
   },
   mounted() {
@@ -26,9 +34,7 @@ export default {
     loadPage() {
       this.loading = true;
       this.$http.get("/api/pages/" + this.pageSlug).then(({ data }) => {
-        this.page = data.data;
-        this.body = data.relationships.body.data;
-        this.images = data.relationships.images;
+        this.page = data;
         this.loading = false;
       });
     }
