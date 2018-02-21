@@ -1,7 +1,7 @@
 @extends('layouts.app') @section('content')
 <main class="section">
     <section class="container">
-        {{ Breadcrumbs::render('pages', $page) }}
+        {{ Breadcrumbs::render('page', $page) }}
         @if((new App\Policies\PagePolicy)->update(Auth::user(), $page))
         <a href="{{ route("pages.edit", [$page]) }}" class="button is-pulled-right">Edit</a>
         @endif
