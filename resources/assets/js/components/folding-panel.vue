@@ -1,9 +1,18 @@
+<style scoped>
+.panel-heading {
+  cursor: pointer;
+}
+</style>
 <template>
     <div class="panel">
-        <p class="panel-heading">
+        <p class="panel-heading" @click="toggle">
             {{ title }}
+            <span class="is-pulled-right">
+                <i v-if="!deployed" class="fas fa-caret-right"></i>
+                <i v-if="deployed" class="fas fa-caret-down"></i>
+            </span>
         </p>
-        <div class="panel-block">
+        <div class="panel-block" v-if="deployed">
             <slot></slot>
         </div>
     </div>
@@ -12,8 +21,14 @@
 <script type="text/babel">
 export default {
   props: {
-    deployed: { Type: Boolean, Default: true },
-    title: { Type: String, Required: true }
+    deployed: { type: Boolean, default: true },
+    title: { type: String, required: true }
+  },
+  methods: {
+    toggle() {
+      this.deployed = !this.deployed;
+      this.$emit("toggle", this);
+    }
   }
 };
 </script>

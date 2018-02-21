@@ -1,17 +1,21 @@
 <template>
     <article>
         <loading-indicator v-if="loading"></loading-indicator>
-        <div class="panel" v-else>
-            <p class="panel-heading">
-                Page Metadata
-            </p>
-            <div class="panel-block">
 
+        <div v-else>
+            <folding-panel :deployed="activePanel === 'metadata'" title="Settings" ref="metadata" @toggle="toggleFolding">
                 <metadata-editor @input="reloadWithUpdatedMetadata" :page="page"></metadata-editor>
+            </folding-panel>
 
-            </div>
+            <folding-panel :deployed="activePanel === 'geo'" title="Geo" ref="geo" @toggle="toggleFolding">
+                Hello, geo!
+            </folding-panel>
 
+            <folding-panel :deployed="activePanel === 'body'" title="Body" ref="body" @toggle="toggleFolding">
+                Hello, body!
+            </folding-panel>
         </div>
+
     </article>
 </template>
 
@@ -26,7 +30,8 @@ export default {
   data() {
     return {
       loading: false,
-      page: null
+      page: null,
+      activePanel: "body"
     };
   },
   mounted() {
@@ -42,6 +47,16 @@ export default {
     },
     reloadWithUpdatedMetadata(component) {
       document.location.href = "/pages/" + component.editedPageCopy.data.slug;
+    },
+
+    toggleFolding(component) {
+      if (component === this.$refs.metadata) {
+        this.activePanel = "metadata";
+      } else if (component === this.$refs.geo) {
+        this.activePanel = "geo";
+      } else if (component === this.$refs.body) {
+        this.activePanel = "body";
+      }
     }
   }
 };
