@@ -7,12 +7,8 @@
                 <metadata-editor @input="reloadWithUpdatedMetadata" :page="page"></metadata-editor>
             </folding-panel>
 
-            <folding-panel :deployed="activePanel === 'geo'" title="Geo" ref="geo" @toggle="toggleFolding">
-                Hello, geo!
-            </folding-panel>
-
             <folding-panel :deployed="activePanel === 'body'" title="Body" ref="body" @toggle="toggleFolding">
-                Hello, body!
+                <body-editor @input="reloadWithUpdatedBody" :page="page"></body-editor>
             </folding-panel>
         </div>
 
@@ -22,7 +18,8 @@
 <script type="text/babel">
 export default {
   components: {
-    metadataEditor: require("./metadata-editor.vue")
+    metadataEditor: require("./metadata-editor.vue"),
+    bodyEditor: require("./body-editor.vue")
   },
   props: {
     pageSlug: { Type: String, Required: true }
@@ -52,8 +49,6 @@ export default {
     toggleFolding(component) {
       if (component === this.$refs.metadata) {
         this.activePanel = "metadata";
-      } else if (component === this.$refs.geo) {
-        this.activePanel = "geo";
       } else if (component === this.$refs.body) {
         this.activePanel = "body";
       }
