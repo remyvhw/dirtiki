@@ -39,7 +39,9 @@ class PageBodyController extends Controller
         $this->validate($request, [
             'data.content' => 'required',
         ]);
-        $page->body->update($request->only(["content"]));
+        $page->body->update([
+            "content" => $request->input("data.content"),
+        ]);
     }
 
     /**
