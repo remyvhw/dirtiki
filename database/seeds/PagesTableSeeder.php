@@ -22,7 +22,8 @@ class PagesTableSeeder extends Seeder
                 $content = $page->body->content;
                 preg_match_all('/\.[a-zA-Z\ ]+\./i', $content, $matches);
                 $sentence = $faker->randomElement($matches[0]);
-                $replacement = $sentence . "\n\n![" . $faker->sentence() . "](" . route("images.show", ["image" => $image], false) . ")\n\n";
+                $preset = $image->type != "image/svg+xml" ? array_random(config("dirtiki.images.presets")) : [];
+                $replacement = $sentence . "\n\n![" . $faker->sentence() . "](" . route("images.show", array_merge($preset, ["image" => $image]), false) . ")\n\n";
                 $page->body->content = str_replace($sentence, $replacement, $content);
                 $page->body->save();
             }
