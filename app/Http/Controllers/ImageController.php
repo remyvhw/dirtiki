@@ -30,7 +30,6 @@ class ImageController extends Controller
                     abort(404, "Requested variation is not a registred preset.");
                 }
             });
-            //collect($request->only(Image::ALLOWED_VARIATION_PARAMETERS))->diff(->dd())->dd();
 
             if (!Storage::exists($path)) {
                 $this->dispatchNow(new GenerateImageVariation($image, $request->only(Image::ALLOWED_VARIATION_PARAMETERS)));
