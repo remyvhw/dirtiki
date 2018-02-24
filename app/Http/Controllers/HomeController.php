@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Page;
+
 class HomeController extends Controller
 {
     /**
@@ -24,6 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.index');
+
+        $pages = Page::whereNull("archived_at")->orderBy("name")->get();
+        return view('pages.index', compact("pages"));
     }
 }
