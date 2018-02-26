@@ -16,7 +16,7 @@
             <loading-indicator :size="3" v-if="loading"></loading-indicator>
             <button v-else class="button is-light is-large" @click="retrieveImagesAtUrl(nextPageUrl)">
                 <span class="icon is-medium">
-                    <i class="fas fa-plus fa-2x"></i>
+                    <i class="fas fa-ellipsis-h fa-2x"></i>
                 </span>
             </button>
         </div>

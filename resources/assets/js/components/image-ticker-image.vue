@@ -4,7 +4,7 @@
 }
 </style>
 <template>
-    <div class="column" :class="columnClasses">
+    <div class="column" @click="handleClick" :class="columnClasses">
         <div class="card">
             <div class="card-image">
                 <figure class="image is-square">
@@ -57,6 +57,9 @@ export default {
       if (this.columnClasses != columnClasses) {
         this.columnClasses = columnClasses;
       }
+    },
+    handleClick() {
+      this.$emit("click", this);
     }
   }
 };

@@ -3905,6 +3905,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.columnClasses != columnClasses) {
         this.columnClasses = columnClasses;
       }
+    },
+    handleClick: function handleClick() {
+      this.$emit("click", this);
     }
   }
 });
@@ -3952,7 +3955,7 @@ var render = function() {
                     },
                     [
                       _c("span", { staticClass: "icon is-medium" }, [
-                        _c("i", { staticClass: "fas fa-plus fa-2x" })
+                        _c("i", { staticClass: "fas fa-ellipsis-h fa-2x" })
                       ])
                     ]
                   )
@@ -4248,9 +4251,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "column", class: _vm.columnClasses }, [
-    _vm._m(0)
-  ])
+  return _c(
+    "div",
+    {
+      staticClass: "column",
+      class: _vm.columnClasses,
+      on: { click: _vm.handleClick }
+    },
+    [_vm._m(0)]
+  )
 }
 var staticRenderFns = [
   function() {
