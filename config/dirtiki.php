@@ -38,7 +38,7 @@ return [
          */
         "processor" => env('IMAGE_PROCESSOR', "imagick"),
         "presets" => [
-            ["width" => 250, "height" => 100, "fit" => "center"],
+            ["width" => 250, "height" => 250, "fit" => "center"],
         ],
     ],
 

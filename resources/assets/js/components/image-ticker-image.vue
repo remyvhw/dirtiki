@@ -11,7 +11,7 @@
         <div class="card" :selected="selected">
             <div class="card-image">
                 <figure class="image is-square">
-                    <img src="https://picsum.photos/200/200/?random">
+                    <img :src="thumbnailUrl">
                 </figure>
             </div>
         </div>
@@ -41,6 +41,16 @@ export default {
       columnClasses: "is-2-desktop is-3-tablet is-5-mobile",
       selected: false
     };
+  },
+  computed: {
+    thumbnailUrl() {
+      const variation = window
+        .collect(this.image.variations)
+        .where("width", 250)
+        .where("height", 250)
+        .first();
+      return variation ? variation.url : null;
+    }
   },
   methods: {
     updateDisplay() {

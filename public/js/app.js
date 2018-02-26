@@ -3891,6 +3891,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
 
+  computed: {
+    thumbnailUrl: function thumbnailUrl() {
+      var variation = window.collect(this.image.variations).where("width", 250).where("height", 250).first();
+      return variation ? variation.url : null;
+    }
+  },
   methods: {
     updateDisplay: function updateDisplay() {
       this.updateColumnClasses();
@@ -4228,23 +4234,16 @@ var render = function() {
     },
     [
       _c("div", { staticClass: "card", attrs: { selected: _vm.selected } }, [
-        _vm._m(0)
+        _c("div", { staticClass: "card-image" }, [
+          _c("figure", { staticClass: "image is-square" }, [
+            _c("img", { attrs: { src: _vm.thumbnailUrl } })
+          ])
+        ])
       ])
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-image" }, [
-      _c("figure", { staticClass: "image is-square" }, [
-        _c("img", { attrs: { src: "https://picsum.photos/200/200/?random" } })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
