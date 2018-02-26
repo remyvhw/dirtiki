@@ -1,11 +1,14 @@
-<style scoped>
+<style lang="scss" scoped>
 .card {
   cursor: pointer;
 }
+.card[selected] {
+  border: 3px solid hsl(171, 100%, 41%);
+}
 </style>
 <template>
-    <div class="column" @click="handleClick" :class="columnClasses">
-        <div class="card">
+    <div class="column" @click="toggleSelection" :class="columnClasses">
+        <div class="card" :selected="selected">
             <div class="card-image">
                 <figure class="image is-square">
                     <img src="https://picsum.photos/200/200/?random">
@@ -35,7 +38,8 @@ export default {
   },
   data() {
     return {
-      columnClasses: "is-2-desktop is-3-tablet is-5-mobile"
+      columnClasses: "is-2-desktop is-3-tablet is-5-mobile",
+      selected: false
     };
   },
   methods: {
@@ -58,7 +62,8 @@ export default {
         this.columnClasses = columnClasses;
       }
     },
-    handleClick() {
+    toggleSelection() {
+      this.selected = !this.selected;
       this.$emit("click", this);
     }
   }
