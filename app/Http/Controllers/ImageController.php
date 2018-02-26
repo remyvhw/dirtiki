@@ -20,7 +20,7 @@ class ImageController extends Controller
 
             // Compare requested parameters with defined presets. This way we avoid cluttering
             // our storage with every single imaginable image variation.
-            $requestedVariationCollection = collect($request->only(Image::ALLOWED_VARIATION_PARAMETERS));
+            $requestedVariationCollection = collect($request->only(Image::ALLOWED_VARIATION_PARAMETERS))->forget("scale");
             collect(config("dirtiki.images.presets"))->map(function ($preset) use ($requestedVariationCollection) {
                 return collect($preset)->diff($requestedVariationCollection);
             })->reject(function ($variation) {

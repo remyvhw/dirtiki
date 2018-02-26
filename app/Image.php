@@ -15,7 +15,12 @@ class Image extends Model implements Auditable
     /**
      * An array of variations allowed when serving an image.
      */
-    const ALLOWED_VARIATION_PARAMETERS = ["width", "height", "fit"];
+    const ALLOWED_VARIATION_PARAMETERS = ["width", "height", "fit", "scale"];
+
+    /**
+     * An array of scales that can be supported by an image.
+     */
+    const ALLOWED_SCALES = [1, 2, 3];
 
     /**
      * A name that will not be saved but used by the sluggable
@@ -87,12 +92,22 @@ class Image extends Model implements Auditable
      */
     public static function storageHashForParameters(array $parameters): string
     {
+        // Always specify a scale.
+        if (!array_has($parameters, "scale") || !in_array(array_get($parameters, "scale"), self::ALLOWED_SCALES)) {
+            array_set($parameters, "scale", 1);
+        }
+
+        // Only allow scaling on 'smaller' images
+        if (intval(array_get($parameters, "width", 0)) > 1000 || intval(array_get($parameters, "height", 0)) > 1000) {
+            array_set($parameters, "scale", 1);
+        }
+
         return collect($parameters)->sortBy(function ($value, $parameter) {
             return $parameter;
-        })->unique()->map(function ($value, $parameter) {
+        })->map(function ($value, $parameter) {
             return $value . $parameter;
         })->pipe(function ($collection) {
-            return md5($collection->implode(","));
+            return md5($collection->implode(""));
         });
     }
 

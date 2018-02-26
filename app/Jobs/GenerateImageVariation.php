@@ -49,12 +49,16 @@ class GenerateImageVariation implements ShouldQueue
         $manager = new ImageManager(['driver' => config("dirtiki.images.processor")]);
         $interventionImage = $manager->make(Storage::get($this->image->getOriginalFilePathAttribute()));
 
+        $scale = intval(array_get($this->parameters, "scale", 1));
+        $width = intval(array_get($this->parameters, "width")) * $scale;
+        $height = intval(array_get($this->parameters, "height")) * $scale;
+
         if (!array_get($this->parameters, "fit", false) && (array_has($this->parameters, "width") || array_has($this->parameters, "height"))) {
-            $interventionImage->resize(array_get($this->parameters, "width"), array_get($this->parameters, "height"), function ($constraint) {
+            $interventionImage->resize($width, $height, function ($constraint) {
                 $constraint->aspectRatio();
             });
         } elseif (array_get($this->parameters, "fit", false) && (array_has($this->parameters, "width") || array_has($this->parameters, "height"))) {
-            $interventionImage->fit(array_get($this->parameters, "width"), array_get($this->parameters, "height"), null, array_get($this->parameters, "fit", "center"));
+            $interventionImage->fit($width, $height, null, array_get($this->parameters, "fit", "center"));
         }
 
         Storage::put($path, $interventionImage->encode());
