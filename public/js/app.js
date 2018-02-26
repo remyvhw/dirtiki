@@ -1290,7 +1290,7 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(185)
 /* template */
 var __vue_template__ = __webpack_require__(137)
 /* template functional */
@@ -1338,18 +1338,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "has-text-centered" }, [
+    _c("i", { staticClass: "fas fa-spinner fa-spin", class: _vm.sizeClass })
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "has-text-centered" }, [
-      _c("i", { staticClass: "fas fa-spinner fa-spin fa-2x" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -3747,6 +3740,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3766,6 +3769,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     images: function images() {
       return window.collect(this.datas).pluck("data").flatten(1).toArray();
+    },
+    nextPageUrl: function nextPageUrl() {
+      var last = window.collect(this.datas).last();
+      return last ? last.links.next : null;
     }
   },
   methods: {
@@ -3915,7 +3922,7 @@ var render = function() {
     "div",
     { staticClass: "columns is-vcentered is-mobile ticker" },
     [
-      _vm.loading
+      _vm.loading && !_vm.datas.length
         ? _c("div", { staticClass: "column" }, [_c("loading-indicator")], 1)
         : _vm._e(),
       _vm._v(" "),
@@ -3924,7 +3931,35 @@ var render = function() {
           key: image.id,
           attrs: { image: image }
         })
-      })
+      }),
+      _vm._v(" "),
+      _vm.nextPageUrl
+        ? _c(
+            "div",
+            { staticClass: "column is-1 has-text-centered" },
+            [
+              _vm.loading
+                ? _c("loading-indicator", { attrs: { size: 3 } })
+                : _c(
+                    "button",
+                    {
+                      staticClass: "button is-light is-large",
+                      on: {
+                        click: function($event) {
+                          _vm.retrieveImagesAtUrl(_vm.nextPageUrl)
+                        }
+                      }
+                    },
+                    [
+                      _c("span", { staticClass: "icon is-medium" }, [
+                        _c("i", { staticClass: "fas fa-plus fa-2x" })
+                      ])
+                    ]
+                  )
+            ],
+            1
+          )
+        : _vm._e()
     ],
     2
   )
@@ -4239,6 +4274,34 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-50ab853e", module.exports)
   }
 }
+
+/***/ }),
+/* 183 */,
+/* 184 */,
+/* 185 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    size: {
+      Type: Number,
+      Default: 2
+    }
+  },
+  computed: {
+    sizeClass: function sizeClass() {
+      return "fa-" + this.size + "x";
+    }
+  }
+});
 
 /***/ })
 ],[18]);
