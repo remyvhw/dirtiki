@@ -3550,17 +3550,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(177)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(160)
 /* template */
-var __vue_template__ = __webpack_require__(169)
+var __vue_template__ = __webpack_require__(179)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-6f54bd68"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -3598,6 +3602,17 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3705,7 +3720,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.ticker[data-v-3ce88f53] {\n  overflow-x: scroll;\n  -webkit-overflow-scrolling: touch;\n}\n.ticker .card[data-v-3ce88f53] {\n  -webkit-animation-duration: 2.5s;\n          animation-duration: 2.5s;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  -webkit-animation-name: bounceInRight;\n          animation-name: bounceInRight;\n}\n.ticker-title .fa[data-v-3ce88f53] {\n  font-size: 3em;\n  text-shadow: 0px 1px 1px #fff;\n}\n.ticker-title[data-v-3ce88f53]:not(fa) {\n  font-size: 1em;\n}\n.ticker-title[data-v-3ce88f53] {\n  color: #7f7f7f;\n}\n.section.is-light[data-v-3ce88f53] {\n  background-color: #f5f5f5;\n  -webkit-animation-duration: 1.25s;\n          animation-duration: 1.25s;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  -webkit-animation-name: slideInDown;\n          animation-name: slideInDown;\n}\n.section.is-light.compact[data-v-3ce88f53] {\n  padding-top: 0;\n  padding-bottom: 0;\n}\n", ""]);
+exports.push([module.i, "\n.ticker[data-v-3ce88f53] {\n  overflow-x: scroll;\n  -webkit-overflow-scrolling: touch;\n}\n", ""]);
 
 // exports
 
@@ -3716,31 +3731,6 @@ exports.push([module.i, "\n.ticker[data-v-3ce88f53] {\n  overflow-x: scroll;\n  
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3798,17 +3788,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(180)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(166)
 /* template */
-var __vue_template__ = __webpack_require__(167)
+var __vue_template__ = __webpack_require__(182)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-50ab853e"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -3846,6 +3840,11 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3904,41 +3903,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 167 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "column", class: _vm.columnClasses }, [
-    _vm._m(0)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-image" }, [
-        _c("figure", { staticClass: "image is-square" }, [
-          _c("img", { attrs: { src: "https://picsum.photos/200/200/?random" } })
-        ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-50ab853e", module.exports)
-  }
-}
-
-/***/ }),
+/* 167 */,
 /* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3975,41 +3940,7 @@ if (false) {
 }
 
 /***/ }),
-/* 169 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "columns" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "column" }, [_c("image-ticker")], 1)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "column is-1" }, [
-      _c("button", { staticClass: "button" }, [
-        _vm._v("\n            Add\n        ")
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6f54bd68", module.exports)
-  }
-}
-
-/***/ }),
+/* 169 */,
 /* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4152,6 +4083,162 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(178);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("d2a5230a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6f54bd68\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./image-selector.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6f54bd68\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./image-selector.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 178 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.section.box.is-light[data-v-6f54bd68] {\n  margin-top: 1em;\n  margin-bottom: 1em;\n  background-color: #f5f5f5;\n  -webkit-animation-duration: 1.25s;\n          animation-duration: 1.25s;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  -webkit-animation-name: slideInDown;\n          animation-name: slideInDown;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 179 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "section box is-light" }, [
+    _c("div", { staticClass: "columns is-vcentered" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "column" }, [_c("image-ticker")], 1)
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "column is-1" }, [
+      _c("button", { staticClass: "button" }, [
+        _vm._v("\n                Add\n            ")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6f54bd68", module.exports)
+  }
+}
+
+/***/ }),
+/* 180 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(181);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("07793596", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-50ab853e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./image-ticker-image.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-50ab853e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./image-ticker-image.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 181 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.card[data-v-50ab853e] {\n  cursor: pointer;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "column", class: _vm.columnClasses }, [
+    _vm._m(0)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-image" }, [
+        _c("figure", { staticClass: "image is-square" }, [
+          _c("img", { attrs: { src: "https://picsum.photos/200/200/?random" } })
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-50ab853e", module.exports)
+  }
+}
 
 /***/ })
 ],[18]);

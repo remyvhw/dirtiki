@@ -1,3 +1,8 @@
+<style scoped>
+.card {
+  cursor: pointer;
+}
+</style>
 <template>
     <div class="column" :class="columnClasses">
         <div class="card">
