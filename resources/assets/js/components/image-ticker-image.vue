@@ -1,6 +1,12 @@
 <template>
     <div class="column" :class="columnClasses">
-        <img class="image is-square" src="https://picsum.photos/200/200/?random">
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-square">
+                    <img src="https://picsum.photos/200/200/?random">
+                </figure>
+            </div>
+        </div>
     </div>
 </template>
 <script type="text/babel">
@@ -24,7 +30,7 @@ export default {
   },
   data() {
     return {
-      columnClasses: "is-3-desktop is-5-tablet is-11-mobile"
+      columnClasses: "is-2-desktop is-3-tablet is-5-mobile"
     };
   },
   methods: {
@@ -35,13 +41,13 @@ export default {
       let columnClasses;
       const parentElWidth = this.$el.parentElement.clientWidth;
       if (parentElWidth < 600) {
-        columnClasses = "is-11";
-      } else if (parentElWidth < 800) {
-        columnClasses = "is-8";
-      } else if (parentElWidth < 1023) {
         columnClasses = "is-5";
+      } else if (parentElWidth < 800) {
+        columnClasses = "is-4";
+      } else if (parentElWidth < 1023) {
+        columnClasses = "is-2";
       } else {
-        columnClasses = "is-3-desktop is-5-tablet is-11-mobile";
+        columnClasses = "is-2-desktop is-3-tablet is-5-mobile";
       }
       if (this.columnClasses != columnClasses) {
         this.columnClasses = columnClasses;

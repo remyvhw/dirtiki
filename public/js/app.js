@@ -3851,6 +3851,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -3870,7 +3876,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      columnClasses: "is-3-desktop is-5-tablet is-11-mobile"
+      columnClasses: "is-2-desktop is-3-tablet is-5-mobile"
     };
   },
 
@@ -3882,13 +3888,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var columnClasses = void 0;
       var parentElWidth = this.$el.parentElement.clientWidth;
       if (parentElWidth < 600) {
-        columnClasses = "is-11";
-      } else if (parentElWidth < 800) {
-        columnClasses = "is-8";
-      } else if (parentElWidth < 1023) {
         columnClasses = "is-5";
+      } else if (parentElWidth < 800) {
+        columnClasses = "is-4";
+      } else if (parentElWidth < 1023) {
+        columnClasses = "is-2";
       } else {
-        columnClasses = "is-3-desktop is-5-tablet is-11-mobile";
+        columnClasses = "is-2-desktop is-3-tablet is-5-mobile";
       }
       if (this.columnClasses != columnClasses) {
         this.columnClasses = columnClasses;
@@ -3906,13 +3912,23 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "column", class: _vm.columnClasses }, [
-    _c("img", {
-      staticClass: "image is-square",
-      attrs: { src: "https://picsum.photos/200/200/?random" }
-    })
+    _vm._m(0)
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-image" }, [
+        _c("figure", { staticClass: "image is-square" }, [
+          _c("img", { attrs: { src: "https://picsum.photos/200/200/?random" } })
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
