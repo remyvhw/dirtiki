@@ -3798,7 +3798,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(188)
+  __webpack_require__(180)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
@@ -3892,9 +3892,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   computed: {
+    isVector: function isVector() {
+      return this.image.type === "image/svg+xml";
+    },
     thumbnailUrl: function thumbnailUrl() {
-      var variation = window.collect(this.image.variations).where("width", 250).where("height", 250).first();
+      var _this2 = this;
+
+      var variation = window.collect(this.image.variations).pipe(function (collection) {
+        if (_this2.isVector) return collection;
+        return collection.where("width", 250).where("height", 250);
+      }).first();
       return variation ? variation.url : null;
+    },
+    thumbnailUrlSet: function thumbnailUrlSet() {
+      if (this.isVector) {
+        return null;
+      }
+      return this.thumbnailUrl + "&scale=3 3x," + this.thumbnailUrl + "&scale=2 2x," + this.thumbnailUrl + " 1x";
     }
   },
   methods: {
@@ -4216,8 +4230,46 @@ if (false) {
 }
 
 /***/ }),
-/* 180 */,
-/* 181 */,
+/* 180 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(181);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("07793596", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-50ab853e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./image-ticker-image.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-50ab853e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./image-ticker-image.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 181 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.card[data-v-50ab853e] {\n  cursor: pointer;\n}\n.card[selected][data-v-50ab853e] {\n  border: 3px solid hsl(171, 100%, 41%);\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4236,7 +4288,9 @@ var render = function() {
       _c("div", { staticClass: "card", attrs: { selected: _vm.selected } }, [
         _c("div", { staticClass: "card-image" }, [
           _c("figure", { staticClass: "image is-square" }, [
-            _c("img", { attrs: { src: _vm.thumbnailUrl } })
+            _c("img", {
+              attrs: { src: _vm.thumbnailUrl, srcset: _vm.thumbnailUrlSet }
+            })
           ])
         ])
       ])
@@ -4280,48 +4334,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   }
 });
-
-/***/ }),
-/* 186 */,
-/* 187 */,
-/* 188 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(189);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(5)("9de53000", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-50ab853e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./image-ticker-image.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-50ab853e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./image-ticker-image.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 189 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(4)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.card[data-v-50ab853e] {\n  cursor: pointer;\n}\n.card[selected][data-v-50ab853e] {\n  border: 3px solid #00d1b2;\n}\n", ""]);
-
-// exports
-
 
 /***/ })
 ],[18]);

@@ -1,4 +1,4 @@
-<style lang="scss" scoped>
+<style scoped>
 .card {
   cursor: pointer;
 }
@@ -11,7 +11,7 @@
         <div class="card" :selected="selected">
             <div class="card-image">
                 <figure class="image is-square">
-                    <img :src="thumbnailUrl">
+                    <img :src="thumbnailUrl" :srcset="thumbnailUrlSet">
                 </figure>
             </div>
         </div>
@@ -43,13 +43,31 @@ export default {
     };
   },
   computed: {
+    isVector() {
+      return this.image.type === "image/svg+xml";
+    },
     thumbnailUrl() {
       const variation = window
         .collect(this.image.variations)
-        .where("width", 250)
-        .where("height", 250)
+        .pipe(collection => {
+          if (this.isVector) return collection;
+          return collection.where("width", 250).where("height", 250);
+        })
         .first();
       return variation ? variation.url : null;
+    },
+    thumbnailUrlSet() {
+      if (this.isVector) {
+        return null;
+      }
+      return (
+        this.thumbnailUrl +
+        "&scale=3 3x," +
+        this.thumbnailUrl +
+        "&scale=2 2x," +
+        this.thumbnailUrl +
+        " 1x"
+      );
     }
   },
   methods: {
