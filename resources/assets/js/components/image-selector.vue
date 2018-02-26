@@ -1,7 +1,7 @@
 
 <template>
     <section class="columns">
-        <div class="column is-one-quarter">
+        <div class="column is-1">
             <button class="button">
                 Add
             </button>
@@ -16,16 +16,6 @@
 export default {
   components: {
     imageTicker: require("./image-ticker.vue")
-  },
-  props: {
-    page: { Type: Object, Required: true }
-  },
-  data() {
-    return {
-      pages: []
-    };
-  },
-  mounted() {},
-  methods: {}
+  }
 };
 </script>
