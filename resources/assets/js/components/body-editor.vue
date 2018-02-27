@@ -52,14 +52,29 @@ export default {
       const endPosition = this.$refs.textarea.selectionEnd;
       this.editedBodyCopy.data.content =
         this.editedBodyCopy.data.content.substring(0, startPosition) +
-        "Hello, world" +
+        text +
         this.editedBodyCopy.data.content.substring(
           endPosition,
           this.editedBodyCopy.data.content.length
         );
     },
     imageSelected(imageSelector, image) {
-      this.insertTextAtCursorPosition("Image here..");
+      const imageVariation = window
+        .collect(image.variations)
+        .sortByDesc(variation => {
+          return (
+            (variation.width ? variation.width : 1) +
+            (variation.height ? variation.height : 1)
+          );
+        })
+        .first();
+      if (!imageVariation) {
+        return;
+      }
+
+      const altText = prompt("Alternative text").replace(/\[|\]/g, "");
+      const template = "\n![" + altText + "](" + imageVariation.url + ")\n";
+      this.insertTextAtCursorPosition(template);
     }
   }
 };

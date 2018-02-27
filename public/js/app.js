@@ -3539,10 +3539,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     insertTextAtCursorPosition: function insertTextAtCursorPosition(text) {
       var startPosition = this.$refs.textarea.selectionStart;
       var endPosition = this.$refs.textarea.selectionEnd;
-      this.editedBodyCopy.data.content = this.editedBodyCopy.data.content.substring(0, startPosition) + "Hello, world" + this.editedBodyCopy.data.content.substring(endPosition, this.editedBodyCopy.data.content.length);
+      this.editedBodyCopy.data.content = this.editedBodyCopy.data.content.substring(0, startPosition) + text + this.editedBodyCopy.data.content.substring(endPosition, this.editedBodyCopy.data.content.length);
     },
     imageSelected: function imageSelected(imageSelector, image) {
-      this.insertTextAtCursorPosition("Image here..");
+      var imageVariation = window.collect(image.variations).sortByDesc(function (variation) {
+        return (variation.width ? variation.width : 1) + (variation.height ? variation.height : 1);
+      }).first();
+      if (!imageVariation) {
+        return;
+      }
+
+      var altText = prompt("Alternative text").replace(/\[|\]/g, "");
+      var template = "\n![" + altText + "](" + imageVariation.url + ")\n";
+      this.insertTextAtCursorPosition(template);
     }
   }
 });
