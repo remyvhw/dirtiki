@@ -3536,10 +3536,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.$emit("input", _this);
       });
     },
-    imageSelected: function imageSelected(imageSelector, image) {
+    insertTextAtCursorPosition: function insertTextAtCursorPosition(text) {
       var startPosition = this.$refs.textarea.selectionStart;
       var endPosition = this.$refs.textarea.selectionEnd;
       this.editedBodyCopy.data.content = this.editedBodyCopy.data.content.substring(0, startPosition) + "Hello, world" + this.editedBodyCopy.data.content.substring(endPosition, this.editedBodyCopy.data.content.length);
+    },
+    imageSelected: function imageSelected(imageSelector, image) {
+      this.insertTextAtCursorPosition("Image here..");
     }
   }
 });

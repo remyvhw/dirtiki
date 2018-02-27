@@ -47,7 +47,7 @@ export default {
           this.$emit("input", this);
         });
     },
-    imageSelected(imageSelector, image) {
+    insertTextAtCursorPosition(text) {
       const startPosition = this.$refs.textarea.selectionStart;
       const endPosition = this.$refs.textarea.selectionEnd;
       this.editedBodyCopy.data.content =
@@ -57,6 +57,9 @@ export default {
           endPosition,
           this.editedBodyCopy.data.content.length
         );
+    },
+    imageSelected(imageSelector, image) {
+      this.insertTextAtCursorPosition("Image here..");
     }
   }
 };
