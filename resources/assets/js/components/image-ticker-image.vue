@@ -14,17 +14,17 @@
 @keyframes pop {
   from {
     transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
-    opacity: 1;
+    filter: brightness(100%);
   }
 
   50% {
     transform: scale3d(1.05, 1.05, 1.05) translate3d(0, -5%, 0);
-    opacity: 0.8;
+    filter: brightness(75%);
   }
 
   to {
     transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
-    opacity: 1;
+    filter: brightness(100%);
   }
 }
 </style>
