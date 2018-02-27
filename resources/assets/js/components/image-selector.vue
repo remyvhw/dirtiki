@@ -12,8 +12,10 @@
     <section class="section box is-light">
         <div class="columns is-vcentered">
             <div class="column is-1">
-                <button class="button">
-                    Add
+                <button class="button is-dark is-large is-fullwidth">
+                    <span class="icon">
+                        <i class="fas fa-plus"></i>
+                    </span>
                 </button>
             </div>
             <div class="column">

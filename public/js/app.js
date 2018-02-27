@@ -3638,6 +3638,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4284,8 +4286,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "column is-1" }, [
-      _c("button", { staticClass: "button" }, [
-        _vm._v("\n                Add\n            ")
+      _c("button", { staticClass: "button is-dark is-large is-fullwidth" }, [
+        _c("span", { staticClass: "icon" }, [
+          _c("i", { staticClass: "fas fa-plus" })
+        ])
       ])
     ])
   }
