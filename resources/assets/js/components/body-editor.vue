@@ -72,12 +72,17 @@ export default {
         return;
       }
 
-      const altText = prompt("Alternative text").replace(/\[|\]/g, "");
+      const altText = prompt("Alternative text");
       if (altText === null || altText === false) {
         // user canceled
         return;
       }
-      const template = "\n![" + altText + "](" + imageVariation.url + ")\n";
+      const template =
+        "\n![" +
+        altText.replace(/\[|\]/g, "") +
+        "](" +
+        imageVariation.url +
+        ")\n";
       this.insertTextAtCursorPosition(template);
     }
   }

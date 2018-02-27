@@ -3549,12 +3549,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return;
       }
 
-      var altText = prompt("Alternative text").replace(/\[|\]/g, "");
+      var altText = prompt("Alternative text");
       if (altText === null || altText === false) {
         // user canceled
         return;
       }
-      var template = "\n![" + altText + "](" + imageVariation.url + ")\n";
+      var template = "\n![" + altText.replace(/\[|\]/g, "") + "](" + imageVariation.url + ")\n";
       this.insertTextAtCursorPosition(template);
     }
   }
