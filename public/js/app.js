@@ -4477,7 +4477,13 @@ var render = function() {
       _c("label", { staticClass: "file-label" }, [
         _c("input", {
           staticClass: "file-input",
-          attrs: { type: "file", name: "resume" }
+          attrs: {
+            type: "file",
+            name: "resume",
+            multiple: "",
+            accept: _vm.acceptedMimeTypes.join(",")
+          },
+          on: { change: _vm.handleFileInputSelection }
         }),
         _vm._v(" "),
         _c("span", { staticClass: "file-cta" }, [
@@ -4574,6 +4580,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     uploadFiles: function uploadFiles(files) {
       // Do something with the files...
+      debugger;
+    },
+    handleFileInputSelection: function handleFileInputSelection(event) {
+      this.appendFilesToQueueThenProcessQueue(event.target.files);
+      event.target.value = "";
     },
     startListeningForDragover: function startListeningForDragover() {
       var _this = this;

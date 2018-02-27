@@ -15,7 +15,7 @@
 <template>
     <div class="file is-fullwidth is-large is-boxed is-dark">
         <label class="file-label">
-            <input class="file-input" type="file" name="resume">
+            <input class="file-input" type="file" name="resume" multiple :accept="acceptedMimeTypes.join(',')" @change="handleFileInputSelection">
             <span class="file-cta">
                 <span class="file-icon">
                     <i class="fas" :class="{'fa-cloud-upload-alt':dragging , 'fa-plus': !dragging}"></i>
@@ -61,6 +61,12 @@ export default {
     },
     uploadFiles(files) {
       // Do something with the files...
+      debugger;
+    },
+
+    handleFileInputSelection(event) {
+      this.appendFilesToQueueThenProcessQueue(event.target.files);
+      event.target.value = "";
     },
 
     startListeningForDragover() {
