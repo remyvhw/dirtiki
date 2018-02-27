@@ -12,11 +12,7 @@
     <section class="section box is-light">
         <div class="columns is-vcentered">
             <div class="column is-1">
-                <button class="button is-dark is-large is-fullwidth">
-                    <span class="icon">
-                        <i class="fas fa-plus"></i>
-                    </span>
-                </button>
+                <image-selector-uploader></image-selector-uploader>
             </div>
             <div class="column">
                 <image-ticker @image-selected="imageSelected"></image-ticker>
@@ -24,11 +20,11 @@
         </div>
     </section>
 </template>
-
 <script type="text/babel">
 export default {
   components: {
-    imageTicker: require("./image-ticker.vue")
+    imageTicker: require("./image-ticker.vue"),
+    imageSelectorUploader: require("./image-selector-uploader.vue")
   },
   methods: {
     imageSelected(ticker, image) {
