@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     imageSelected(ticker, image) {
-      console.log(image);
+      this.$emit("image-selected", this, image);
     }
   }
 };

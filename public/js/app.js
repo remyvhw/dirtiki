@@ -3535,6 +3535,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.saving = false;
         _this.$emit("input", _this);
       });
+    },
+    imageSelected: function imageSelected(imageSelector, image) {
+      var startPosition = this.$refs.textarea.selectionStart;
+      var endPosition = this.$refs.textarea.selectionEnd;
+      this.editedBodyCopy.data.content = this.editedBodyCopy.data.content.substring(0, startPosition) + "Hello, world" + this.editedBodyCopy.data.content.substring(endPosition, this.editedBodyCopy.data.content.length);
     }
   }
 });
@@ -3628,7 +3633,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     imageSelected: function imageSelected(ticker, image) {
-      console.log(image);
+      this.$emit("image-selected", this, image);
     }
   }
 });
@@ -4073,6 +4078,7 @@ var render = function() {
                 expression: "editedBodyCopy.data.content"
               }
             ],
+            ref: "textarea",
             staticClass: "textarea",
             domProps: { value: _vm.editedBodyCopy.data.content },
             on: {
@@ -4090,7 +4096,7 @@ var render = function() {
           })
         : _vm._e(),
       _vm._v(" "),
-      _c("image-selector"),
+      _c("image-selector", { on: { "image-selected": _vm.imageSelected } }),
       _vm._v(" "),
       _c("div", { staticClass: "field" }, [
         _c("p", { staticClass: "control" }, [

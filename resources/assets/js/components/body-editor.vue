@@ -5,9 +5,9 @@
 </style>
 <template>
   <div class="control">
-    <textarea class="textarea" v-if="editedBodyCopy" v-model="editedBodyCopy.data.content"></textarea>
+    <textarea class="textarea" v-if="editedBodyCopy" v-model="editedBodyCopy.data.content" ref="textarea"></textarea>
 
-    <image-selector></image-selector>
+    <image-selector @image-selected="imageSelected"></image-selector>
 
     <div class="field">
       <p class="control">
@@ -46,6 +46,17 @@ export default {
           this.saving = false;
           this.$emit("input", this);
         });
+    },
+    imageSelected(imageSelector, image) {
+      const startPosition = this.$refs.textarea.selectionStart;
+      const endPosition = this.$refs.textarea.selectionEnd;
+      this.editedBodyCopy.data.content =
+        this.editedBodyCopy.data.content.substring(0, startPosition) +
+        "Hello, world" +
+        this.editedBodyCopy.data.content.substring(
+          endPosition,
+          this.editedBodyCopy.data.content.length
+        );
     }
   }
 };
