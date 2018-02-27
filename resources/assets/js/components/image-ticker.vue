@@ -10,7 +10,7 @@
         <div class="column" v-if="loading && !datas.length">
             <loading-indicator></loading-indicator>
         </div>
-        <image-ticker-image :key="image.id" :image="image" v-for="image in images"></image-ticker-image>
+        <image-ticker-image :key="image.id" :image="image" v-for="image in images" @toggle-selection="toggleSelection"></image-ticker-image>
 
         <div v-if="nextPageUrl" class="column is-1 has-text-centered">
             <loading-indicator :size="3" v-if="loading"></loading-indicator>
@@ -59,6 +59,12 @@ export default {
         this.loading = false;
         this.datas.push(data);
       });
+    },
+    toggleSelection(imageTickerImage) {
+      // Prevent defaults.
+      imageTickerImage.selected = false;
+      imageTickerImage.presentPressFeedback();
+      this.$emit("image-selected", this, imageTickerImage.image);
     }
   }
 };

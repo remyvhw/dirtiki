@@ -1,14 +1,36 @@
 <style scoped>
 .card {
   cursor: pointer;
+  transition: border 0.2s ease-in;
 }
 .card[selected] {
   border: 3px solid hsl(171, 100%, 41%);
 }
+
+.display-press {
+  animation: pop 0.5s ease-in-out;
+}
+
+@keyframes pop {
+  from {
+    transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale3d(1.05, 1.05, 1.05) translate3d(0, -5%, 0);
+    opacity: 0.8;
+  }
+
+  to {
+    transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
 </style>
 <template>
     <div class="column" @click="toggleSelection" :class="columnClasses">
-        <div class="card" :selected="selected">
+        <div class="card" :selected="selected" ref="card">
             <div class="card-image">
                 <figure class="image is-square">
                     <img :src="thumbnailUrl" :srcset="thumbnailUrlSet">
@@ -92,7 +114,19 @@ export default {
     },
     toggleSelection() {
       this.selected = !this.selected;
-      this.$emit("click", this);
+      this.$emit("toggle-selection", this);
+    },
+    /**
+     * When called, will slightly animated the card to display a subtle feedback.
+     * Is better used following a tap or a click on the card, when the whole
+     * card is used as a button.
+     */
+    presentPressFeedback() {
+      this.$refs.card.classList.add("display-press");
+      this.$refs.card.addEventListener("animationend", function handler() {
+        this.classList.remove("display-press");
+        this.removeEventListener(event.type, handler);
+      });
     }
   }
 };

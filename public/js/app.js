@@ -3625,6 +3625,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     imageTicker: __webpack_require__(161)
+  },
+  methods: {
+    imageSelected: function imageSelected(ticker, image) {
+      console.log(image);
+    }
   }
 });
 
@@ -3787,6 +3792,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.loading = false;
         _this.datas.push(data);
       });
+    },
+    toggleSelection: function toggleSelection(imageTickerImage) {
+      // Prevent defaults.
+      imageTickerImage.selected = false;
+      imageTickerImage.presentPressFeedback();
+      this.$emit("image-selected", this, imageTickerImage.image);
     }
   }
 });
@@ -3848,6 +3859,28 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3933,7 +3966,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     toggleSelection: function toggleSelection() {
       this.selected = !this.selected;
-      this.$emit("click", this);
+      this.$emit("toggle-selection", this);
+    },
+
+    /**
+     * When called, will slightly animated the card to display a subtle feedback.
+     * Is better used following a tap or a click on the card, when the whole
+     * card is used as a button.
+     */
+    presentPressFeedback: function presentPressFeedback() {
+      this.$refs.card.classList.add("display-press");
+      this.$refs.card.addEventListener("animationend", function handler() {
+        this.classList.remove("display-press");
+        this.removeEventListener(event.type, handler);
+      });
     }
   }
 });
@@ -3958,7 +4004,8 @@ var render = function() {
       _vm._l(_vm.images, function(image) {
         return _c("image-ticker-image", {
           key: image.id,
-          attrs: { image: image }
+          attrs: { image: image },
+          on: { "toggle-selection": _vm.toggleSelection }
         })
       }),
       _vm._v(" "),
@@ -4204,7 +4251,12 @@ var render = function() {
     _c("div", { staticClass: "columns is-vcentered" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "column" }, [_c("image-ticker")], 1)
+      _c(
+        "div",
+        { staticClass: "column" },
+        [_c("image-ticker", { on: { "image-selected": _vm.imageSelected } })],
+        1
+      )
     ])
   ])
 }
@@ -4264,7 +4316,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.card[data-v-50ab853e] {\n  cursor: pointer;\n}\n.card[selected][data-v-50ab853e] {\n  border: 3px solid hsl(171, 100%, 41%);\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-50ab853e] {\n  cursor: pointer;\n  -webkit-transition: border 0.2s ease-in;\n  transition: border 0.2s ease-in;\n}\n.card[selected][data-v-50ab853e] {\n  border: 3px solid hsl(171, 100%, 41%);\n}\n.display-press[data-v-50ab853e] {\n  -webkit-animation: pop-data-v-50ab853e 0.5s ease-in-out;\n          animation: pop-data-v-50ab853e 0.5s ease-in-out;\n}\n@-webkit-keyframes pop-data-v-50ab853e {\nfrom {\n    -webkit-transform: scale3d(1, 1, 1) translate3d(0, 0, 0);\n            transform: scale3d(1, 1, 1) translate3d(0, 0, 0);\n    opacity: 1;\n}\n50% {\n    -webkit-transform: scale3d(1.05, 1.05, 1.05) translate3d(0, -5%, 0);\n            transform: scale3d(1.05, 1.05, 1.05) translate3d(0, -5%, 0);\n    opacity: 0.8;\n}\nto {\n    -webkit-transform: scale3d(1, 1, 1) translate3d(0, 0, 0);\n            transform: scale3d(1, 1, 1) translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@keyframes pop-data-v-50ab853e {\nfrom {\n    -webkit-transform: scale3d(1, 1, 1) translate3d(0, 0, 0);\n            transform: scale3d(1, 1, 1) translate3d(0, 0, 0);\n    opacity: 1;\n}\n50% {\n    -webkit-transform: scale3d(1.05, 1.05, 1.05) translate3d(0, -5%, 0);\n            transform: scale3d(1.05, 1.05, 1.05) translate3d(0, -5%, 0);\n    opacity: 0.8;\n}\nto {\n    -webkit-transform: scale3d(1, 1, 1) translate3d(0, 0, 0);\n            transform: scale3d(1, 1, 1) translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n", ""]);
 
 // exports
 
@@ -4285,15 +4337,19 @@ var render = function() {
       on: { click: _vm.toggleSelection }
     },
     [
-      _c("div", { staticClass: "card", attrs: { selected: _vm.selected } }, [
-        _c("div", { staticClass: "card-image" }, [
-          _c("figure", { staticClass: "image is-square" }, [
-            _c("img", {
-              attrs: { src: _vm.thumbnailUrl, srcset: _vm.thumbnailUrlSet }
-            })
+      _c(
+        "div",
+        { ref: "card", staticClass: "card", attrs: { selected: _vm.selected } },
+        [
+          _c("div", { staticClass: "card-image" }, [
+            _c("figure", { staticClass: "image is-square" }, [
+              _c("img", {
+                attrs: { src: _vm.thumbnailUrl, srcset: _vm.thumbnailUrlSet }
+              })
+            ])
           ])
-        ])
-      ])
+        ]
+      )
     ]
   )
 }

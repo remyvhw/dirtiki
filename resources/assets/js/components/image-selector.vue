@@ -17,7 +17,7 @@
                 </button>
             </div>
             <div class="column">
-                <image-ticker></image-ticker>
+                <image-ticker @image-selected="imageSelected"></image-ticker>
             </div>
         </div>
     </section>
@@ -27,6 +27,11 @@
 export default {
   components: {
     imageTicker: require("./image-ticker.vue")
+  },
+  methods: {
+    imageSelected(ticker, image) {
+      console.log(image);
+    }
   }
 };
 </script>
