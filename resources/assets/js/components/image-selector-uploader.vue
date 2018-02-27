@@ -1,6 +1,7 @@
 <style>
 .active-dropzone {
   border: 5px hsl(171, 100%, 41%) dashed !important;
+  padding: 43px 19px;
 }
 .active-dropzone img {
   filter: blur(4px);
