@@ -4471,24 +4471,17 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "button",
-      {
-        staticClass: "button is-large is-fullwidth",
-        class: { "is-primary": _vm.dragging, "is-dark": !_vm.dragging }
-      },
-      [
-        _c("span", { staticClass: "icon" }, [
-          _c("i", {
-            staticClass: "fas",
-            class: {
-              "fa-cloud-upload-alt": _vm.dragging,
-              "fa-plus": !_vm.dragging
-            }
-          })
-        ])
-      ]
-    )
+    _c("button", { staticClass: "button is-large is-dark is-fullwidth" }, [
+      _c("span", { staticClass: "icon" }, [
+        _c("i", {
+          staticClass: "fas",
+          class: {
+            "fa-cloud-upload-alt": _vm.dragging,
+            "fa-plus": !_vm.dragging
+          }
+        })
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -4507,7 +4500,6 @@ if (false) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -4605,7 +4597,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.active-dropzone {\n  border: 5px hsl(171, 100%, 41%) dashed !important;\n  padding: 43px 19px;\n}\n.active-dropzone img {\n  -webkit-filter: blur(4px);\n          filter: blur(4px);\n}\n.is-primary {\n  -webkit-transition: -webkit-transform 0.2s;\n  transition: -webkit-transform 0.2s;\n  transition: transform 0.2s;\n  transition: transform 0.2s, -webkit-transform 0.2s;\n}\n.active-dropzone .is-primary {\n  -webkit-transform: scale3d(1.2, 1.2, 1.2);\n          transform: scale3d(1.2, 1.2, 1.2);\n}\n", ""]);
+exports.push([module.i, "\n.active-dropzone {\n  border: 5px hsl(171, 100%, 41%) dashed !important;\n  padding: 43px 19px;\n}\n.active-dropzone img {\n  -webkit-filter: blur(4px);\n          filter: blur(4px);\n}\n.active-dropzone .is-dark {\n  -webkit-transition: -webkit-transform 0.2s;\n  transition: -webkit-transform 0.2s;\n  transition: transform 0.2s;\n  transition: transform 0.2s, -webkit-transform 0.2s;\n  -webkit-transform: scale3d(1.1, 1.1, 1.1);\n          transform: scale3d(1.1, 1.1, 1.1);\n}\n", ""]);
 
 // exports
 

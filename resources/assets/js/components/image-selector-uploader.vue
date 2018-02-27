@@ -6,16 +6,15 @@
 .active-dropzone img {
   filter: blur(4px);
 }
-.is-primary {
+
+.active-dropzone .is-dark {
   transition: transform 0.2s;
-}
-.active-dropzone .is-primary {
-  transform: scale3d(1.2, 1.2, 1.2);
+  transform: scale3d(1.1, 1.1, 1.1);
 }
 </style>
 <template>
     <div>
-        <button class="button is-large is-fullwidth" :class="{'is-primary':dragging , 'is-dark': !dragging}">
+        <button class="button is-large is-dark is-fullwidth">
             <span class="icon">
                 <i class="fas" :class="{'fa-cloud-upload-alt':dragging , 'fa-plus': !dragging}"></i>
             </span>
