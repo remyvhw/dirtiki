@@ -8,7 +8,7 @@
 }
 
 .display-press {
-  animation: pop 0.5s ease-in-out;
+  animation: pop 0.4s ease-in-out;
 }
 
 @keyframes pop {
