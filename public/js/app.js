@@ -4527,7 +4527,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      dragging: false
+      dragging: false,
+      acceptedMimeTypes: ["image/png", "image/jpeg", "image/svg+xml"],
+      queue: []
     };
   },
   mounted: function mounted() {
@@ -4536,6 +4538,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
   methods: {
+    appendFilesToQueueThenProcessQueue: function appendFilesToQueueThenProcessQueue(files) {
+      var _this2 = this;
+
+      var fileReaderPromises = window.collect(files).map(function (file) {
+        if (!_this2.acceptedMimeTypes.includes(file.type)) {
+          return null;
+        }
+
+        return new Promise(function (resolve, reject) {
+          var reader = new FileReader();
+          reader.onload = function (fileread) {
+            resolve(reader.result);
+          };
+          reader.readAsDataURL(file);
+        });
+      }).toArray();
+
+      Promise.all(fileReaderPromises).then(function (results) {
+        _this2.uploadFiles(results);
+      });
+    },
+    uploadFiles: function uploadFiles(files) {
+      // Do something with the files...
+    },
     startListeningForDragover: function startListeningForDragover() {
       var _this = this;
       _this.$parent.$el.addEventListener("dragover", function handler(event) {
@@ -4544,6 +4570,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.dragging = true;
         this.removeEventListener(event.type, handler);
         _this.startListeningForDragLeave();
+        _this.startListeningForDrop();
+      });
+
+      _this.$parent.$el.addEventListener("dragover", function handler(event) {
+        event.preventDefault();
+      });
+
+      _this.$parent.$el.addEventListener("dragenter", function handler(event) {
+        event.preventDefault();
       });
     },
     startListeningForDragLeave: function startListeningForDragLeave() {
@@ -4554,6 +4589,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.$parent.$el.classList.remove("active-dropzone");
         this.removeEventListener(event.type, handler);
         _this.startListeningForDragover();
+      });
+    },
+    startListeningForDrop: function startListeningForDrop() {
+      var _this = this;
+      document.addEventListener("drop", function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        var files = event.dataTransfer.files;
+        _this.appendFilesToQueueThenProcessQueue(files);
       });
     }
   }

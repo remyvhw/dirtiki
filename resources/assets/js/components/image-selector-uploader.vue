@@ -25,7 +25,9 @@
 export default {
   data() {
     return {
-      dragging: false
+      dragging: false,
+      acceptedMimeTypes: ["image/png", "image/jpeg", "image/svg+xml"],
+      queue: []
     };
   },
   mounted() {
@@ -33,6 +35,32 @@ export default {
   },
 
   methods: {
+    appendFilesToQueueThenProcessQueue(files) {
+      let fileReaderPromises = window
+        .collect(files)
+        .map(file => {
+          if (!this.acceptedMimeTypes.includes(file.type)) {
+            return null;
+          }
+
+          return new Promise((resolve, reject) => {
+            let reader = new FileReader();
+            reader.onload = fileread => {
+              resolve(reader.result);
+            };
+            reader.readAsDataURL(file);
+          });
+        })
+        .toArray();
+
+      Promise.all(fileReaderPromises).then(results => {
+        this.uploadFiles(results);
+      });
+    },
+    uploadFiles(files) {
+      // Do something with the files...
+    },
+
     startListeningForDragover() {
       var _this = this;
       _this.$parent.$el.addEventListener("dragover", function handler(event) {
@@ -41,6 +69,15 @@ export default {
         _this.dragging = true;
         this.removeEventListener(event.type, handler);
         _this.startListeningForDragLeave();
+        _this.startListeningForDrop();
+      });
+
+      _this.$parent.$el.addEventListener("dragover", function handler(event) {
+        event.preventDefault();
+      });
+
+      _this.$parent.$el.addEventListener("dragenter", function handler(event) {
+        event.preventDefault();
       });
     },
     startListeningForDragLeave() {
@@ -51,6 +88,15 @@ export default {
         _this.$parent.$el.classList.remove("active-dropzone");
         this.removeEventListener(event.type, handler);
         _this.startListeningForDragover();
+      });
+    },
+    startListeningForDrop() {
+      var _this = this;
+      document.addEventListener("drop", function(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        const files = event.dataTransfer.files;
+        _this.appendFilesToQueueThenProcessQueue(files);
       });
     }
   }
