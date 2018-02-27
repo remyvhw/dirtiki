@@ -13,12 +13,15 @@
 }
 </style>
 <template>
-    <div>
-        <button class="button is-large is-dark is-fullwidth">
-            <span class="icon">
-                <i class="fas" :class="{'fa-cloud-upload-alt':dragging , 'fa-plus': !dragging}"></i>
+    <div class="file is-fullwidth is-large is-boxed is-dark">
+        <label class="file-label">
+            <input class="file-input" type="file" name="resume">
+            <span class="file-cta">
+                <span class="file-icon">
+                    <i class="fas" :class="{'fa-cloud-upload-alt':dragging , 'fa-plus': !dragging}"></i>
+                </span>
             </span>
-        </button>
+        </label>
     </div>
 </template>
 <script type="text/babel">
@@ -26,8 +29,7 @@ export default {
   data() {
     return {
       dragging: false,
-      acceptedMimeTypes: ["image/png", "image/jpeg", "image/svg+xml"],
-      queue: []
+      acceptedMimeTypes: ["image/png", "image/jpeg", "image/svg+xml"]
     };
   },
   mounted() {

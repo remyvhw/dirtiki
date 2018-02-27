@@ -4271,7 +4271,7 @@ var render = function() {
     _c("div", { staticClass: "columns is-vcentered" }, [
       _c(
         "div",
-        { staticClass: "column is-1" },
+        { staticClass: "column is-2" },
         [_c("image-selector-uploader")],
         1
       ),
@@ -4470,19 +4470,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("button", { staticClass: "button is-large is-dark is-fullwidth" }, [
-      _c("span", { staticClass: "icon" }, [
-        _c("i", {
-          staticClass: "fas",
-          class: {
-            "fa-cloud-upload-alt": _vm.dragging,
-            "fa-plus": !_vm.dragging
-          }
-        })
+  return _c(
+    "div",
+    { staticClass: "file is-fullwidth is-large is-boxed is-dark" },
+    [
+      _c("label", { staticClass: "file-label" }, [
+        _c("input", {
+          staticClass: "file-input",
+          attrs: { type: "file", name: "resume" }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "file-cta" }, [
+          _c("span", { staticClass: "file-icon" }, [
+            _c("i", {
+              staticClass: "fas",
+              class: {
+                "fa-cloud-upload-alt": _vm.dragging,
+                "fa-plus": !_vm.dragging
+              }
+            })
+          ])
+        ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -4523,13 +4534,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       dragging: false,
-      acceptedMimeTypes: ["image/png", "image/jpeg", "image/svg+xml"],
-      queue: []
+      acceptedMimeTypes: ["image/png", "image/jpeg", "image/svg+xml"]
     };
   },
   mounted: function mounted() {

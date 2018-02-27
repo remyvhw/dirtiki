@@ -11,7 +11,7 @@
 <template>
     <section class="section box is-light">
         <div class="columns is-vcentered">
-            <div class="column is-1">
+            <div class="column is-2">
                 <image-selector-uploader></image-selector-uploader>
             </div>
             <div class="column">
