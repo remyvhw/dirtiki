@@ -3550,6 +3550,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
 
       var altText = prompt("Alternative text").replace(/\[|\]/g, "");
+      if (altText === null || altText === false) {
+        // user canceled
+        return;
+      }
       var template = "\n![" + altText + "](" + imageVariation.url + ")\n";
       this.insertTextAtCursorPosition(template);
     }

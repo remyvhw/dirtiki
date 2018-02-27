@@ -73,6 +73,10 @@ export default {
       }
 
       const altText = prompt("Alternative text").replace(/\[|\]/g, "");
+      if (altText === null || altText === false) {
+        // user canceled
+        return;
+      }
       const template = "\n![" + altText + "](" + imageVariation.url + ")\n";
       this.insertTextAtCursorPosition(template);
     }
