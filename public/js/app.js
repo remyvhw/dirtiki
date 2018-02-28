@@ -4548,7 +4548,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       dragging: false,
-      acceptedMimeTypes: ["image/png", "image/jpeg", "image/svg+xml"]
+      acceptedMimeTypes: ["image/png", "image/jpeg", "image/svg+xml"],
+      queue: []
     };
   },
   mounted: function mounted() {
@@ -4560,15 +4561,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     appendFilesToQueueThenProcessQueue: function appendFilesToQueueThenProcessQueue(files) {
       var _this2 = this;
 
+      window.collect(files).filter(function (file) {
+        return _this2.acceptedMimeTypes.includes(file.type);
+      }).each(function (file) {
+        _this2.queue.push(file);
+      });
+      debugger;
       var fileReaderPromises = window.collect(files).map(function (file) {
-        if (!_this2.acceptedMimeTypes.includes(file.type)) {
-          return null;
-        }
-
         return new Promise(function (resolve, reject) {
           var reader = new FileReader();
           reader.onload = function (fileread) {
-            resolve(reader.result);
+            resolve({ file: file, reader: reader });
           };
           reader.readAsDataURL(file);
         });
@@ -4577,10 +4580,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       Promise.all(fileReaderPromises).then(function (results) {
         _this2.uploadFiles(results);
       });
-    },
-    uploadFiles: function uploadFiles(files) {
-      // Do something with the files...
-      debugger;
     },
     handleFileInputSelection: function handleFileInputSelection(event) {
       this.appendFilesToQueueThenProcessQueue(event.target.files);
