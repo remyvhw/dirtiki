@@ -4474,30 +4474,36 @@ var render = function() {
     "div",
     { staticClass: "file is-fullwidth is-large is-boxed is-dark" },
     [
-      _c("label", { staticClass: "file-label" }, [
-        _c("input", {
-          staticClass: "file-input",
-          attrs: {
-            type: "file",
-            name: "resume",
-            multiple: "",
-            accept: _vm.acceptedMimeTypes.join(",")
-          },
-          on: { change: _vm.handleFileInputSelection }
-        }),
-        _vm._v(" "),
-        _c("span", { staticClass: "file-cta" }, [
-          _c("span", { staticClass: "file-icon" }, [
-            _c("i", {
-              staticClass: "fas",
-              class: {
-                "fa-cloud-upload-alt": _vm.dragging,
-                "fa-plus": !_vm.dragging
-              }
-            })
+      !_vm.uploading
+        ? _c("label", { staticClass: "file-label" }, [
+            _c("input", {
+              staticClass: "file-input",
+              attrs: {
+                type: "file",
+                name: "resume",
+                multiple: "",
+                accept: _vm.acceptedMimeTypes.join(",")
+              },
+              on: { change: _vm.handleFileInputSelection }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "file-cta" }, [
+              _c("span", { staticClass: "file-icon" }, [
+                _c("i", {
+                  staticClass: "fas",
+                  class: {
+                    "fa-cloud-upload-alt": _vm.dragging,
+                    "fa-plus": !_vm.dragging
+                  }
+                })
+              ])
+            ])
           ])
-        ])
-      ])
+        : _c("progress", {
+            staticClass: "progress is-info",
+            attrs: { max: _vm.uploading.total },
+            domProps: { value: _vm.uploading.uploaded }
+          })
     ]
   )
 }
@@ -4543,13 +4549,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       dragging: false,
       acceptedMimeTypes: ["image/png", "image/jpeg", "image/svg+xml"],
-      queue: []
+      queue: [],
+      uploading: false
     };
   },
   mounted: function mounted() {
@@ -4561,29 +4569,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     appendFilesToQueueThenProcessQueue: function appendFilesToQueueThenProcessQueue(files) {
       var _this2 = this;
 
-      window.collect(files).filter(function (file) {
-        return _this2.acceptedMimeTypes.includes(file.type);
-      }).each(function (file) {
-        _this2.queue.push(file);
+      this.uploading = {
+        uploaded: 0,
+        total: window.collect(files).filter(function (file) {
+          return _this2.acceptedMimeTypes.includes(file.type);
+        }).each(function (file) {
+          _this2.queue.push(_this2.uploadFile(file));
+        }).reduce(function (carry, file) {
+          return carry + file.size;
+        }, 0)
+      };
+      Promise.all(this.queue).then(function (result) {
+        _this2.uploading = false;
       });
-      debugger;
-      var fileReaderPromises = window.collect(files).map(function (file) {
-        return new Promise(function (resolve, reject) {
-          var reader = new FileReader();
-          reader.onload = function (fileread) {
-            resolve({ file: file, reader: reader });
-          };
-          reader.readAsDataURL(file);
-        });
-      }).toArray();
+    },
+    uploadFile: function uploadFile(file) {
+      var _this3 = this;
 
-      Promise.all(fileReaderPromises).then(function (results) {
-        _this2.uploadFiles(results);
+      var formData = new FormData();
+      formData.append("image", file);
+      return this.$http.post("/api/images", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        },
+        onUploadProgress: function onUploadProgress(progressEvent) {
+          _this3.uploading.uploaded += progressEvent.loaded;
+        }
       });
     },
     handleFileInputSelection: function handleFileInputSelection(event) {
       this.appendFilesToQueueThenProcessQueue(event.target.files);
       event.target.value = "";
+    },
+    exitDraggableMode: function exitDraggableMode() {
+      this.dragging = false;
+      this.$parent.$el.classList.remove("active-dropzone");
+
+      this.startListeningForDragover();
     },
     startListeningForDragover: function startListeningForDragover() {
       var _this = this;
@@ -4608,10 +4630,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
       _this.$parent.$el.addEventListener("dragleave", function handler(event) {
         if (_this.$parent.$el.contains(event.relatedTarget)) return; // Ignore 'leaves' on child components.
-        _this.dragging = false;
-        _this.$parent.$el.classList.remove("active-dropzone");
         this.removeEventListener(event.type, handler);
-        _this.startListeningForDragover();
+        _this.exitDraggableMode();
       });
     },
     startListeningForDrop: function startListeningForDrop() {
@@ -4621,6 +4641,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         event.preventDefault();
         var files = event.dataTransfer.files;
         _this.appendFilesToQueueThenProcessQueue(files);
+        _this.exitDraggableMode();
       });
     }
   }

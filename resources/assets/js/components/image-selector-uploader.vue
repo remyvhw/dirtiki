@@ -14,7 +14,7 @@
 </style>
 <template>
     <div class="file is-fullwidth is-large is-boxed is-dark">
-        <label class="file-label">
+        <label v-if="!uploading" class="file-label">
             <input class="file-input" type="file" name="resume" multiple :accept="acceptedMimeTypes.join(',')" @change="handleFileInputSelection">
             <span class="file-cta">
                 <span class="file-icon">
@@ -22,6 +22,7 @@
                 </span>
             </span>
         </label>
+        <progress v-else class="progress is-info" :value="uploading.uploaded" :max="uploading.total"></progress>
     </div>
 </template>
 <script type="text/babel">
@@ -30,7 +31,8 @@ export default {
     return {
       dragging: false,
       acceptedMimeTypes: ["image/png", "image/jpeg", "image/svg+xml"],
-      queue: []
+      queue: [],
+      uploading: false
     };
   },
   mounted() {
@@ -39,30 +41,35 @@ export default {
 
   methods: {
     appendFilesToQueueThenProcessQueue(files) {
-      window
-        .collect(files)
-        .filter(file => {
-          return this.acceptedMimeTypes.includes(file.type);
-        })
-        .each(file => {
-          this.queue.push(file);
-        });
-      debugger;
-      let fileReaderPromises = window
-        .collect(files)
-        .map(file => {
-          return new Promise((resolve, reject) => {
-            let reader = new FileReader();
-            reader.onload = fileread => {
-              resolve({ file: file, reader: reader });
-            };
-            reader.readAsDataURL(file);
-          });
-        })
-        .toArray();
+      this.uploading = {
+        uploaded: 0,
+        total: window
+          .collect(files)
+          .filter(file => {
+            return this.acceptedMimeTypes.includes(file.type);
+          })
+          .each(file => {
+            this.queue.push(this.uploadFile(file));
+          })
+          .reduce(function(carry, file) {
+            return carry + file.size;
+          }, 0)
+      };
+      Promise.all(this.queue).then(result => {
+        this.uploading = false;
+      });
+    },
 
-      Promise.all(fileReaderPromises).then(results => {
-        this.uploadFiles(results);
+    uploadFile(file) {
+      var formData = new FormData();
+      formData.append("image", file);
+      return this.$http.post("/api/images", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        },
+        onUploadProgress: progressEvent => {
+          this.uploading.uploaded += progressEvent.loaded;
+        }
       });
     },
 
@@ -71,6 +78,12 @@ export default {
       event.target.value = "";
     },
 
+    exitDraggableMode() {
+      this.dragging = false;
+      this.$parent.$el.classList.remove("active-dropzone");
+
+      this.startListeningForDragover();
+    },
     startListeningForDragover() {
       var _this = this;
       _this.$parent.$el.addEventListener("dragover", function handler(event) {
@@ -94,10 +107,8 @@ export default {
       var _this = this;
       _this.$parent.$el.addEventListener("dragleave", function handler(event) {
         if (_this.$parent.$el.contains(event.relatedTarget)) return; // Ignore 'leaves' on child components.
-        _this.dragging = false;
-        _this.$parent.$el.classList.remove("active-dropzone");
         this.removeEventListener(event.type, handler);
-        _this.startListeningForDragover();
+        _this.exitDraggableMode();
       });
     },
     startListeningForDrop() {
@@ -107,6 +118,7 @@ export default {
         event.preventDefault();
         const files = event.dataTransfer.files;
         _this.appendFilesToQueueThenProcessQueue(files);
+        _this.exitDraggableMode();
       });
     }
   }
