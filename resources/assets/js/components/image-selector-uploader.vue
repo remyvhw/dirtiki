@@ -63,14 +63,18 @@ export default {
     uploadFile(file) {
       var formData = new FormData();
       formData.append("image", file);
-      return this.$http.post("/api/images", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        },
-        onUploadProgress: progressEvent => {
-          this.uploading.uploaded += progressEvent.loaded;
-        }
-      });
+      return this.$http
+        .post("/api/images", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          },
+          onUploadProgress: progressEvent => {
+            this.uploading.uploaded += progressEvent.loaded;
+          }
+        })
+        .then(({ data }) => {
+          this.$emit("uploaded", data);
+        });
     },
 
     handleFileInputSelection(event) {

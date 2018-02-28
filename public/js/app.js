@@ -4595,6 +4595,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         onUploadProgress: function onUploadProgress(progressEvent) {
           _this3.uploading.uploaded += progressEvent.loaded;
         }
+      }).then(function (_ref) {
+        var data = _ref.data;
+
+        _this3.$emit("uploaded", data);
       });
     },
     handleFileInputSelection: function handleFileInputSelection(event) {
