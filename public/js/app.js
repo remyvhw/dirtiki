@@ -4403,17 +4403,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     startListeningForDragover: function startListeningForDragover() {
       var _this = this;
       _this.$parent.$el.addEventListener("dragover", function handler(event) {
+        this.removeEventListener(event.type, handler);
+        _this.startListeningForDragLeave();
+        _this.startListeningForDrop();
         if (window.collect(event.dataTransfer.items).pluck("type").filter(function (item) {
           return _this.acceptedMimeTypes.includes(item);
         }).values().isEmpty()) {
+          event.dataTransfer.dropEffect = "none";
           return;
         }
         event.dataTransfer.dropEffect = "copy";
         _this.$parent.$el.classList.add("active-dropzone");
         _this.dragging = true;
-        this.removeEventListener(event.type, handler);
-        _this.startListeningForDragLeave();
-        _this.startListeningForDrop();
       });
 
       _this.$parent.$el.addEventListener("dragover", function handler(event) {

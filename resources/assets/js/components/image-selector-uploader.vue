@@ -91,6 +91,9 @@ export default {
     startListeningForDragover() {
       var _this = this;
       _this.$parent.$el.addEventListener("dragover", function handler(event) {
+        this.removeEventListener(event.type, handler);
+        _this.startListeningForDragLeave();
+        _this.startListeningForDrop();
         if (
           window
             .collect(event.dataTransfer.items)
@@ -101,14 +104,12 @@ export default {
             .values()
             .isEmpty()
         ) {
+          event.dataTransfer.dropEffect = "none";
           return;
         }
         event.dataTransfer.dropEffect = "copy";
         _this.$parent.$el.classList.add("active-dropzone");
         _this.dragging = true;
-        this.removeEventListener(event.type, handler);
-        _this.startListeningForDragLeave();
-        _this.startListeningForDrop();
       });
 
       _this.$parent.$el.addEventListener("dragover", function handler(event) {
