@@ -13,17 +13,17 @@
 }
 </style>
 <template>
-    <div class="file is-fullwidth is-large is-boxed is-dark">
-        <label v-if="!uploading" class="file-label">
-            <input class="file-input" type="file" name="resume" multiple :accept="acceptedMimeTypes.join(',')" @change="handleFileInputSelection">
-            <span class="file-cta">
-                <span class="file-icon">
-                    <i class="fas" :class="{'fa-cloud-upload-alt':dragging , 'fa-plus': !dragging}"></i>
-                </span>
-            </span>
-        </label>
-        <progress v-else class="progress is-info" :value="uploading.uploaded" :max="uploading.total"></progress>
-    </div>
+  <div class="file is-fullwidth is-large is-boxed is-dark">
+    <label v-if="!uploading" class="file-label">
+      <input class="file-input" type="file" name="resume" multiple :accept="acceptedMimeTypes.join(',')" @change="handleFileInputSelection">
+      <span class="file-cta">
+        <span class="file-icon">
+          <i class="fas" :class="{'fa-cloud-upload-alt':dragging , 'fa-plus': !dragging}"></i>
+        </span>
+      </span>
+    </label>
+    <progress v-else class="progress is-info" :value="uploading.uploaded" :max="uploading.total"></progress>
+  </div>
 </template>
 <script type="text/babel">
 export default {
@@ -91,6 +91,18 @@ export default {
     startListeningForDragover() {
       var _this = this;
       _this.$parent.$el.addEventListener("dragover", function handler(event) {
+        if (
+          window
+            .collect(event.dataTransfer.items)
+            .pluck("type")
+            .filter(item => {
+              return _this.acceptedMimeTypes.includes(item);
+            })
+            .values()
+            .isEmpty()
+        ) {
+          return;
+        }
         event.dataTransfer.dropEffect = "copy";
         _this.$parent.$el.classList.add("active-dropzone");
         _this.dragging = true;
