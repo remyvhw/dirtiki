@@ -37,7 +37,7 @@ export default {
     };
   },
   mounted() {
-    this.retrieveImagesAtUrl("/api/images?sort=-created_at");
+    this.retrieveImagesAtUrl("/api/images?");
   },
   computed: {
     images() {
@@ -55,7 +55,7 @@ export default {
   methods: {
     retrieveImagesAtUrl(url) {
       this.loading = true;
-      this.$http.get(url).then(({ data }) => {
+      this.$http.get(url + "&sort=-created_at").then(({ data }) => {
         this.loading = false;
         this.datas.push(data);
       });

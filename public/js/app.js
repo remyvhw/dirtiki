@@ -3853,7 +3853,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
   mounted: function mounted() {
-    this.retrieveImagesAtUrl("/api/images?sort=-created_at");
+    this.retrieveImagesAtUrl("/api/images?");
   },
 
   computed: {
@@ -3870,7 +3870,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.loading = true;
-      this.$http.get(url).then(function (_ref) {
+      this.$http.get(url + "&sort=-created_at").then(function (_ref) {
         var data = _ref.data;
 
         _this.loading = false;
