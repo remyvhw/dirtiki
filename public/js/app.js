@@ -3853,7 +3853,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
   mounted: function mounted() {
-    this.retrieveImagesAtUrl("/api/images");
+    this.retrieveImagesAtUrl("/api/images?sort=-date");
   },
 
   computed: {

@@ -6,22 +6,22 @@
 </style>
 
 <template>
-    <div class="columns is-vcentered is-mobile ticker">
-        <div class="column" v-if="loading && !datas.length">
-            <loading-indicator></loading-indicator>
-        </div>
-        <image-ticker-image :key="image.id" :image="image" v-for="image in images" @toggle-selection="toggleSelection"></image-ticker-image>
-
-        <div v-if="nextPageUrl" class="column is-1 has-text-centered">
-            <loading-indicator :size="3" v-if="loading"></loading-indicator>
-            <button v-else class="button is-light is-large" @click="retrieveImagesAtUrl(nextPageUrl)">
-                <span class="icon is-medium">
-                    <i class="fas fa-ellipsis-h fa-2x"></i>
-                </span>
-            </button>
-        </div>
-
+  <div class="columns is-vcentered is-mobile ticker">
+    <div class="column" v-if="loading && !datas.length">
+      <loading-indicator></loading-indicator>
     </div>
+    <image-ticker-image :key="image.id" :image="image" v-for="image in images" @toggle-selection="toggleSelection"></image-ticker-image>
+
+    <div v-if="nextPageUrl" class="column is-1 has-text-centered">
+      <loading-indicator :size="3" v-if="loading"></loading-indicator>
+      <button v-else class="button is-light is-large" @click="retrieveImagesAtUrl(nextPageUrl)">
+        <span class="icon is-medium">
+          <i class="fas fa-ellipsis-h fa-2x"></i>
+        </span>
+      </button>
+    </div>
+
+  </div>
 </template>
 
 <script type="text/babel">
@@ -37,7 +37,7 @@ export default {
     };
   },
   mounted() {
-    this.retrieveImagesAtUrl("/api/images");
+    this.retrieveImagesAtUrl("/api/images?sort=-date");
   },
   computed: {
     images() {
