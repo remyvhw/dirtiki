@@ -1,9 +1,9 @@
 <template>
     <article>
 
-        <metadata-editor @input="reloadWithUpdatedMetadata" :page="page"></metadata-editor>
+        <metadata-editor :page="page"></metadata-editor>
 
-        <body-editor @input="reloadWithUpdatedBody" :body="page.relationships.body"></body-editor>
+        <body-editor :body="page.relationships.body"></body-editor>
 
     </article>
 </template>

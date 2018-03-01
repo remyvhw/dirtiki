@@ -35,6 +35,7 @@ const app = new Vue({
     el: '#app',
     components: {
         pageViewer: require("./components/page-viewer.vue"),
-        pageEditor: require("./components/page-editor.vue")
+        pageEditor: require("./components/page-editor.vue"),
+        pageCreator: require("./components/page-creator.vue")
     }
 });
