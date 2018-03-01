@@ -30,7 +30,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        abort_if(!policy(Page::class)->store(Auth::user(), $page), 403);
+        abort_if(!policy(Page::class)->store(Auth::user()), 403);
         return view('pages.create');
     }
 

@@ -48,7 +48,7 @@ class PagePolicy
      */
     public function store(?User $user): bool
     {
-        if (!$user && !config("dirtiki.allow_anonymous.creates")) {
+        if (!$user && !config("dirtiki.allow_anonymous.stores")) {
             return false;
         }
         return true;
