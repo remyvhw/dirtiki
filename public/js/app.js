@@ -3241,8 +3241,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.page = data;
       });
     },
-    reloadWithUpdatedMetadata: function reloadWithUpdatedMetadata(component) {
-      document.location.href = "/pages/" + component.editedPageCopy.data.slug;
+    reloadWithUpdatedMetadata: function reloadWithUpdatedMetadata(page) {
+      document.location.href = "/pages/" + page.data.slug;
     },
     reloadWithUpdatedBody: function reloadWithUpdatedBody(component) {
       document.location.href = "/pages/" + this.page.data.slug;
@@ -3327,17 +3327,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    page: { Type: Object, Required: true },
-    canSave: { Type: Boolean, Default: true }
+    value: { type: Object, required: true },
+    canSave: { type: Boolean, default: true }
   },
   data: function data() {
     return {
-      saving: false,
-      editedPageCopy: null
+      saving: false
     };
-  },
-  mounted: function mounted() {
-    this.editedPageCopy = this.page;
   },
 
   methods: {
@@ -3345,13 +3341,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.saving = true;
-      this.$http.put(this.page.links.self, this.editedPageCopy).then(function (_ref) {
+      this.$http.put(this.value.links.self, this.value).then(function (_ref) {
         var data = _ref.data;
 
-        _this.editedPageCopy = data;
+        _this.value = data;
         _this.saving = false;
-        _this.$emit("input", _this);
+        _this.$emit("input", _this.value);
+        _this.$emit("save", _this.value);
       });
+    },
+    notifyOfInput: function notifyOfInput() {
+      this.$emit("input", this.value);
     }
   }
 });
@@ -3368,7 +3368,7 @@ var render = function() {
     "div",
     { staticClass: "control" },
     [
-      _vm.editedPageCopy
+      _vm.value
         ? _c("dirtiki-input", {
             attrs: {
               type: "text",
@@ -3377,12 +3377,13 @@ var render = function() {
               label: "Page Name",
               name: "page-name"
             },
+            on: { input: _vm.notifyOfInput },
             model: {
-              value: _vm.editedPageCopy.data.name,
+              value: _vm.value.data.name,
               callback: function($$v) {
-                _vm.$set(_vm.editedPageCopy.data, "name", $$v)
+                _vm.$set(_vm.value.data, "name", $$v)
               },
-              expression: "editedPageCopy.data.name"
+              expression: "value.data.name"
             }
           })
         : _vm._e(),
@@ -3540,8 +3541,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     imageSelector: __webpack_require__(160)
   },
   props: {
-    body: { Type: Object, Required: true },
-    canSave: { Type: Boolean, Default: true }
+    body: { type: Object, required: true },
+    canSave: { type: Boolean, default: true }
   },
   data: function data() {
     return {
@@ -4641,8 +4642,8 @@ var render = function() {
                 },
                 [
                   _c("metadata-editor", {
-                    attrs: { page: _vm.page },
-                    on: { input: _vm.reloadWithUpdatedMetadata }
+                    attrs: { value: _vm.page },
+                    on: { save: _vm.reloadWithUpdatedMetadata }
                   })
                 ],
                 1
@@ -4804,7 +4805,16 @@ var render = function() {
       [
         _c("h3", { staticClass: "title is-3" }, [_vm._v("Page Settings")]),
         _vm._v(" "),
-        _c("metadata-editor", { attrs: { "can-save": false, page: _vm.page } })
+        _c("metadata-editor", {
+          attrs: { "can-save": false },
+          model: {
+            value: _vm.page,
+            callback: function($$v) {
+              _vm.page = $$v
+            },
+            expression: "page"
+          }
+        })
       ],
       1
     ),

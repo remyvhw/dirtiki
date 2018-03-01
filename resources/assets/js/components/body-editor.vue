@@ -25,8 +25,8 @@ export default {
     imageSelector: require("./image-selector.vue")
   },
   props: {
-    body: { Type: Object, Required: true },
-    canSave: { Type: Boolean, Default: true }
+    body: { type: Object, required: true },
+    canSave: { type: Boolean, default: true }
   },
   data() {
     return {

@@ -1,18 +1,18 @@
 <template>
-    <article>
-        <loading-indicator v-if="!page"></loading-indicator>
+  <article>
+    <loading-indicator v-if="!page"></loading-indicator>
 
-        <div v-else>
-            <folding-panel :deployed="activePanel === 'metadata'" title="Settings" ref="metadata" @toggle="toggleFolding">
-                <metadata-editor @input="reloadWithUpdatedMetadata" :page="page"></metadata-editor>
-            </folding-panel>
+    <div v-else>
+      <folding-panel :deployed="activePanel === 'metadata'" title="Settings" ref="metadata" @toggle="toggleFolding">
+        <metadata-editor @save="reloadWithUpdatedMetadata" :value="page"></metadata-editor>
+      </folding-panel>
 
-            <folding-panel :deployed="activePanel === 'body'" title="Body" ref="body" @toggle="toggleFolding">
-                <body-editor @input="reloadWithUpdatedBody" :body="page.relationships.body"></body-editor>
-            </folding-panel>
-        </div>
+      <folding-panel :deployed="activePanel === 'body'" title="Body" ref="body" @toggle="toggleFolding">
+        <body-editor @input="reloadWithUpdatedBody" :body="page.relationships.body"></body-editor>
+      </folding-panel>
+    </div>
 
-    </article>
+  </article>
 </template>
 
 <script type="text/babel">
@@ -39,8 +39,8 @@ export default {
         this.page = data;
       });
     },
-    reloadWithUpdatedMetadata(component) {
-      document.location.href = "/pages/" + component.editedPageCopy.data.slug;
+    reloadWithUpdatedMetadata(page) {
+      document.location.href = "/pages/" + page.data.slug;
     },
 
     reloadWithUpdatedBody(component) {
