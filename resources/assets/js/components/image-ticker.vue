@@ -37,7 +37,7 @@ export default {
     };
   },
   mounted() {
-    this.retrieveImagesAtUrl("/api/images?sort=-date");
+    this.retrieveImagesAtUrl("/api/images?sort=-created_at");
   },
   computed: {
     images() {

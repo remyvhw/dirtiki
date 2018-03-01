@@ -15,12 +15,18 @@ class ImageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
-    public function index()
+    public function index(Request $request)
     {
         abort_if(!policy(Image::class)->index(Auth::user()), 403);
-        return ImageResource::collection(Image::paginate());
+        return ImageResource::collection(Image::when($request->has("sort"), function ($query) use ($request) {
+            collect(explode(',', $request->input("sort")))->each(function ($sorter) use ($query) {
+                $query->orderBy(str_after($sorter, "-"), starts_with($sorter, "-") ? 'desc' : 'asc');
+            });
+            return $query;
+        })->paginate());
     }
 
     /**
