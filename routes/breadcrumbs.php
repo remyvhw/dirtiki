@@ -22,3 +22,8 @@ Breadcrumbs::register('page-editor', function ($breadcrumbs, $page) {
     $breadcrumbs->parent('page', $page);
     $breadcrumbs->push("Edit", route('pages.edit', $page));
 });
+
+Breadcrumbs::register('page-creator', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push("New Page", route('pages.create'));
+});
