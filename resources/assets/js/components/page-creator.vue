@@ -1,10 +1,15 @@
 <template>
     <article>
 
-        <metadata-editor :page="page"></metadata-editor>
+        <div class="section">
+            <h3 class="title is-3">Page Settings</h3>
+            <metadata-editor :can-save="false" :page="page"></metadata-editor>
+        </div>
 
-        <body-editor :body="page.relationships.body"></body-editor>
-
+        <div class="section">
+            <h3 class="title is-3">Content</h3>
+            <body-editor :can-save="false" :body="page.relationships.body"></body-editor>
+        </div>
     </article>
 </template>
 
@@ -17,7 +22,18 @@ export default {
   props: {},
   data() {
     return {
-      page: null
+      page: {
+        data: {
+          name: ""
+        },
+        relationships: {
+          body: {
+            data: {
+              content: ""
+            }
+          }
+        }
+      }
     };
   },
   mounted() {},

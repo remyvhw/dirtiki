@@ -3327,7 +3327,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    page: { Type: Object, Required: true }
+    page: { Type: Object, Required: true },
+    canSave: { Type: Boolean, Default: true }
   },
   data: function data() {
     return {
@@ -3386,19 +3387,21 @@ var render = function() {
           })
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "field" }, [
-        _c("p", { staticClass: "control" }, [
-          _c(
-            "button",
-            {
-              staticClass: "button is-primary is-fullwidth",
-              class: { "is-loading": _vm.saving },
-              on: { click: _vm.savePage }
-            },
-            [_vm._v("\n                Save\n            ")]
-          )
-        ])
-      ])
+      _vm.canSave
+        ? _c("div", { staticClass: "field" }, [
+            _c("p", { staticClass: "control" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "button is-primary is-fullwidth",
+                  class: { "is-loading": _vm.saving },
+                  on: { click: _vm.savePage }
+                },
+                [_vm._v("\n        Save\n      ")]
+              )
+            ])
+          ])
+        : _vm._e()
     ],
     1
   )
@@ -3537,7 +3540,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     imageSelector: __webpack_require__(160)
   },
   props: {
-    body: { Type: Object, Required: true }
+    body: { Type: Object, Required: true },
+    canSave: { Type: Boolean, Default: true }
   },
   data: function data() {
     return {
@@ -4580,19 +4584,21 @@ var render = function() {
       _vm._v(" "),
       _c("image-selector", { on: { "image-selected": _vm.imageSelected } }),
       _vm._v(" "),
-      _c("div", { staticClass: "field" }, [
-        _c("p", { staticClass: "control" }, [
-          _c(
-            "button",
-            {
-              staticClass: "button is-primary is-fullwidth",
-              class: { "is-loading": _vm.saving },
-              on: { click: _vm.saveBody }
-            },
-            [_vm._v("\n        Save\n      ")]
-          )
-        ])
-      ])
+      _vm.canSave
+        ? _c("div", { staticClass: "field" }, [
+            _c("p", { staticClass: "control" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "button is-primary is-fullwidth",
+                  class: { "is-loading": _vm.saving },
+                  on: { click: _vm.saveBody }
+                },
+                [_vm._v("\n        Save\n      ")]
+              )
+            ])
+          ])
+        : _vm._e()
     ],
     1
   )
@@ -4750,6 +4756,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4759,7 +4770,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: {},
   data: function data() {
     return {
-      page: null
+      page: {
+        data: {
+          name: ""
+        },
+        relationships: {
+          body: {
+            data: {
+              content: ""
+            }
+          }
+        }
+      }
     };
   },
   mounted: function mounted() {},
@@ -4775,15 +4797,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "article",
-    [
-      _c("metadata-editor", { attrs: { page: _vm.page } }),
-      _vm._v(" "),
-      _c("body-editor", { attrs: { body: _vm.page.relationships.body } })
-    ],
-    1
-  )
+  return _c("article", [
+    _c(
+      "div",
+      { staticClass: "section" },
+      [
+        _c("h3", { staticClass: "title is-3" }, [_vm._v("Page Settings")]),
+        _vm._v(" "),
+        _c("metadata-editor", { attrs: { "can-save": false, page: _vm.page } })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "section" },
+      [
+        _c("h3", { staticClass: "title is-3" }, [_vm._v("Content")]),
+        _vm._v(" "),
+        _c("body-editor", {
+          attrs: { "can-save": false, body: _vm.page.relationships.body }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -9,7 +9,7 @@
 
     <image-selector @image-selected="imageSelected"></image-selector>
 
-    <div class="field">
+    <div v-if="canSave" class="field">
       <p class="control">
         <button @click="saveBody" :class="{'is-loading':saving}" class="button is-primary is-fullwidth">
           Save
@@ -25,7 +25,8 @@ export default {
     imageSelector: require("./image-selector.vue")
   },
   props: {
-    body: { Type: Object, Required: true }
+    body: { Type: Object, Required: true },
+    canSave: { Type: Boolean, Default: true }
   },
   data() {
     return {

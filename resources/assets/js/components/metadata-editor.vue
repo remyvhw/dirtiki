@@ -1,21 +1,22 @@
 <template>
-    <div class="control">
-        <dirtiki-input v-if="editedPageCopy" type="text" :should-hard-validate-on-blur="true" :required="true" label="Page Name" name="page-name" v-model="editedPageCopy.data.name">
-        </dirtiki-input>
-        <div class="field">
-            <p class="control">
-                <button @click="savePage" :class="{'is-loading':saving}" class="button is-primary is-fullwidth">
-                    Save
-                </button>
-            </p>
-        </div>
+  <div class="control">
+    <dirtiki-input v-if="editedPageCopy" type="text" :should-hard-validate-on-blur="true" :required="true" label="Page Name" name="page-name" v-model="editedPageCopy.data.name">
+    </dirtiki-input>
+    <div class="field" v-if="canSave">
+      <p class="control">
+        <button @click="savePage" :class="{'is-loading':saving}" class="button is-primary is-fullwidth">
+          Save
+        </button>
+      </p>
     </div>
+  </div>
 </template>
 
 <script type="text/babel">
 export default {
   props: {
-    page: { Type: Object, Required: true }
+    page: { Type: Object, Required: true },
+    canSave: { Type: Boolean, Default: true }
   },
   data() {
     return {
