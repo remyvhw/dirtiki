@@ -35,6 +35,7 @@ export default {
   },
   methods: {
     saveBody() {
+      if (!this.validate()) return;
       this.saving = true;
       this.$http.put(this.value.links.self, this.value).then(({ data }) => {
         this.value = data;

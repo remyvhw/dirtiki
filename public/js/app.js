@@ -3554,6 +3554,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     saveBody: function saveBody() {
       var _this = this;
 
+      if (!this.validate()) return;
       this.saving = true;
       this.$http.put(this.value.links.self, this.value).then(function (_ref) {
         var data = _ref.data;
