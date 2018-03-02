@@ -4966,17 +4966,21 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(198)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(197)
 /* template */
-var __vue_template__ = __webpack_require__(192)
+var __vue_template__ = __webpack_require__(200)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-3f98b6ee"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -5009,26 +5013,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 192 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    [Anchor]\n")])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3f98b6ee", module.exports)
-  }
-}
-
-/***/ }),
+/* 192 */,
 /* 193 */
 /***/ (function(module, exports) {
 
@@ -5037,7 +5022,7 @@ var renderer = new window.marked.Renderer();
 // Override function
 renderer.heading = function (text, level) {
     var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-    return '<h' + level + '>\n            <a name="\'' + escapedText + '\'" class="anchor" href="#' + escapedText + '"></a>\n            ' + text + '\n          </h' + level + '><header-anchor></header-anchor>';
+    return '<h' + level + '><header-anchor :level=\'' + level + '\' anchor=\'' + escapedText + '\'>' + text + '</header-anchor></h' + level + '>';
 };
 
 window.marked.setOptions({
@@ -5124,6 +5109,167 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return createElement("div", {}, [createElement(component)]);
   }
 });
+
+/***/ }),
+/* 197 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    anchor: { Type: String, Required: true },
+    level: { Type: Number, Required: true }
+  },
+  data: function data() {
+    return {
+      showHelper: false,
+      showLink: false
+    };
+  },
+
+  computed: {
+    url: function url() {
+      return document.location.href.substr(0, document.location.href.indexOf("#")) + "#" + this.anchor;
+    }
+  },
+  methods: {
+    copyUrl: function copyUrl() {
+      this.$refs.url.select();
+
+      var successful = document.execCommand("copy");
+      try {
+        this.$refs.url.select();
+        var successful = document.execCommand("copy");
+      } catch (err) {
+        console.log("Not...");
+      }
+    }
+  }
+});
+
+/***/ }),
+/* 198 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(199);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("a4d87160", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3f98b6ee\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./header-anchor.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3f98b6ee\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./header-anchor.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 199 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\nsmall[data-v-3f98b6ee] {\n  color: hsl(217, 71%, 53%);\n  position: relative;\n  top: -1em;\n  font-size: 0.4em;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("span", [
+    _c("a", {
+      staticClass: "anchor",
+      attrs: { name: _vm.anchor, href: "#${escapedText}" }
+    }),
+    _vm._v(" "),
+    _c(
+      "span",
+      {
+        on: {
+          mouseover: function($event) {
+            _vm.showHelper = true
+          },
+          mouseleave: function($event) {
+            _vm.showHelper = false
+          },
+          click: function($event) {
+            _vm.showLink = true
+          }
+        }
+      },
+      [
+        _vm._t("default"),
+        _vm._v(" "),
+        _vm.showHelper && !_vm.showLink
+          ? _c("small", [_c("i", { staticClass: "fas fa-link" })])
+          : _vm._e()
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _vm.showLink
+      ? _c("span", [
+          _c("br"),
+          _vm._v(" "),
+          _c("small", [_vm._v(_vm._s(_vm.url))])
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3f98b6ee", module.exports)
+  }
+}
 
 /***/ })
 ],[20]);
