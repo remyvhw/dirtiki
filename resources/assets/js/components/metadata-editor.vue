@@ -1,6 +1,6 @@
 <template>
   <div class="control">
-    <dirtiki-input v-if="value" type="text" :should-hard-validate-on-blur="true" :required="true" label="Page Name" name="page-name" v-model="value.data.name" @input="notifyOfInput">
+    <dirtiki-input v-if="value" type="text" :should-hard-validate-on-blur="true" :required="true" label="Page Name" name="page-name" v-model="value.data.name" @input="emitInput">
     </dirtiki-input>
     <div class="field" v-if="canSave">
       <p class="control">
@@ -29,11 +29,11 @@ export default {
       this.$http.put(this.value.links.self, this.value).then(({ data }) => {
         this.value = data;
         this.saving = false;
-        this.$emit("input", this.value);
+        this.emitInput();
         this.$emit("save", this.value);
       });
     },
-    notifyOfInput() {
+    emitInput() {
       this.$emit("input", this.value);
     }
   }

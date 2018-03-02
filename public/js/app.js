@@ -3346,11 +3346,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         _this.value = data;
         _this.saving = false;
-        _this.$emit("input", _this.value);
+        _this.emitInput();
         _this.$emit("save", _this.value);
       });
     },
-    notifyOfInput: function notifyOfInput() {
+    emitInput: function emitInput() {
       this.$emit("input", this.value);
     }
   }
@@ -3377,7 +3377,7 @@ var render = function() {
               label: "Page Name",
               name: "page-name"
             },
-            on: { input: _vm.notifyOfInput },
+            on: { input: _vm.emitInput },
             model: {
               value: _vm.value.data.name,
               callback: function($$v) {
