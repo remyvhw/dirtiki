@@ -1,14 +1,26 @@
 <template>
     <article>
 
-        <div class="section">
-            <h3 class="title is-3">Page Settings</h3>
-            <metadata-editor :can-save="false" v-model="page"></metadata-editor>
+        <div class="columns">
+            <div class="column">
+                <h3 class="title is-3">Page Settings</h3>
+                <metadata-editor :can-save="false" v-model="value"></metadata-editor>
+            </div>
         </div>
 
-        <div class="section">
-            <h3 class="title is-3">Content</h3>
-            <body-editor :can-save="false" v-model="page.relationships.body"></body-editor>
+        <div class="columns">
+            <div class="column">
+                <h3 class="title is-3">Content</h3>
+                <body-editor :can-save="false" v-model="value.relationships.body"></body-editor>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column">
+                <button @click="savePage" :class="{'is-loading':saving}" class="button is-primary is-fullwidth">
+                    Save
+                </button>
+            </div>
         </div>
     </article>
 </template>
@@ -19,10 +31,13 @@ export default {
     metadataEditor: require("./metadata-editor.vue"),
     bodyEditor: require("./body-editor.vue")
   },
-  props: {},
+  props: {
+    canSave: { type: Boolean, default: true }
+  },
   data() {
     return {
-      page: {
+      saving: false,
+      value: {
         data: {
           name: ""
         },
@@ -53,6 +68,24 @@ export default {
       });
 
       return allValid;
+    },
+
+    savePage() {
+      if (!this.validate()) return;
+      this.saving = true;
+      this.$http.post("/api/pages", this.value).then(({ data }) => {
+        this.value = data;
+        this.saving = false;
+        this.emitInput();
+        this.$emit("save", this.value);
+        if (this.canSave) {
+          document.location.href = "/pages/" + data.data.slug;
+        }
+      });
+    },
+
+    emitInput() {
+      this.$emit("input", this.value);
     }
   }
 };

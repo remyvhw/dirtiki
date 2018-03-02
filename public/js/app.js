@@ -4797,16 +4797,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     metadataEditor: __webpack_require__(153),
     bodyEditor: __webpack_require__(156)
   },
-  props: {},
+  props: {
+    canSave: { type: Boolean, default: true }
+  },
   data: function data() {
     return {
-      page: {
+      saving: false,
+      value: {
         data: {
           name: ""
         },
@@ -4838,6 +4853,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
 
       return allValid;
+    },
+    savePage: function savePage() {
+      var _this = this;
+
+      if (!this.validate()) return;
+      this.saving = true;
+      this.$http.post("/api/pages", this.value).then(function (_ref) {
+        var data = _ref.data;
+
+        _this.value = data;
+        _this.saving = false;
+        _this.emitInput();
+        _this.$emit("save", _this.value);
+        if (_this.canSave) {
+          document.location.href = "/pages/" + data.data.slug;
+        }
+      });
+    },
+    emitInput: function emitInput() {
+      this.$emit("input", this.value);
     }
   }
 });
@@ -4851,45 +4886,63 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("article", [
-    _c(
-      "div",
-      { staticClass: "section" },
-      [
-        _c("h3", { staticClass: "title is-3" }, [_vm._v("Page Settings")]),
-        _vm._v(" "),
-        _c("metadata-editor", {
-          attrs: { "can-save": false },
-          model: {
-            value: _vm.page,
-            callback: function($$v) {
-              _vm.page = $$v
-            },
-            expression: "page"
-          }
-        })
-      ],
-      1
-    ),
+    _c("div", { staticClass: "columns" }, [
+      _c(
+        "div",
+        { staticClass: "column" },
+        [
+          _c("h3", { staticClass: "title is-3" }, [_vm._v("Page Settings")]),
+          _vm._v(" "),
+          _c("metadata-editor", {
+            attrs: { "can-save": false },
+            model: {
+              value: _vm.value,
+              callback: function($$v) {
+                _vm.value = $$v
+              },
+              expression: "value"
+            }
+          })
+        ],
+        1
+      )
+    ]),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "section" },
-      [
-        _c("h3", { staticClass: "title is-3" }, [_vm._v("Content")]),
-        _vm._v(" "),
-        _c("body-editor", {
-          attrs: { "can-save": false },
-          model: {
-            value: _vm.page.relationships.body,
-            callback: function($$v) {
-              _vm.$set(_vm.page.relationships, "body", $$v)
-            },
-            expression: "page.relationships.body"
-          }
-        })
-      ],
-      1
-    )
+    _c("div", { staticClass: "columns" }, [
+      _c(
+        "div",
+        { staticClass: "column" },
+        [
+          _c("h3", { staticClass: "title is-3" }, [_vm._v("Content")]),
+          _vm._v(" "),
+          _c("body-editor", {
+            attrs: { "can-save": false },
+            model: {
+              value: _vm.value.relationships.body,
+              callback: function($$v) {
+                _vm.$set(_vm.value.relationships, "body", $$v)
+              },
+              expression: "value.relationships.body"
+            }
+          })
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "columns" }, [
+      _c("div", { staticClass: "column" }, [
+        _c(
+          "button",
+          {
+            staticClass: "button is-primary is-fullwidth",
+            class: { "is-loading": _vm.saving },
+            on: { click: _vm.savePage }
+          },
+          [_vm._v("\n                Save\n            ")]
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
