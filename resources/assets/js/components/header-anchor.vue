@@ -17,7 +17,7 @@ small {
             </small>
         </span>
         <span v-if="showLink"><br>
-            <small>{{ url }}</small>
+            <small>{{ linkUrl }}</small>
         </span>
 
     </span>
@@ -35,25 +35,12 @@ export default {
     };
   },
   computed: {
-    url() {
+    linkUrl() {
       return (
         document.location.href.substr(0, document.location.href.indexOf("#")) +
         "#" +
         this.anchor
       );
-    }
-  },
-  methods: {
-    copyUrl() {
-      this.$refs.url.select();
-
-      var successful = document.execCommand("copy");
-      try {
-        this.$refs.url.select();
-        var successful = document.execCommand("copy");
-      } catch (err) {
-        console.log("Not...");
-      }
     }
   }
 };

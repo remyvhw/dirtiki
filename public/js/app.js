@@ -5154,21 +5154,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   computed: {
-    url: function url() {
+    linkUrl: function linkUrl() {
       return document.location.href.substr(0, document.location.href.indexOf("#")) + "#" + this.anchor;
-    }
-  },
-  methods: {
-    copyUrl: function copyUrl() {
-      this.$refs.url.select();
-
-      var successful = document.execCommand("copy");
-      try {
-        this.$refs.url.select();
-        var successful = document.execCommand("copy");
-      } catch (err) {
-        console.log("Not...");
-      }
     }
   }
 });
@@ -5256,7 +5243,7 @@ var render = function() {
       ? _c("span", [
           _c("br"),
           _vm._v(" "),
-          _c("small", [_vm._v(_vm._s(_vm.url))])
+          _c("small", [_vm._v(_vm._s(_vm.linkUrl))])
         ])
       : _vm._e()
   ])
