@@ -4825,7 +4825,14 @@ var render = function() {
         _c("h3", { staticClass: "title is-3" }, [_vm._v("Content")]),
         _vm._v(" "),
         _c("body-editor", {
-          attrs: { "can-save": false, body: _vm.page.relationships.body }
+          attrs: { "can-save": false },
+          model: {
+            value: _vm.page.relationships.body,
+            callback: function($$v) {
+              _vm.$set(_vm.page.relationships, "body", $$v)
+            },
+            expression: "page.relationships.body"
+          }
         })
       ],
       1

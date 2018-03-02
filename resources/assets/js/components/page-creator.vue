@@ -8,7 +8,7 @@
 
         <div class="section">
             <h3 class="title is-3">Content</h3>
-            <body-editor :can-save="false" :body="page.relationships.body"></body-editor>
+            <body-editor :can-save="false" v-model="page.relationships.body"></body-editor>
         </div>
     </article>
 </template>
