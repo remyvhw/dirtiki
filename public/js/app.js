@@ -613,7 +613,7 @@ if (token) {
 }
 
 window.marked = __webpack_require__(133);
-__webpack_require__(134);
+__webpack_require__(193);
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -2132,27 +2132,7 @@ if (true) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 134 */
-/***/ (function(module, exports) {
-
-var renderer = new window.marked.Renderer();
-
-// Override function
-renderer.heading = function (text, level) {
-    var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-    debugger;
-    return '<h' + level + '  style="background-color: red;">\n            <a name="\'' + escapedText + '\'" class="anchor" href="#' + escapedText + '">\n              <span class="header-link"></span>\n            </a>\n            ' + text + '\n          </h' + level + '>';
-};
-
-window.marked.setOptions({
-    gfm: true,
-    tables: true,
-    breaks: true,
-    sanitize: true,
-    renderer: renderer
-});
-
-/***/ }),
+/* 134 */,
 /* 135 */,
 /* 136 */,
 /* 137 */
@@ -3207,6 +3187,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    markdownRenderer: __webpack_require__(195)
+  },
   props: {
     pageJson: { Type: String, Required: true }
   },
@@ -3217,12 +3200,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mounted: function mounted() {
     this.page = JSON.parse(this.pageJson);
-  },
-
-  computed: {
-    content: function content() {
-      return window.marked(this.$slots.default[0].text);
-    }
   }
 });
 
@@ -3240,10 +3217,22 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "columns" }, [
-      _c("div", {
-        staticClass: "column content",
-        domProps: { innerHTML: _vm._s(_vm.content) }
-      })
+      _c(
+        "div",
+        { staticClass: "column content" },
+        [
+          _c("markdown-renderer", {
+            model: {
+              value: _vm.$slots.default[0].text,
+              callback: function($$v) {
+                _vm.$set(_vm.$slots.default[0], "text", $$v)
+              },
+              expression: "$slots.default[0].text"
+            }
+          })
+        ],
+        1
+      )
     ])
   ])
 }
@@ -4967,6 +4956,174 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(192)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/header-anchor.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3f98b6ee", Component.options)
+  } else {
+    hotAPI.reload("data-v-3f98b6ee", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 192 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [_vm._v("\n    [Anchor]\n")])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3f98b6ee", module.exports)
+  }
+}
+
+/***/ }),
+/* 193 */
+/***/ (function(module, exports) {
+
+var renderer = new window.marked.Renderer();
+
+// Override function
+renderer.heading = function (text, level) {
+    var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+    return '<h' + level + '>\n            <a name="\'' + escapedText + '\'" class="anchor" href="#' + escapedText + '"></a>\n            ' + text + '\n          </h' + level + '><header-anchor></header-anchor>';
+};
+
+window.marked.setOptions({
+    gfm: true,
+    tables: true,
+    breaks: true,
+    sanitize: true,
+    renderer: renderer
+});
+
+/***/ }),
+/* 194 */,
+/* 195 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(196)
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/markdown-renderer.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6331aa5a", Component.options)
+  } else {
+    hotAPI.reload("data-v-6331aa5a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 196 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    value: { Type: String, Required: true }
+  },
+  methods: {
+    parseMarkdown: function parseMarkdown() {
+      return window.marked(this.value);
+    }
+  },
+  render: function render(createElement) {
+    var template = this.parseMarkdown(this.value);
+    var component = Vue.component("rendered-markdown", {
+      template: "<article>" + template + "</article>",
+      components: {
+        headerAnchor: __webpack_require__(191)
+      }
+    });
+
+    return createElement("div", {}, [createElement(component)]);
+  }
+});
 
 /***/ })
 ],[20]);

@@ -10,8 +10,8 @@
   <article>
     <h1 v-if="page" class="title">{{ page.name }}</h1>
     <div class="columns">
-      <div class="column content" v-html="content">
-
+      <div class="column content">
+        <markdown-renderer v-model="$slots.default[0].text"></markdown-renderer>
       </div>
     </div>
   </article>
@@ -19,6 +19,9 @@
 
 <script type="text/babel">
 export default {
+  components: {
+    markdownRenderer: require("./markdown-renderer.vue")
+  },
   props: {
     pageJson: { Type: String, Required: true }
   },
@@ -29,11 +32,6 @@ export default {
   },
   mounted() {
     this.page = JSON.parse(this.pageJson);
-  },
-  computed: {
-    content() {
-      return window.marked(this.$slots.default[0].text);
-    }
   }
 };
 </script>

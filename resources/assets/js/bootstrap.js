@@ -25,7 +25,7 @@ if (token) {
 }
 
 window.marked = require("marked");
-require("./renderer-customizations.js")
+require("./marked-customizations.js")
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
