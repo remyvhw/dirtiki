@@ -3244,7 +3244,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     reloadWithUpdatedMetadata: function reloadWithUpdatedMetadata(page) {
       document.location.href = "/pages/" + page.data.slug;
     },
-    reloadWithUpdatedBody: function reloadWithUpdatedBody(component) {
+    reloadWithUpdatedBody: function reloadWithUpdatedBody(body) {
       document.location.href = "/pages/" + this.page.data.slug;
     },
     toggleFolding: function toggleFolding(component) {
@@ -3541,17 +3541,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     imageSelector: __webpack_require__(160)
   },
   props: {
-    body: { type: Object, required: true },
+    value: { type: Object, required: true },
     canSave: { type: Boolean, default: true }
   },
   data: function data() {
     return {
-      saving: false,
-      editedBodyCopy: null
+      saving: false
     };
-  },
-  mounted: function mounted() {
-    this.editedBodyCopy = this.body;
   },
 
   methods: {
@@ -3559,18 +3555,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.saving = true;
-      this.$http.put(this.body.links.self, this.editedBodyCopy).then(function (_ref) {
+      this.$http.put(this.value.links.self, this.value).then(function (_ref) {
         var data = _ref.data;
 
-        _this.editedBodyCopy = data;
+        _this.value = data;
         _this.saving = false;
-        _this.$emit("input", _this);
+        _this.emitInput();
+        _this.$emit("save", _this.value);
       });
     },
     insertTextAtCursorPosition: function insertTextAtCursorPosition(text) {
       var startPosition = this.$refs.textarea.selectionStart;
       var endPosition = this.$refs.textarea.selectionEnd;
-      this.editedBodyCopy.data.content = this.editedBodyCopy.data.content.substring(0, startPosition) + text + this.editedBodyCopy.data.content.substring(endPosition, this.editedBodyCopy.data.content.length);
+      this.value.data.content = this.value.data.content.substring(0, startPosition) + text + this.value.data.content.substring(endPosition, this.value.data.content.length);
     },
     imageSelected: function imageSelected(imageSelector, image) {
       var imageVariation = window.collect(image.variations).sortByDesc(function (variation) {
@@ -3587,6 +3584,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
       var template = "\n![" + altText.replace(/\[|\]/g, "") + "](" + imageVariation.url + ")\n";
       this.insertTextAtCursorPosition(template);
+    },
+    emitInput: function emitInput() {
+      this.$emit("input", this.value);
     }
   }
 });
@@ -4555,30 +4555,29 @@ var render = function() {
     "div",
     { staticClass: "control" },
     [
-      _vm.editedBodyCopy
+      _vm.value
         ? _c("textarea", {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.editedBodyCopy.data.content,
-                expression: "editedBodyCopy.data.content"
+                value: _vm.value.data.content,
+                expression: "value.data.content"
               }
             ],
             ref: "textarea",
             staticClass: "textarea",
-            domProps: { value: _vm.editedBodyCopy.data.content },
+            domProps: { value: _vm.value.data.content },
             on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(
-                  _vm.editedBodyCopy.data,
-                  "content",
-                  $event.target.value
-                )
-              }
+              input: [
+                function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.value.data, "content", $event.target.value)
+                },
+                _vm.emitInput
+              ]
             }
           })
         : _vm._e(),
@@ -4661,8 +4660,8 @@ var render = function() {
                 },
                 [
                   _c("body-editor", {
-                    attrs: { body: _vm.page.relationships.body },
-                    on: { input: _vm.reloadWithUpdatedBody }
+                    attrs: { value: _vm.page.relationships.body },
+                    on: { save: _vm.reloadWithUpdatedBody }
                   })
                 ],
                 1

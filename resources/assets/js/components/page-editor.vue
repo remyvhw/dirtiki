@@ -8,7 +8,7 @@
       </folding-panel>
 
       <folding-panel :deployed="activePanel === 'body'" title="Body" ref="body" @toggle="toggleFolding">
-        <body-editor @input="reloadWithUpdatedBody" :body="page.relationships.body"></body-editor>
+        <body-editor @save="reloadWithUpdatedBody" :value="page.relationships.body"></body-editor>
       </folding-panel>
     </div>
 
@@ -43,7 +43,7 @@ export default {
       document.location.href = "/pages/" + page.data.slug;
     },
 
-    reloadWithUpdatedBody(component) {
+    reloadWithUpdatedBody(body) {
       document.location.href = "/pages/" + this.page.data.slug;
     },
 

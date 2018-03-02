@@ -5,7 +5,7 @@
 </style>
 <template>
   <div class="control">
-    <textarea class="textarea" v-if="editedBodyCopy" v-model="editedBodyCopy.data.content" ref="textarea"></textarea>
+    <textarea class="textarea" v-if="value" v-model="value.data.content" @input="emitInput" ref="textarea"></textarea>
 
     <image-selector @image-selected="imageSelected"></image-selector>
 
@@ -25,38 +25,33 @@ export default {
     imageSelector: require("./image-selector.vue")
   },
   props: {
-    body: { type: Object, required: true },
+    value: { type: Object, required: true },
     canSave: { type: Boolean, default: true }
   },
   data() {
     return {
-      saving: false,
-      editedBodyCopy: null
+      saving: false
     };
-  },
-  mounted() {
-    this.editedBodyCopy = this.body;
   },
   methods: {
     saveBody() {
       this.saving = true;
-      this.$http
-        .put(this.body.links.self, this.editedBodyCopy)
-        .then(({ data }) => {
-          this.editedBodyCopy = data;
-          this.saving = false;
-          this.$emit("input", this);
-        });
+      this.$http.put(this.value.links.self, this.value).then(({ data }) => {
+        this.value = data;
+        this.saving = false;
+        this.emitInput();
+        this.$emit("save", this.value);
+      });
     },
     insertTextAtCursorPosition(text) {
       const startPosition = this.$refs.textarea.selectionStart;
       const endPosition = this.$refs.textarea.selectionEnd;
-      this.editedBodyCopy.data.content =
-        this.editedBodyCopy.data.content.substring(0, startPosition) +
+      this.value.data.content =
+        this.value.data.content.substring(0, startPosition) +
         text +
-        this.editedBodyCopy.data.content.substring(
+        this.value.data.content.substring(
           endPosition,
-          this.editedBodyCopy.data.content.length
+          this.value.data.content.length
         );
     },
     imageSelected(imageSelector, image) {
@@ -85,6 +80,9 @@ export default {
         imageVariation.url +
         ")\n";
       this.insertTextAtCursorPosition(template);
+    },
+    emitInput() {
+      this.$emit("input", this.value);
     }
   }
 };
