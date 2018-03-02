@@ -1,7 +1,9 @@
 @extends('layouts.app') @section('content')
 <main class="section">
     <section class="container">
-        {{ Breadcrumbs::render('home') }}
+        {{ Breadcrumbs::render('home') }} @if((new App\Policies\PagePolicy)->store(Auth::user()))
+        <a href="{{ route('pages.create') }}" class="button is-pulled-right">New page</a>
+        @endif
         <aside class="menu">
             <ul class="menu-list">
                 @foreach($pages as $page)
