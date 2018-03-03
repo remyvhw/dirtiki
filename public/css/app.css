@@ -11533,9 +11533,8 @@ pre[class*="language-"] {
   white-space: pre-wrap;
   word-break: break-all;
   word-wrap: break-word;
-  font-family: Menlo, Monaco, "Courier New", monospace;
-  font-size: 12px;
-  line-height: 18px;
+  font-family: monospace;
+  font-size: 0.875em;
   color: #fafafa;
   text-shadow: none;
   background: #363636;

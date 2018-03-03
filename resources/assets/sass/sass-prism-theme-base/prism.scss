@@ -1,3 +1,22 @@
+/***
+ *  Prism
+ */
+
+ $code-background:			$grey-darker;
+ $code-color:				$white-bis;
+ $code-color-fade:			$grey-lighter;
+ $code-text-shadow:			none;
+ 
+ $code-color-comment:		$grey;
+ $code-color-keyword:		$red;
+ $code-color-value:			$turquoise;
+ $code-color-string:			$yellow;
+ $code-color-name:			$orange;
+ $code-color-number:			$purple;
+ $code-color-variable:		$white;
+ $code-color-selector:		$green;
+ $code-font-family: 		$family-monospace;
+ 
 /**
  * Prism base code highlighter theme using Sass 
  *
@@ -10,9 +29,9 @@ $code-selector-block: "pre[class*=\"language-\"]";
 $code-selector-inline: ":not(pre) > code[class*=\"language-\"]";
 
 // generic stuff
-$code-font-family: 		Menlo, Monaco, "Courier New", monospace	!default;
-$code-font-size: 		12px	!default;
-$code-line-height:		18px	!default;
+
+$code-font-size: 		$code-size	!default;
+//$code-line-height:		18px	!default;
 
 $code-tab-size: 		4		!default;
 $code-hyphens: 			none	!default;
@@ -53,7 +72,7 @@ $code-box-shadow: 		1px 1px .3em -.1em #000 inset !default;
 		
 		font-family: $code-font-family;
 		font-size: 	$code-font-size;
-		line-height: $code-line-height;
+		//line-height: $code-line-height;
 
 		color: $code-color;
 		text-shadow: $code-text-shadow;

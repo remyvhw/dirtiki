@@ -3,23 +3,4 @@
 // Variables
 @import "variables";
 @import './node_modules/bulma/bulma.sass';
-
-/***
- *  Prism
- */
-
-$code-background:			$grey-darker;
-$code-color:				$white-bis;
-$code-color-fade:			$grey-lighter;
-$code-text-shadow:			none;
-
-$code-color-comment:		$grey;
-$code-color-keyword:		$red;
-$code-color-value:			$turquoise;
-$code-color-string:			$yellow;
-$code-color-name:			$orange;
-$code-color-number:			$purple;
-$code-color-variable:		$white;
-$code-color-selector:		$green;
-
 @import './sass-prism-theme-base/prism.scss';
