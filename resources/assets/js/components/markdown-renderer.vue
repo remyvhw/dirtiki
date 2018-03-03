@@ -13,7 +13,8 @@ export default {
     var component = Vue.component("rendered-markdown", {
       template: "<article>" + template + "</article>",
       components: {
-        headerAnchor: require("./header-anchor.vue")
+        headerAnchor: require("./header-anchor.vue"),
+        markdownHighlighter: require("./code-highlighter.vue")
       }
     });
 

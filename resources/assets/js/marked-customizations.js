@@ -7,6 +7,10 @@ renderer.heading = function (text, level) {
     return `<header-anchor :level='${level}' anchor='${escapedText}'>${text}</header-anchor>`;
 };
 
+renderer.code = function (code, language) {
+    return `<code-highlighter language='${language}'>${code}</code-highlighter>`;
+};
+
 window.marked.setOptions({
     gfm: true,
     tables: true,
