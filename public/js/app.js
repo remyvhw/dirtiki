@@ -5022,11 +5022,11 @@ var renderer = new window.marked.Renderer();
 // Override function
 renderer.heading = function (text, level) {
     var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-    return '<header-anchor :level=\'' + level + '\' anchor=\'' + escapedText + '\'>' + text + '</header-anchor>';
+    return '<header-anchor :level=\'' + escape(level) + '\' anchor=\'' + escapedText + '\'>' + escape(text) + '</header-anchor>';
 };
 
 renderer.code = function (code, language) {
-    return '<code-highlighter language=\'' + language + '\'>' + code + '</code-highlighter>';
+    return '<code-highlighter language=\'' + escape(language) + '\'>' + escape(code) + '</code-highlighter>';
 };
 
 window.marked.setOptions({
@@ -5315,7 +5315,9 @@ var Prism = __webpack_require__(204);
   },
   computed: {
     prismHtml: function prismHtml() {
-      return Prism.highlight(this.$slots.default[0].text, Prism.languages.javascript);
+      if (this.$slots.default[0].text) {
+        return Prism.highlight(unescape(this.$slots.default[0].text), Prism.languages.html);
+      }
     }
   }
 });

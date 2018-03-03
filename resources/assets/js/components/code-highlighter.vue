@@ -10,10 +10,12 @@ export default {
   },
   computed: {
     prismHtml() {
-      return Prism.highlight(
-        this.$slots.default[0].text,
-        Prism.languages.javascript
-      );
+      if (this.$slots.default[0].text) {
+        return Prism.highlight(
+          unescape(this.$slots.default[0].text),
+          Prism.languages.html
+        );
+      }
     }
   }
 };
