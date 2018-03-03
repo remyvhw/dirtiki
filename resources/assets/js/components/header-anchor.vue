@@ -1,9 +1,12 @@
 <style scoped>
 small {
   color: hsl(217, 71%, 53%);
+  font-size: 0.8em;
+}
+small i {
   position: relative;
   top: -1em;
-  font-size: 0.4em;
+  font-size: 0.8em;
 }
 </style>
 <script type="text/babel">

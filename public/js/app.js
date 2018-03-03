@@ -5124,6 +5124,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -5214,7 +5217,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\nsmall[data-v-3f98b6ee] {\n  color: hsl(217, 71%, 53%);\n  position: relative;\n  top: -1em;\n  font-size: 0.4em;\n}\n", ""]);
+exports.push([module.i, "\nsmall[data-v-3f98b6ee] {\n  color: hsl(217, 71%, 53%);\n  font-size: 0.8em;\n}\nsmall i[data-v-3f98b6ee] {\n  position: relative;\n  top: -1em;\n  font-size: 0.8em;\n}\n", ""]);
 
 // exports
 
