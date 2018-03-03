@@ -4974,7 +4974,7 @@ var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(197)
 /* template */
-var __vue_template__ = __webpack_require__(200)
+var __vue_template__ = null
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -5022,7 +5022,7 @@ var renderer = new window.marked.Renderer();
 // Override function
 renderer.heading = function (text, level) {
     var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-    return '<h' + level + '><header-anchor :level=\'' + level + '\' anchor=\'' + escapedText + '\'>' + text + '</header-anchor></h' + level + '>';
+    return '<header-anchor :level=\'' + level + '\' anchor=\'' + escapedText + '\'>' + text + '</header-anchor>';
 };
 
 window.marked.setOptions({
@@ -5124,22 +5124,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -5157,6 +5141,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     linkUrl: function linkUrl() {
       return document.location.href.substr(0, document.location.href.indexOf("#")) + "#" + this.anchor;
     }
+  },
+  render: function render(createElement) {
+    var self = this;
+
+    var anchorA = createElement("a", {
+      domProps: {
+        name: this.anchor,
+        href: "#" + this.anchor
+      }
+    });
+
+    var helperSmall = createElement("small", [createElement("i", { class: ["fas", "fa-link"] })]);
+
+    var mainSpanChildren = [this.$slots.default];
+    if (this.showHelper && !this.showLink) mainSpanChildren.push(helperSmall);
+
+    var mainSpan = createElement("span", {
+      on: {
+        mouseover: function mouseover() {
+          self.showHelper = true;
+        },
+        mouseleave: function mouseleave() {
+          self.showHelper = false;
+        },
+        click: function click(e) {
+          self.showLink = true;
+        }
+      }
+    }, mainSpanChildren);
+
+    var linkSpan = createElement("span", [createElement("br"), createElement("small", [self.linkUrl])]);
+
+    var headerChildren = [anchorA, mainSpan];
+    if (this.showLink) headerChildren.push(linkSpan);
+    return createElement("h" + this.level, headerChildren);
   }
 });
 
@@ -5199,64 +5218,6 @@ exports.push([module.i, "\nsmall[data-v-3f98b6ee] {\n  color: hsl(217, 71%, 53%)
 
 // exports
 
-
-/***/ }),
-/* 200 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("span", [
-    _c("a", {
-      staticClass: "anchor",
-      attrs: { name: _vm.anchor, href: "#${escapedText}" }
-    }),
-    _vm._v(" "),
-    _c(
-      "span",
-      {
-        on: {
-          mouseover: function($event) {
-            _vm.showHelper = true
-          },
-          mouseleave: function($event) {
-            _vm.showHelper = false
-          },
-          click: function($event) {
-            _vm.showLink = true
-          }
-        }
-      },
-      [
-        _vm._t("default"),
-        _vm._v(" "),
-        _vm.showHelper && !_vm.showLink
-          ? _c("small", [_c("i", { staticClass: "fas fa-link" })])
-          : _vm._e()
-      ],
-      2
-    ),
-    _vm._v(" "),
-    _vm.showLink
-      ? _c("span", [
-          _c("br"),
-          _vm._v(" "),
-          _c("small", [_vm._v(_vm._s(_vm.linkUrl))])
-        ])
-      : _vm._e()
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3f98b6ee", module.exports)
-  }
-}
 
 /***/ })
 ],[20]);
