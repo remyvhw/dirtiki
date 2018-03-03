@@ -8,18 +8,18 @@
  *  Prism
  */
 
-$code-background:			#2f3030;
-$code-color:				#76d9e6;
-$code-color-fade:			#bebec5;
-$code-text-shadow:			0 1px 0 #000;
+$code-background:			$grey-darker;
+$code-color:				$white-bis;
+$code-color-fade:			$grey-lighter;
+$code-text-shadow:			none;
 
-$code-color-comment:		#6f705e;
-$code-color-keyword:		#f12770;
-$code-color-value:			#76d9e6;
-$code-color-string:			#e6d06c;
-$code-color-name:			#e6d06c;
-$code-color-number:			#a77afe;
-$code-color-variable:		#fff;
-$code-color-selector:		#a6e22d;
+$code-color-comment:		$grey;
+$code-color-keyword:		$red;
+$code-color-value:			$turquoise;
+$code-color-string:			$yellow;
+$code-color-name:			$orange;
+$code-color-number:			$purple;
+$code-color-variable:		$white;
+$code-color-selector:		$green;
 
 @import './sass-prism-theme-base/prism.scss';

@@ -11536,9 +11536,9 @@ pre[class*="language-"] {
   font-family: Menlo, Monaco, "Courier New", monospace;
   font-size: 12px;
   line-height: 18px;
-  color: #76d9e6;
-  text-shadow: 0 1px 0 #000;
-  background: #2f3030;
+  color: #fafafa;
+  text-shadow: none;
+  background: #363636;
 }
 
 pre[class*="language-"],
@@ -11570,7 +11570,7 @@ pre[class*="language-"] .token.comment,
 pre[class*="language-"] .token.prolog,
 pre[class*="language-"] .token.doctype,
 pre[class*="language-"] .token.cdata {
-  color: #6f705e;
+  color: #7a7a7a;
 }
 
 code[class*="language-"] .token.null,
@@ -11581,14 +11581,14 @@ pre[class*="language-"] .token.null,
 pre[class*="language-"] .token.operator,
 pre[class*="language-"] .token.boolean,
 pre[class*="language-"] .token.number {
-  color: #a77afe;
+  color: #b86bff;
 }
 
 code[class*="language-"] .token.attr-name,
 code[class*="language-"] .token.string,
 pre[class*="language-"] .token.attr-name,
 pre[class*="language-"] .token.string {
-  color: #e6d06c;
+  color: #ffdd57;
 }
 
 code[class*="language-"] .token.entity,
@@ -11599,12 +11599,12 @@ pre[class*="language-"] .token.entity,
 pre[class*="language-"] .token.url,
 .language-css pre[class*="language-"] .token.string,
 .style pre[class*="language-"] .token.string {
-  color: #e6d06c;
+  color: #ffdd57;
 }
 
 code[class*="language-"] .token.selector,
 pre[class*="language-"] .token.selector {
-  color: #a6e22d;
+  color: #23d160;
 }
 
 code[class*="language-"] .token.atrule,
@@ -11621,21 +11621,21 @@ pre[class*="language-"] .token.control,
 pre[class*="language-"] .token.directive,
 pre[class*="language-"] .token.important,
 pre[class*="language-"] .token.unit {
-  color: #f12770;
+  color: #ff3860;
 }
 
 code[class*="language-"] .token.regex,
 code[class*="language-"] .token.statement,
 pre[class*="language-"] .token.regex,
 pre[class*="language-"] .token.statement {
-  color: #76d9e6;
+  color: #00d1b2;
 }
 
 code[class*="language-"] .token.placeholder,
 code[class*="language-"] .token.variable,
 pre[class*="language-"] .token.placeholder,
 pre[class*="language-"] .token.variable {
-  color: #fff;
+  color: white;
 }
 
 code[class*="language-"] .token.property,
@@ -11654,7 +11654,7 @@ pre[class*="language-"] .token.statement {
 
 code[class*="language-"] .token.punctuation,
 pre[class*="language-"] .token.punctuation {
-  color: #bebec5;
+  color: #dbdbdb;
 }
 
 code[class*="language-"] .token.entity,
