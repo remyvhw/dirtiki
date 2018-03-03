@@ -14,7 +14,7 @@ export default {
       template: "<article>" + template + "</article>",
       components: {
         headerAnchor: require("./header-anchor.vue"),
-        markdownHighlighter: require("./code-highlighter.vue")
+        codeHighlighter: require("./code-highlighter.vue")
       }
     });
 
