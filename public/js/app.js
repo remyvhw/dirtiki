@@ -3183,6 +3183,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3212,9 +3214,15 @@ var render = function() {
   return _c(
     "article",
     [
-      _vm.page
-        ? _c("h1", { staticClass: "title" }, [_vm._v(_vm._s(_vm.page.name))])
-        : _vm._e(),
+      _c("div", { staticClass: "section" }, [
+        _c("div", { staticClass: " container " }, [
+          _vm.page
+            ? _c("h1", { staticClass: "title" }, [
+                _vm._v(_vm._s(_vm.page.name))
+              ])
+            : _vm._e()
+        ])
+      ]),
       _vm._v(" "),
       _c("markdown-renderer", {
         model: {
@@ -5019,7 +5027,7 @@ renderer.heading = function (text, level) {
 };
 
 renderer.code = function (code, language) {
-    return '</div><code-highlighter language=\'' + escape(language) + '\'>' + escape(code) + '</code-highlighter><div class="content">';
+    return '</div><code-highlighter language=\'' + escape(language) + '\'>' + escape(code) + '</code-highlighter><div class="container content">';
 };
 
 window.marked.setOptions({
@@ -5098,7 +5106,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   render: function render(createElement) {
     var template = this.parseMarkdown(this.value);
     var component = Vue.component("rendered-markdown", {
-      template: "<article><div class='content'>" + template + "</div></article>",
+      template: "<article><div class='container content'>" + template + "</div></article>",
       components: {
         headerAnchor: __webpack_require__(191),
         codeHighlighter: __webpack_require__(201)
@@ -5280,6 +5288,11 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6658,7 +6671,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\npre code[data-v-44eb8e18] .token.number {\n  font-size: 1em;\n  background-color: inherit;\n  border-radius: 0;\n  height: inherit;\n  margin: 0;\n  padding: 0;\n}\n", ""]);
+exports.push([module.i, "\naside[data-v-44eb8e18] {\n  background-color: #fafafa;\n}\npre code[data-v-44eb8e18] .token.number {\n  font-size: 1em;\n  background-color: inherit;\n  border-radius: 0;\n  height: inherit;\n  margin: 0;\n  padding: 0;\n}\n", ""]);
 
 // exports
 
@@ -6671,9 +6684,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("pre", { class: "language-" + _vm.language }, [
-      _c("code", { domProps: { innerHTML: _vm._s(_vm.highlightedCode) } })
+  return _c("aside", [
+    _c("div", { staticClass: "container" }, [
+      _c("pre", { class: "language-" + _vm.language }, [
+        _c("code", { domProps: { innerHTML: _vm._s(_vm.highlightedCode) } })
+      ])
     ])
   ])
 }

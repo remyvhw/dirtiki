@@ -13,7 +13,9 @@ export default {
     const template = this.parseMarkdown(this.value);
     var component = Vue.component("rendered-markdown", {
       template:
-        "<article><div class='content'>" + template + "</div></article>",
+        "<article><div class='container content'>" +
+        template +
+        "</div></article>",
       components: {
         headerAnchor: require("./header-anchor.vue"),
         codeHighlighter: require("./code-highlighter.vue")

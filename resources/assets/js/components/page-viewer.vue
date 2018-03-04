@@ -8,10 +8,12 @@
 </style>
 <template>
   <article>
-    <h1 v-if="page" class="title">{{ page.name }}</h1>
-
+    <div class="section">
+      <div class=" container ">
+        <h1 v-if="page" class="title">{{ page.name }}</h1>
+      </div>
+    </div>
     <markdown-renderer v-model="$slots.default[0].text"></markdown-renderer>
-
   </article>
 </template>
 

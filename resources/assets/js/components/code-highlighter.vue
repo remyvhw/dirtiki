@@ -1,4 +1,7 @@
 <style scoped>
+aside {
+  background-color: #fafafa;
+}
 pre code>>>.token.number {
   font-size: 1em;
   background-color: inherit;
@@ -9,9 +12,11 @@ pre code>>>.token.number {
 }
 </style>
 <template>
-    <div>
-        <pre :class="'language-' + language"><code v-html="highlightedCode"></code></pre>
+  <aside>
+    <div class="container">
+      <pre :class="'language-' + language"><code v-html="highlightedCode"></code></pre>
     </div>
+  </aside>
 </template>
 <script type="text/babel">
 var Prism = require("prismjs");
