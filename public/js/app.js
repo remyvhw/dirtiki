@@ -5307,7 +5307,7 @@ __webpack_require__(205);
 __webpack_require__(212);
 __webpack_require__(213);
 __webpack_require__(218);
-__webpack_require__(219);
+//require("prismjs/components/prism-objectivec");
 
 var prismLanguages = {
   html: Prism.languages.html,
@@ -5324,8 +5324,8 @@ var prismLanguages = {
   c: Prism.languages.clike,
   typescript: Prism.languages.typescript,
   ruby: Prism.languages.ruby,
-  switft: Prism.languages.swift,
-  objectivec: Prism.language.objectivec
+  swift: Prism.languages.swift,
+  objectivec: Prism.languages.clike
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6705,17 +6705,6 @@ Prism.languages.swift = Prism.languages.extend('clike', {
 	'builtin': /\b(?:[A-Z]\S+|abs|advance|alignof(?:Value)?|assert|contains|count(?:Elements)?|debugPrint(?:ln)?|distance|drop(?:First|Last)|dump|enumerate|equal|filter|find|first|getVaList|indices|isEmpty|join|last|lexicographicalCompare|map|max(?:Element)?|min(?:Element)?|numericCast|overlaps|partition|print(?:ln)?|reduce|reflect|reverse|sizeof(?:Value)?|sort(?:ed)?|split|startsWith|stride(?:of(?:Value)?)?|suffix|swap|toDebugString|toString|transcode|underestimateCount|unsafeBitCast|with(?:ExtendedLifetime|Unsafe(?:MutablePointers?|Pointers?)|VaList))\b/
 });
 Prism.languages.swift['string'].inside['interpolation'].inside.rest = Prism.util.clone(Prism.languages.swift);
-
-/***/ }),
-/* 219 */
-/***/ (function(module, exports) {
-
-Prism.languages.objectivec = Prism.languages.extend('c', {
-	'keyword': /\b(?:asm|typeof|inline|auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|int|long|register|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while|in|self|super)\b|(?:@interface|@end|@implementation|@protocol|@class|@public|@protected|@private|@property|@try|@catch|@finally|@throw|@synthesize|@dynamic|@selector)\b/,
-	'string': /("|')(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1|@"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"/,
-	'operator': /-[->]?|\+\+?|!=?|<<?=?|>>?=?|==?|&&?|\|\|?|[~^%?*\/@]/
-});
-
 
 /***/ })
 ],[20]);

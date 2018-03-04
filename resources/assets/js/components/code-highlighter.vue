@@ -25,7 +25,7 @@ require("prismjs/components/prism-php");
 require("prismjs/components/prism-typescript");
 require("prismjs/components/prism-ruby");
 require("prismjs/components/prism-swift");
-require("prismjs/components/prism-objectivec");
+//require("prismjs/components/prism-objectivec");
 
 const prismLanguages = {
   html: Prism.languages.html,
@@ -42,8 +42,8 @@ const prismLanguages = {
   c: Prism.languages.clike,
   typescript: Prism.languages.typescript,
   ruby: Prism.languages.ruby,
-  switft: Prism.languages.swift,
-  objectivec: Prism.language.objectivec
+  swift: Prism.languages.swift,
+  objectivec: Prism.languages.clike
 };
 
 export default {
