@@ -18,7 +18,7 @@ export default {
         "</div></article>",
       components: {
         headerAnchor: require("./header-anchor.vue"),
-        codeHighlighter: require("./code-highlighter.vue")
+        codePresenter: require("./code-presenter.vue")
       }
     });
 

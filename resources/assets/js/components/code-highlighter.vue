@@ -1,7 +1,4 @@
 <style scoped>
-aside {
-  background-color: #fafafa;
-}
 pre code>>>.token.number {
   font-size: 1em;
   background-color: inherit;
