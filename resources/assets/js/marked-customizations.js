@@ -8,7 +8,7 @@ renderer.heading = function (text, level) {
 };
 
 renderer.code = function (code, language) {
-    return `</div><code-presenter language='${escape(language)}'>${escape(code)}</code-presenter><div class="container content">`;
+    return `</div></section><code-presenter language='${escape(language)}'>${escape(code)}</code-presenter><section class="section"><div class="container content">`;
 };
 
 window.marked.setOptions({

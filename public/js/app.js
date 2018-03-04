@@ -5027,7 +5027,7 @@ renderer.heading = function (text, level) {
 };
 
 renderer.code = function (code, language) {
-    return '</div><code-presenter language=\'' + escape(language) + '\'>' + escape(code) + '</code-presenter><div class="container content">';
+    return '</div></section><code-presenter language=\'' + escape(language) + '\'>' + escape(code) + '</code-presenter><section class="section"><div class="container content">';
 };
 
 window.marked.setOptions({
@@ -5106,7 +5106,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   render: function render(createElement) {
     var template = this.parseMarkdown(this.value);
     var component = Vue.component("rendered-markdown", {
-      template: "<article><div class='container content'>" + template + "</div></article>",
+      template: "<article><section class='section'><div class='container content'>" + template + "</div></section></article>",
       components: {
         headerAnchor: __webpack_require__(191),
         codePresenter: __webpack_require__(303)
