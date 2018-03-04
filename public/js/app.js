@@ -5283,8 +5283,10 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("pre", { staticClass: "language-javascript" }, [
-    _c("code", { domProps: { innerHTML: _vm._s(_vm.highlightedCode) } })
+  return _c("div", [
+    _c("pre", { class: "language-" + _vm.language }, [
+      _c("code", { domProps: { innerHTML: _vm._s(_vm.highlightedCode) } })
+    ])
   ])
 }
 var staticRenderFns = []
@@ -5303,6 +5305,8 @@ if (false) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -5329,7 +5333,8 @@ var prismLanguages = {
       if (prismLanguages[this.language]) {
         return this.renderPrismHtml();
       }
-      return this.$slots.default[0].text;
+
+      return Prism.highlight(unescape(this.$slots.default[0].text), Prism.languages.markup);
     }
   },
   methods: {

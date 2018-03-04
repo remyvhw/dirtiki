@@ -1,5 +1,7 @@
 <template>
-    <pre class="language-javascript"><code v-html="highlightedCode"></code></pre>
+    <div>
+        <pre :class="'language-' + language"><code v-html="highlightedCode"></code></pre>
+    </div>
 </template>
 <script type="text/babel">
 var Prism = require("prismjs");
@@ -24,7 +26,11 @@ export default {
       if (prismLanguages[this.language]) {
         return this.renderPrismHtml();
       }
-      return this.$slots.default[0].text;
+
+      return Prism.highlight(
+        unescape(this.$slots.default[0].text),
+        Prism.languages.markup
+      );
     }
   },
   methods: {
