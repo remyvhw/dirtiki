@@ -11,6 +11,7 @@ require("prismjs/components/prism-csharp");
 require("prismjs/components/prism-python");
 require("prismjs/components/prism-php");
 require("prismjs/components/prism-cpp");
+require("prismjs/components/prism-typescript");
 
 const prismLanguages = {
   html: Prism.languages.html,
@@ -22,7 +23,9 @@ const prismLanguages = {
   java: Prism.languages.java,
   csharp: Prism.languages.csharp,
   python: Prism.languages.python,
-  cpp: Prism.languages.cpp
+  cpp: Prism.languages.cpp,
+  c: Prism.languages.clike,
+  typescript: Prism.languages.typescript
 };
 
 export default {
