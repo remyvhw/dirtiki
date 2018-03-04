@@ -6,6 +6,7 @@ aside {
 pre {
   background-color: initial;
   font-size: 1em;
+  padding: 0;
 }
 </style>
 <template>

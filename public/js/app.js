@@ -7134,7 +7134,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\naside[data-v-75ef749f] {\n  background-color: #fafafa;\n}\npre[data-v-75ef749f] {\n  background-color: initial;\n  font-size: 1em;\n}\n", ""]);
+exports.push([module.i, "\naside[data-v-75ef749f] {\n  background-color: #fafafa;\n}\npre[data-v-75ef749f] {\n  background-color: initial;\n  font-size: 1em;\n  padding: 0;\n}\n", ""]);
 
 // exports
 
@@ -7145,6 +7145,7 @@ exports.push([module.i, "\naside[data-v-75ef749f] {\n  background-color: #fafafa
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
