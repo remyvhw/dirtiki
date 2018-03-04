@@ -1,3 +1,13 @@
+<style scoped>
+pre code>>>.token.number {
+  font-size: 1em;
+  background-color: inherit;
+  border-radius: 0;
+  height: inherit;
+  margin: 0;
+  padding: 0;
+}
+</style>
 <template>
     <div>
         <pre :class="'language-' + language"><code v-html="highlightedCode"></code></pre>

@@ -1,3 +1,4 @@
+
 <script type="text/babel">
 export default {
   props: {
