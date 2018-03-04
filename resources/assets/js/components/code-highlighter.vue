@@ -5,6 +5,7 @@
 </template>
 <script type="text/babel">
 var Prism = require("prismjs");
+require("prismjs/components/prism-sql");
 require("prismjs/components/prism-php");
 
 const prismLanguages = {
@@ -12,7 +13,8 @@ const prismLanguages = {
   css: Prism.languages.css,
   clike: Prism.languages.clike,
   javascript: Prism.languages.javascript,
-  php: Prism.languages.php
+  php: Prism.languages.php,
+  sql: Prism.languages.sql
 };
 
 export default {
