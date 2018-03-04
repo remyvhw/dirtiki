@@ -9,11 +9,9 @@ pre code>>>.token.number {
 }
 </style>
 <template>
-  <aside>
-    <div class="container">
-      <pre :class="'language-' + language"><code v-html="highlightedCode"></code></pre>
-    </div>
-  </aside>
+  <div class="container">
+    <pre :class="'language-' + language"><code v-html="highlightedCode"></code></pre>
+  </div>
 </template>
 <script type="text/babel">
 var Prism = require("prismjs");
@@ -76,7 +74,8 @@ export default {
         } catch (e) {}
       }
 
-      return Prism.highlight(unescape(this.code), Prism.languages.markup);
+      this.$emit("error");
+      return null;
     }
   },
   methods: {

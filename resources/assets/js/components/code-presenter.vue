@@ -2,7 +2,6 @@
 aside {
   background-color: #fafafa;
 }
-
 pre {
   background-color: initial;
   font-size: 1em;
@@ -10,24 +9,24 @@ pre {
 }
 </style>
 <template>
-    <aside>
-        <section class="section">
-            <div class="tabs is-small is-centered is-toggle is-toggle-rounded">
-                <ul>
-                    <li v-for="presentation in availablePresentations" :key="presentation.type" :class="{'is-active': presentation.type === selectedType}">
-                        <a @click="selectedType = presentation.type">
-                            <span>{{ presentation.label }}</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+  <aside>
+    <section class="section">
+      <div v-if="availablePresentations.length > 1" class="tabs is-small is-centered is-toggle is-toggle-rounded">
+        <ul>
+          <li v-for="presentation in availablePresentations" :key="presentation.type" :class="{'is-active': presentation.type === selectedType}">
+            <a @click="selectedType = presentation.type">
+              <span>{{ presentation.label }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
 
-            <code-highlighter v-if="selectedType === 'highlighted'" :language="language">{{ code }}</code-highlighter>
-            <div v-if="selectedType === 'raw'" class="container">
-                <pre><code>{{ rawCode }}</code></pre>
-            </div>
-        </section>
-    </aside>
+      <code-highlighter v-if="selectedType === 'highlighted'" :language="language" @error="allowHighlights=false">{{ code }}</code-highlighter>
+      <div v-if="selectedType === 'raw'" class="container">
+        <pre><code>{{ rawCode }}</code></pre>
+      </div>
+    </section>
+  </aside>
 </template>
 <script type="text/babel">
 export default {
@@ -39,6 +38,7 @@ export default {
   },
   data() {
     return {
+      allowHighlights: true,
       selectedType: null
     };
   },
@@ -51,23 +51,35 @@ export default {
       return unescape(this.code);
     },
     availablePresentations() {
-      return window
-        .collect([
-          {
-            type: "highlighted",
-            label: "Highlighted"
-          },
-          {
-            type: "raw",
-            label: "Raw"
-          }
-        ])
-        .toArray();
+      let presentations = [];
+      if (this.allowHighlights) {
+        presentations.push({
+          type: "highlighted",
+          label: "Highlighted"
+        });
+      }
+
+      presentations.push({
+        type: "raw",
+        label: "Raw"
+      });
+
+      if (
+        !this.selectedType ||
+        !window
+          .collect(presentations)
+          .where("type", this.selectedType)
+          .count()
+      ) {
+        this.selectedType = presentations[0].type;
+      }
+
+      return presentations;
     }
   },
-  mounted() {
-    this.selectedType = this.availablePresentations[0].type;
-  },
-  methods: {}
+
+  methods: {
+    selectFirstPresentationType() {}
+  }
 };
 </script>
