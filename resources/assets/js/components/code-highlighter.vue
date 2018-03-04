@@ -26,6 +26,7 @@ require("prismjs/components/prism-typescript");
 require("prismjs/components/prism-ruby");
 require("prismjs/components/prism-swift");
 //require("prismjs/components/prism-objectivec");
+var beautify = require("json-beautify");
 
 const prismLanguages = {
   html: Prism.languages.html,
@@ -51,8 +52,19 @@ export default {
     language: { type: String, required: false }
   },
   computed: {
+    code() {
+      const code = this.$slots.default[0].text;
+
+      if (this.language === "json") {
+        try {
+          return beautify(JSON.parse(unescape(code)), null, 2, 100);
+        } catch (e) {}
+      }
+      return code;
+    },
+
     highlightedCode() {
-      if (!this.$slots.default[0].text) {
+      if (!this.code) {
         return "";
       }
 
@@ -62,16 +74,13 @@ export default {
         } catch (e) {}
       }
 
-      return Prism.highlight(
-        unescape(this.$slots.default[0].text),
-        Prism.languages.markup
-      );
+      return Prism.highlight(unescape(this.code), Prism.languages.markup);
     }
   },
   methods: {
     renderPrismHtml() {
       return Prism.highlight(
-        unescape(this.$slots.default[0].text),
+        unescape(this.code),
         prismLanguages[this.language]
       );
     }
