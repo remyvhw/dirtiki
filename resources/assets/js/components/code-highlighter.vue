@@ -6,6 +6,7 @@
 <script type="text/babel">
 var Prism = require("prismjs");
 require("prismjs/components/prism-sql");
+require("prismjs/components/prism-java");
 require("prismjs/components/prism-php");
 
 const prismLanguages = {
@@ -14,7 +15,8 @@ const prismLanguages = {
   clike: Prism.languages.clike,
   javascript: Prism.languages.javascript,
   php: Prism.languages.php,
-  sql: Prism.languages.sql
+  sql: Prism.languages.sql,
+  java: Prism.languages.java
 };
 
 export default {

@@ -5313,6 +5313,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var Prism = __webpack_require__(204);
 __webpack_require__(206);
+__webpack_require__(207);
 __webpack_require__(205);
 
 var prismLanguages = {
@@ -5321,7 +5322,8 @@ var prismLanguages = {
   clike: Prism.languages.clike,
   javascript: Prism.languages.javascript,
   php: Prism.languages.php,
-  sql: Prism.languages.sql
+  sql: Prism.languages.sql,
+  java: Prism.languages.java
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6340,6 +6342,28 @@ Prism.languages.sql= {
 	'operator': /[-+*\/=%^~]|&&?|\|\|?|!=?|<(?:=>?|<|>)?|>[>=]?|\b(?:AND|BETWEEN|IN|LIKE|NOT|OR|IS|DIV|REGEXP|RLIKE|SOUNDS LIKE|XOR)\b/i,
 	'punctuation': /[;[\]()`,.]/
 };
+
+/***/ }),
+/* 207 */
+/***/ (function(module, exports) {
+
+Prism.languages.java = Prism.languages.extend('clike', {
+	'keyword': /\b(?:abstract|continue|for|new|switch|assert|default|goto|package|synchronized|boolean|do|if|private|this|break|double|implements|protected|throw|byte|else|import|public|throws|case|enum|instanceof|return|transient|catch|extends|int|short|try|char|final|interface|static|void|class|finally|long|strictfp|volatile|const|float|native|super|while)\b/,
+	'number': /\b0b[01]+\b|\b0x[\da-f]*\.?[\da-fp\-]+\b|\b\d*\.?\d+(?:e[+-]?\d+)?[df]?\b/i,
+	'operator': {
+		pattern: /(^|[^.])(?:\+[+=]?|-[-=]?|!=?|<<?=?|>>?>?=?|==?|&[&=]?|\|[|=]?|\*=?|\/=?|%=?|\^=?|[?:~])/m,
+		lookbehind: true
+	}
+});
+
+Prism.languages.insertBefore('java','function', {
+	'annotation': {
+		alias: 'punctuation',
+		pattern: /(^|[^.])@\w+/,
+		lookbehind: true
+	}
+});
+
 
 /***/ })
 ],[20]);
