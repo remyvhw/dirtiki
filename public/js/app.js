@@ -5306,6 +5306,8 @@ __webpack_require__(205);
 //require("prismjs/components/prism-cpp");
 __webpack_require__(212);
 __webpack_require__(213);
+__webpack_require__(218);
+__webpack_require__(219);
 
 var prismLanguages = {
   html: Prism.languages.html,
@@ -5321,7 +5323,9 @@ var prismLanguages = {
   cpp: Prism.languages.clike,
   c: Prism.languages.clike,
   typescript: Prism.languages.typescript,
-  ruby: Prism.languages.ruby
+  ruby: Prism.languages.ruby,
+  switft: Prism.languages.swift,
+  objectivec: Prism.language.objectivec
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6671,6 +6675,47 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-44eb8e18", module.exports)
   }
 }
+
+/***/ }),
+/* 218 */
+/***/ (function(module, exports) {
+
+// issues: nested multiline comments
+Prism.languages.swift = Prism.languages.extend('clike', {
+	'string': {
+		pattern: /("|')(\\(?:\((?:[^()]|\([^)]+\))+\)|\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+		greedy: true,
+		inside: {
+			'interpolation': {
+				pattern: /\\\((?:[^()]|\([^)]+\))+\)/,
+				inside: {
+					delimiter: {
+						pattern: /^\\\(|\)$/,
+						alias: 'variable'
+					}
+					// See rest below
+				}
+			}
+		}
+	},
+	'keyword': /\b(?:as|associativity|break|case|catch|class|continue|convenience|default|defer|deinit|didSet|do|dynamic(?:Type)?|else|enum|extension|fallthrough|final|for|func|get|guard|if|import|in|infix|init|inout|internal|is|lazy|left|let|mutating|new|none|nonmutating|operator|optional|override|postfix|precedence|prefix|private|Protocol|public|repeat|required|rethrows|return|right|safe|self|Self|set|static|struct|subscript|super|switch|throws?|try|Type|typealias|unowned|unsafe|var|weak|where|while|willSet|__(?:COLUMN__|FILE__|FUNCTION__|LINE__))\b/,
+	'number': /\b(?:[\d_]+(?:\.[\de_]+)?|0x[a-f0-9_]+(?:\.[a-f0-9p_]+)?|0b[01_]+|0o[0-7_]+)\b/i,
+	'constant': /\b(?:nil|[A-Z_]{2,}|k[A-Z][A-Za-z_]+)\b/,
+	'atrule': /@\b(?:IB(?:Outlet|Designable|Action|Inspectable)|class_protocol|exported|noreturn|NS(?:Copying|Managed)|objc|UIApplicationMain|auto_closure)\b/,
+	'builtin': /\b(?:[A-Z]\S+|abs|advance|alignof(?:Value)?|assert|contains|count(?:Elements)?|debugPrint(?:ln)?|distance|drop(?:First|Last)|dump|enumerate|equal|filter|find|first|getVaList|indices|isEmpty|join|last|lexicographicalCompare|map|max(?:Element)?|min(?:Element)?|numericCast|overlaps|partition|print(?:ln)?|reduce|reflect|reverse|sizeof(?:Value)?|sort(?:ed)?|split|startsWith|stride(?:of(?:Value)?)?|suffix|swap|toDebugString|toString|transcode|underestimateCount|unsafeBitCast|with(?:ExtendedLifetime|Unsafe(?:MutablePointers?|Pointers?)|VaList))\b/
+});
+Prism.languages.swift['string'].inside['interpolation'].inside.rest = Prism.util.clone(Prism.languages.swift);
+
+/***/ }),
+/* 219 */
+/***/ (function(module, exports) {
+
+Prism.languages.objectivec = Prism.languages.extend('c', {
+	'keyword': /\b(?:asm|typeof|inline|auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|int|long|register|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while|in|self|super)\b|(?:@interface|@end|@implementation|@protocol|@class|@public|@protected|@private|@property|@try|@catch|@finally|@throw|@synthesize|@dynamic|@selector)\b/,
+	'string': /("|')(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1|@"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"/,
+	'operator': /-[->]?|\+\+?|!=?|<<?=?|>>?=?|==?|&&?|\|\|?|[~^%?*\/@]/
+});
+
 
 /***/ })
 ],[20]);
