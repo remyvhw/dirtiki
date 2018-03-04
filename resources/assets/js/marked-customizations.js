@@ -11,6 +11,10 @@ renderer.code = function (code, language) {
     return `<code-highlighter language='${escape(language)}'>${escape(code)}</code-highlighter>`;
 };
 
+renderer.paragraph = function (text) {
+    return '<p>' + text + '</p>\n';
+};
+
 window.marked.setOptions({
     gfm: true,
     tables: true,

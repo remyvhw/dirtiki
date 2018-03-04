@@ -6,26 +6,30 @@
 <script type="text/babel">
 var Prism = require("prismjs");
 require("prismjs/components/prism-sql");
+require("prismjs/components/prism-json");
 require("prismjs/components/prism-java");
 require("prismjs/components/prism-csharp");
 require("prismjs/components/prism-python");
 require("prismjs/components/prism-php");
-require("prismjs/components/prism-cpp");
+//require("prismjs/components/prism-cpp");
 require("prismjs/components/prism-typescript");
+require("prismjs/components/prism-ruby");
 
 const prismLanguages = {
   html: Prism.languages.html,
   css: Prism.languages.css,
   clike: Prism.languages.clike,
+  json: Prism.languages.json,
   javascript: Prism.languages.javascript,
   php: Prism.languages.php,
   sql: Prism.languages.sql,
   java: Prism.languages.java,
   csharp: Prism.languages.csharp,
   python: Prism.languages.python,
-  cpp: Prism.languages.cpp,
+  cpp: Prism.languages.clike,
   c: Prism.languages.clike,
-  typescript: Prism.languages.typescript
+  typescript: Prism.languages.typescript,
+  ruby: Prism.languages.ruby
 };
 
 export default {
@@ -39,7 +43,9 @@ export default {
       }
 
       if (prismLanguages[this.language]) {
-        return this.renderPrismHtml();
+        try {
+          return this.renderPrismHtml();
+        } catch (e) {}
       }
 
       return Prism.highlight(
