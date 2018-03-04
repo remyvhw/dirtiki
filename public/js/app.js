@@ -5284,7 +5284,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("pre", { staticClass: "language-javascript" }, [
-    _c("code", { domProps: { innerHTML: _vm._s(_vm.prismHtml) } })
+    _c("code", { domProps: { innerHTML: _vm._s(_vm.highlightedCode) } })
   ])
 }
 var staticRenderFns = []
@@ -5309,15 +5309,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var Prism = __webpack_require__(204);
 
+var prismLanguages = {
+  html: Prism.languages.html,
+  css: Prism.languages.css,
+  clike: Prism.languages.clike,
+  javascript: Prism.languages.javascript
+};
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     language: { type: String, required: false }
   },
   computed: {
-    prismHtml: function prismHtml() {
-      if (this.$slots.default[0].text) {
-        return Prism.highlight(unescape(this.$slots.default[0].text), Prism.languages.html);
+    highlightedCode: function highlightedCode() {
+      if (!this.$slots.default[0].text) {
+        return "";
       }
+
+      if (prismLanguages[this.language]) {
+        return this.renderPrismHtml();
+      }
+      return this.$slots.default[0].text;
+    }
+  },
+  methods: {
+    renderPrismHtml: function renderPrismHtml() {
+      return Prism.highlight(unescape(this.$slots.default[0].text), Prism.languages.html);
     }
   }
 });

@@ -18,9 +18,7 @@
     <body>
         <section id="app">
 
-            @include("layouts.header")
-
-            @if (session('status'))
+            @include("layouts.header") @if (session('status'))
             <aside class="section">
                 <container class="container">
                     <div class="notification is-info">
@@ -28,17 +26,14 @@
                     </div>
                 </container>
             </aside>
-            @endif
+            @endif @yield('content')
 
-
-            @yield('content')
-            
         </section>
 
         <!-- Scripts -->
         <script src="{{ mix('js/manifest.js') }}"></script>
         <script src="{{ mix('js/vendor.js') }}"></script>
-        <script src="{{ mix('js/app.js') }}"></script>
+        <script src="{{ mix('js/app.js') }}" data-manual></script>
     </body>
 
 </html>
