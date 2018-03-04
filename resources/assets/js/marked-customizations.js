@@ -8,7 +8,7 @@ renderer.heading = function (text, level) {
 };
 
 renderer.code = function (code, language) {
-    return `<code-highlighter language='${escape(language)}'>${escape(code)}</code-highlighter>`;
+    return `</div><code-highlighter language='${escape(language)}'>${escape(code)}</code-highlighter><div class="content">`;
 };
 
 renderer.paragraph = function (text) {

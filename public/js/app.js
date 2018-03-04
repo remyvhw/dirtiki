@@ -3183,8 +3183,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3211,30 +3209,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("article", [
-    _vm.page
-      ? _c("h1", { staticClass: "title" }, [_vm._v(_vm._s(_vm.page.name))])
-      : _vm._e(),
-    _vm._v(" "),
-    _c("div", { staticClass: "columns" }, [
-      _c(
-        "div",
-        { staticClass: "column content" },
-        [
-          _c("markdown-renderer", {
-            model: {
-              value: _vm.$slots.default[0].text,
-              callback: function($$v) {
-                _vm.$set(_vm.$slots.default[0], "text", $$v)
-              },
-              expression: "$slots.default[0].text"
-            }
-          })
-        ],
-        1
-      )
-    ])
-  ])
+  return _c(
+    "article",
+    [
+      _vm.page
+        ? _c("h1", { staticClass: "title" }, [_vm._v(_vm._s(_vm.page.name))])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("markdown-renderer", {
+        model: {
+          value: _vm.$slots.default[0].text,
+          callback: function($$v) {
+            _vm.$set(_vm.$slots.default[0], "text", $$v)
+          },
+          expression: "$slots.default[0].text"
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -5026,7 +5019,7 @@ renderer.heading = function (text, level) {
 };
 
 renderer.code = function (code, language) {
-    return '<code-highlighter language=\'' + escape(language) + '\'>' + escape(code) + '</code-highlighter>';
+    return '</div><code-highlighter language=\'' + escape(language) + '\'>' + escape(code) + '</code-highlighter><div class="content">';
 };
 
 renderer.paragraph = function (text) {
@@ -5108,7 +5101,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   render: function render(createElement) {
     var template = this.parseMarkdown(this.value);
     var component = Vue.component("rendered-markdown", {
-      template: "<article>" + template + "</article>",
+      template: "<article><div class='content'>" + template + "</div></article>",
       components: {
         headerAnchor: __webpack_require__(191),
         codeHighlighter: __webpack_require__(201)

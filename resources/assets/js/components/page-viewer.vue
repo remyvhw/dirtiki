@@ -9,11 +9,9 @@
 <template>
   <article>
     <h1 v-if="page" class="title">{{ page.name }}</h1>
-    <div class="columns">
-      <div class="column content">
-        <markdown-renderer v-model="$slots.default[0].text"></markdown-renderer>
-      </div>
-    </div>
+
+    <markdown-renderer v-model="$slots.default[0].text"></markdown-renderer>
+
   </article>
 </template>
 
