@@ -44,7 +44,8 @@ const prismLanguages = {
   typescript: Prism.languages.typescript,
   ruby: Prism.languages.ruby,
   swift: Prism.languages.swift,
-  objectivec: Prism.languages.clike
+  objectivec: Prism.languages.clike,
+  geojson: Prism.languages.json
 };
 
 export default {

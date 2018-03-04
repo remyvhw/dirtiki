@@ -3787,7 +3787,8 @@ var prismLanguages = {
   typescript: Prism.languages.typescript,
   ruby: Prism.languages.ruby,
   swift: Prism.languages.swift,
-  objectivec: Prism.languages.clike
+  objectivec: Prism.languages.clike,
+  geojson: Prism.languages.json
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
