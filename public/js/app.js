@@ -7134,7 +7134,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\naside[data-v-75ef749f] {\n  background-color: #fafafa;\n}\n.tabs.is-small[data-v-75ef749f] {\n  padding-top: 1.5rem;\n}\npre[data-v-75ef749f] {\n  background-color: initial;\n  font-size: 1em;\n}\n", ""]);
+exports.push([module.i, "\naside[data-v-75ef749f] {\n  background-color: #fafafa;\n}\npre[data-v-75ef749f] {\n  background-color: initial;\n  font-size: 1em;\n}\n", ""]);
 
 // exports
 
@@ -7222,57 +7222,62 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "aside",
-    [
-      _c(
-        "div",
-        {
-          staticClass: "tabs is-small is-centered is-toggle is-toggle-rounded"
-        },
-        [
-          _c(
-            "ul",
-            _vm._l(_vm.availablePresentations, function(presentation) {
-              return _c(
-                "li",
-                {
-                  key: presentation.type,
-                  class: { "is-active": presentation.type === _vm.selectedType }
-                },
-                [
-                  _c(
-                    "a",
-                    {
-                      on: {
-                        click: function($event) {
-                          _vm.selectedType = presentation.type
+  return _c("aside", [
+    _c(
+      "section",
+      { staticClass: "section" },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "tabs is-small is-centered is-toggle is-toggle-rounded"
+          },
+          [
+            _c(
+              "ul",
+              _vm._l(_vm.availablePresentations, function(presentation) {
+                return _c(
+                  "li",
+                  {
+                    key: presentation.type,
+                    class: {
+                      "is-active": presentation.type === _vm.selectedType
+                    }
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        on: {
+                          click: function($event) {
+                            _vm.selectedType = presentation.type
+                          }
                         }
-                      }
-                    },
-                    [_c("span", [_vm._v(_vm._s(presentation.label))])]
-                  )
-                ]
-              )
-            })
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _vm.selectedType === "highlighted"
-        ? _c("code-highlighter", { attrs: { language: _vm.language } }, [
-            _vm._v(_vm._s(_vm.code))
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.selectedType === "raw"
-        ? _c("div", { staticClass: "container" }, [
-            _c("pre", [_c("code", [_vm._v(_vm._s(_vm.rawCode))])])
-          ])
-        : _vm._e()
-    ],
-    1
-  )
+                      },
+                      [_c("span", [_vm._v(_vm._s(presentation.label))])]
+                    )
+                  ]
+                )
+              })
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _vm.selectedType === "highlighted"
+          ? _c("code-highlighter", { attrs: { language: _vm.language } }, [
+              _vm._v(_vm._s(_vm.code))
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.selectedType === "raw"
+          ? _c("div", { staticClass: "container" }, [
+              _c("pre", [_c("code", [_vm._v(_vm._s(_vm.rawCode))])])
+            ])
+          : _vm._e()
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

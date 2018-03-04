@@ -2,9 +2,7 @@
 aside {
   background-color: #fafafa;
 }
-.tabs.is-small {
-  padding-top: 1.5rem;
-}
+
 pre {
   background-color: initial;
   font-size: 1em;
@@ -12,20 +10,22 @@ pre {
 </style>
 <template>
     <aside>
-        <div class="tabs is-small is-centered is-toggle is-toggle-rounded">
-            <ul>
-                <li v-for="presentation in availablePresentations" :key="presentation.type" :class="{'is-active': presentation.type === selectedType}">
-                    <a @click="selectedType = presentation.type">
-                        <span>{{ presentation.label }}</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <section class="section">
+            <div class="tabs is-small is-centered is-toggle is-toggle-rounded">
+                <ul>
+                    <li v-for="presentation in availablePresentations" :key="presentation.type" :class="{'is-active': presentation.type === selectedType}">
+                        <a @click="selectedType = presentation.type">
+                            <span>{{ presentation.label }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-        <code-highlighter v-if="selectedType === 'highlighted'" :language="language">{{ code }}</code-highlighter>
-        <div v-if="selectedType === 'raw'" class="container">
-            <pre><code>{{ rawCode }}</code></pre>
-        </div>
+            <code-highlighter v-if="selectedType === 'highlighted'" :language="language">{{ code }}</code-highlighter>
+            <div v-if="selectedType === 'raw'" class="container">
+                <pre><code>{{ rawCode }}</code></pre>
+            </div>
+        </section>
     </aside>
 </template>
 <script type="text/babel">
