@@ -5339,7 +5339,7 @@ var prismLanguages = {
   },
   methods: {
     renderPrismHtml: function renderPrismHtml() {
-      return Prism.highlight(unescape(this.$slots.default[0].text), Prism.languages.html);
+      return Prism.highlight(unescape(this.$slots.default[0].text), prismLanguages[this.language]);
     }
   }
 });

@@ -37,7 +37,7 @@ export default {
     renderPrismHtml() {
       return Prism.highlight(
         unescape(this.$slots.default[0].text),
-        Prism.languages.html
+        prismLanguages[this.language]
       );
     }
   }
