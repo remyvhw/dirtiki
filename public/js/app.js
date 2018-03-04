@@ -5314,6 +5314,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var Prism = __webpack_require__(204);
 __webpack_require__(206);
 __webpack_require__(207);
+__webpack_require__(208);
 __webpack_require__(205);
 
 var prismLanguages = {
@@ -5323,7 +5324,8 @@ var prismLanguages = {
   javascript: Prism.languages.javascript,
   php: Prism.languages.php,
   sql: Prism.languages.sql,
-  java: Prism.languages.java
+  java: Prism.languages.java,
+  csharp: Prism.languages.csharp
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6361,6 +6363,50 @@ Prism.languages.insertBefore('java','function', {
 		alias: 'punctuation',
 		pattern: /(^|[^.])@\w+/,
 		lookbehind: true
+	}
+});
+
+
+/***/ }),
+/* 208 */
+/***/ (function(module, exports) {
+
+Prism.languages.csharp = Prism.languages.extend('clike', {
+	'keyword': /\b(abstract|as|async|await|base|bool|break|byte|case|catch|char|checked|class|const|continue|decimal|default|delegate|do|double|else|enum|event|explicit|extern|false|finally|fixed|float|for|foreach|goto|if|implicit|in|int|interface|internal|is|lock|long|namespace|new|null|object|operator|out|override|params|private|protected|public|readonly|ref|return|sbyte|sealed|short|sizeof|stackalloc|static|string|struct|switch|this|throw|true|try|typeof|uint|ulong|unchecked|unsafe|ushort|using|virtual|void|volatile|while|add|alias|ascending|async|await|descending|dynamic|from|get|global|group|into|join|let|orderby|partial|remove|select|set|value|var|where|yield)\b/,
+	'string': [
+		{
+			pattern: /@("|')(?:\1\1|\\[\s\S]|(?!\1)[^\\])*\1/,
+			greedy: true
+		},
+		{
+			pattern: /("|')(?:\\.|(?!\1)[^\\\r\n])*?\1/,
+			greedy: true
+		}
+	],
+	'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+f?)\b/i
+});
+
+Prism.languages.insertBefore('csharp', 'keyword', {
+	'generic-method': {
+		pattern: /[a-z0-9_]+\s*<[^>\r\n]+?>\s*(?=\()/i,
+		alias: 'function',
+		inside: {
+			keyword: Prism.languages.csharp.keyword,
+			punctuation: /[<>(),.:]/
+		}
+	},
+	'preprocessor': {
+		pattern: /(^\s*)#.*/m,
+		lookbehind: true,
+		alias: 'property',
+		inside: {
+			// highlight preprocessor directives as keywords
+			'directive': {
+				pattern: /(\s*#)\b(?:define|elif|else|endif|endregion|error|if|line|pragma|region|undef|warning)\b/,
+				lookbehind: true,
+				alias: 'keyword'
+			}
+		}
 	}
 });
 
