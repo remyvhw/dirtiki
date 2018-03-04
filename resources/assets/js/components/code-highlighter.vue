@@ -5,12 +5,14 @@
 </template>
 <script type="text/babel">
 var Prism = require("prismjs");
+require("prismjs/components/prism-php");
 
 const prismLanguages = {
   html: Prism.languages.html,
   css: Prism.languages.css,
   clike: Prism.languages.clike,
-  javascript: Prism.languages.javascript
+  javascript: Prism.languages.javascript,
+  php: Prism.languages.php
 };
 
 export default {
