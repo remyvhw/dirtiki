@@ -8381,19 +8381,37 @@ var geojsonExtent = __webpack_require__(234);
       } catch (e) {
         this.$emit("error");
       }
+    },
+    bounds: function bounds() {
+      if (!this.geojson) return [0, 0, 0, 0];
+      return geojsonExtent(this.geojson);
     }
   },
   mounted: function mounted() {
     if (this.$store.state.maps.provider === "mapbox") {
       this.instanciateMapboxMap();
+    } else if (this.$store.state.maps.provider === "google") {
+      this.instanciateGoogleMap();
     }
   },
 
   methods: {
+    instanciateGoogleMap: function instanciateGoogleMap() {
+      var extent = geojsonExtent(this.geojson);
+      var map = new google.maps.Map(document.getElementById("map_" + this._uid), {
+        center: { lat: this.bounds[1], lng: this.bounds[0] },
+        zoom: 4
+      });
+      map.data.addGeoJson(this.geojson);
+
+      var bounds = new google.maps.LatLngBounds();
+      bounds.extend(new google.maps.LatLng(this.bounds[1], this.bounds[0]));
+      bounds.extend(new google.maps.LatLng(this.bounds[3], this.bounds[2]));
+      map.fitBounds(bounds);
+      this.map = map;
+    },
     instanciateMapboxMap: function instanciateMapboxMap() {
       var _this = this;
-
-      var extent = geojsonExtent(this.geojson);
 
       var map = new mapboxgl.Map({
         container: "map_" + this._uid,
@@ -8401,7 +8419,7 @@ var geojsonExtent = __webpack_require__(234);
       });
       map.scrollZoom.disable();
 
-      map.fitBounds(extent, {
+      map.fitBounds(this.bounds, {
         padding: 20,
         duration: 0
       });

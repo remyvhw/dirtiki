@@ -29,24 +29,46 @@ export default {
       } catch (e) {
         this.$emit("error");
       }
+    },
+    bounds() {
+      if (!this.geojson) return [0, 0, 0, 0];
+      return geojsonExtent(this.geojson);
     }
   },
   mounted() {
     if (this.$store.state.maps.provider === "mapbox") {
       this.instanciateMapboxMap();
+    } else if (this.$store.state.maps.provider === "google") {
+      this.instanciateGoogleMap();
     }
   },
   methods: {
-    instanciateMapboxMap() {
+    instanciateGoogleMap() {
       const extent = geojsonExtent(this.geojson);
+      let map = new google.maps.Map(
+        document.getElementById("map_" + this._uid),
+        {
+          center: { lat: this.bounds[1], lng: this.bounds[0] },
+          zoom: 4
+        }
+      );
+      map.data.addGeoJson(this.geojson);
 
+      let bounds = new google.maps.LatLngBounds();
+      bounds.extend(new google.maps.LatLng(this.bounds[1], this.bounds[0]));
+      bounds.extend(new google.maps.LatLng(this.bounds[3], this.bounds[2]));
+      map.fitBounds(bounds);
+      this.map = map;
+    },
+
+    instanciateMapboxMap() {
       let map = new mapboxgl.Map({
         container: "map_" + this._uid,
         style: "mapbox://styles/mapbox/streets-v9"
       });
       map.scrollZoom.disable();
 
-      map.fitBounds(extent, {
+      map.fitBounds(this.bounds, {
         padding: 20,
         duration: 0
       });
