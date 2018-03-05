@@ -17,8 +17,31 @@
 
 require('./bootstrap');
 
-
 window.Vue = require('vue');
+import Vuex from 'vuex'
+
+/**
+ * We add vuex to vue. We'll mostly use Vuex in this application
+ * as a global state and localized strings store.
+ */
+Vue.use(Vuex)
+
+/**
+ * Initialize global store.
+ */
+const store = new Vuex.Store({
+    state: {
+        maps: {
+            provider: null
+        }
+    },
+    mutations: {
+        setMapsProvider(state, provider) {
+            state.maps.provider = provider;
+        }
+    }
+})
+
 
 /**
  * Next, registrer Axios on the Vue object so we can just call this.$http like
@@ -33,6 +56,7 @@ Vue.component('folding-panel', require('./components/folding-panel.vue'));
 
 const app = new Vue({
     el: '#app',
+    store,
     components: {
         pageViewer: require("./components/page-viewer.vue"),
         pageEditor: require("./components/page-editor.vue"),
