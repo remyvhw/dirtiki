@@ -11,6 +11,8 @@
   </div>
 </template>
 <script type="text/babel">
+var geojsonExtent = require("geojson-extent");
+
 export default {
   props: {},
   data() {
@@ -21,18 +23,79 @@ export default {
   computed: {
     geojson() {
       const code = this.$slots.default[0].text;
+
       try {
-        return JSON.parse(code);
+        return JSON.parse(unescape(code));
       } catch (e) {
         this.$emit("error");
       }
     }
   },
   mounted() {
-    var map = new mapboxgl.Map({
-      container: "map_" + this._uid,
-      style: "mapbox://styles/mapbox/streets-v9"
-    });
+    if (this.$store.state.maps.provider === "mapbox") {
+      this.instanciateMapboxMap();
+    }
+  },
+  methods: {
+    instanciateMapboxMap() {
+      const extent = geojsonExtent(this.geojson);
+
+      let map = new mapboxgl.Map({
+        container: "map_" + this._uid,
+        style: "mapbox://styles/mapbox/streets-v9"
+      });
+
+      map.fitBounds(extent, {
+        padding: 20,
+        duration: 0
+      });
+
+      map.on("load", () => {
+        map.addSource("code-content", {
+          type: "geojson",
+          data: this.geojson
+        });
+
+        map.addLayer({
+          id: "geojson-shapes",
+          type: "fill",
+          source: "code-content",
+          paint: {
+            "fill-color": "#888888",
+            "fill-opacity": 0.4
+          },
+          filter: ["==", "$type", "Polygon"]
+        });
+
+        map.addLayer({
+          id: "code-points",
+          type: "circle",
+          source: "code-content",
+          paint: {
+            "circle-radius": 6,
+            "circle-color": "#B42222"
+          },
+          filter: ["==", "$type", "Point"]
+        });
+
+        map.addLayer({
+          id: "code-lines",
+          type: "line",
+          source: "code-content",
+          layout: {
+            "line-join": "round",
+            "line-cap": "round"
+          },
+          paint: {
+            "line-color": "#888",
+            "line-width": 4
+          },
+          filter: ["==", "$type", "LineString"]
+        });
+      });
+
+      this.map = map;
+    }
   }
 };
 </script>
