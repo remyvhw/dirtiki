@@ -32,8 +32,7 @@ pre {
 export default {
   components: {
     codeHighlighter: require("./code-highlighter.vue"),
-    geojsonRendererMapbox: require("./geojson-renderer-mapbox.vue"),
-    geojsonRendererGoogle: require("./geojson-renderer-google.vue")
+    geojsonRenderer: require("./geojson-renderer.vue")
   },
   props: {
     language: { type: String, required: false }
