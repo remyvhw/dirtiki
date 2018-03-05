@@ -609,6 +609,22 @@ var app = new Vue({
   }
 });
 
+/**
+ * Maps handling
+ */
+
+/**
+ * Handle maps callback
+ */
+window.initGoogleMap = function initGoogleMap() {
+  store.commit("setMapsProvider", "google");
+};
+
+if (typeof mapboxgl !== "undefined") {
+  mapboxgl.accessToken = document.getElementById("dirtiki-mapbox-key").content;
+  store.commit("setMapsProvider", "mapbox");
+}
+
 /***/ }),
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {

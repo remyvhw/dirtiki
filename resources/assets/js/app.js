@@ -42,7 +42,6 @@ const store = new Vuex.Store({
     }
 })
 
-
 /**
  * Next, registrer Axios on the Vue object so we can just call this.$http like
  * we did with vue-resource. Idiot proofing future debugging.
@@ -63,3 +62,22 @@ const app = new Vue({
         pageCreator: require("./components/page-creator.vue")
     }
 });
+
+
+/**
+ * Maps handling
+ */
+
+
+/**
+ * Handle maps callback
+ */
+window.initGoogleMap = function initGoogleMap() {
+    store.commit("setMapsProvider", "google");
+}
+
+if (typeof mapboxgl !== "undefined") {
+    mapboxgl.accessToken = document.getElementById("dirtiki-mapbox-key").content;
+    store.commit("setMapsProvider", "mapbox");
+}
+
