@@ -46,6 +46,11 @@ export default {
       selectedType: null
     };
   },
+  watch: {
+    "$store.state.maps.provider": function() {
+      this.selectDefaultPresentationType();
+    }
+  },
   computed: {
     code() {
       const code = this.$slots.default[0].text;
@@ -80,22 +85,18 @@ export default {
         label: "Raw"
       });
 
-      if (
-        !this.selectedType ||
-        !window
-          .collect(presentations)
-          .where("type", this.selectedType)
-          .count()
-      ) {
-        this.selectedType = presentations[0].type;
-      }
-
       return presentations;
     }
   },
-
+  mounted() {
+    this.$nextTick(() => {
+      this.selectDefaultPresentationType();
+    });
+  },
   methods: {
-    selectFirstPresentationType() {}
+    selectDefaultPresentationType() {
+      this.selectedType = this.availablePresentations[0].type;
+    }
   }
 };
 </script>

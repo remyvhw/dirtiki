@@ -3656,6 +3656,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
 
+  watch: {
+    "$store.state.maps.provider": function $storeStateMapsProvider() {
+      this.selectDefaultPresentationType();
+    }
+  },
   computed: {
     code: function code() {
       var code = this.$slots.default[0].text;
@@ -3686,16 +3691,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         label: "Raw"
       });
 
-      if (!this.selectedType || !window.collect(presentations).where("type", this.selectedType).count()) {
-        this.selectedType = presentations[0].type;
-      }
-
       return presentations;
     }
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      _this.selectDefaultPresentationType();
+    });
+  },
 
   methods: {
-    selectFirstPresentationType: function selectFirstPresentationType() {}
+    selectDefaultPresentationType: function selectDefaultPresentationType() {
+      this.selectedType = this.availablePresentations[0].type;
+    }
   }
 });
 
