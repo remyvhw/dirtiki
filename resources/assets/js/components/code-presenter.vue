@@ -26,6 +26,8 @@ pre {
         <pre><code>{{ rawCode }}</code></pre>
       </div>
     </section>
+
+    <geojson-renderer v-if="selectedType === 'map'" @error="allowMaps=false">{{ code }}</geojson-renderer>
   </aside>
 </template>
 <script type="text/babel">
@@ -40,6 +42,7 @@ export default {
   data() {
     return {
       allowHighlights: true,
+      allowMaps: true,
       selectedType: null
     };
   },
@@ -54,7 +57,11 @@ export default {
     availablePresentations() {
       let presentations = [];
 
-      if (this.language === "geojson" && this.$store.state.maps.provider) {
+      if (
+        this.allowMaps &&
+        this.language === "geojson" &&
+        this.$store.state.maps.provider
+      ) {
         presentations.push({
           type: "map",
           label: "Map"

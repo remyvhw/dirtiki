@@ -3637,6 +3637,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3649,6 +3651,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       allowHighlights: true,
+      allowMaps: true,
       selectedType: null
     };
   },
@@ -3664,7 +3667,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     availablePresentations: function availablePresentations() {
       var presentations = [];
 
-      if (this.language === "geojson" && this.$store.state.maps.provider) {
+      if (this.allowMaps && this.language === "geojson" && this.$store.state.maps.provider) {
         presentations.push({
           type: "map",
           label: "Map"
@@ -3793,6 +3796,8 @@ exports.push([module.i, "\npre code[data-v-44eb8e18] .token.number {\r\n  font-s
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -5410,9 +5415,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("pre", { class: "language-" + _vm.language }, [
-      _c("code", { domProps: { innerHTML: _vm._s(_vm.highlightedCode) } })
+  return _c("section", { staticClass: "section" }, [
+    _c("div", { staticClass: "container" }, [
+      _c("pre", { class: "language-" + _vm.language }, [
+        _c("code", { domProps: { innerHTML: _vm._s(_vm.highlightedCode) } })
+      ])
     ])
   ])
 }
@@ -5434,74 +5441,92 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("aside", [
-    _c(
-      "section",
-      { staticClass: "section" },
-      [
-        _vm.availablePresentations.length > 1
-          ? _c(
-              "div",
-              {
-                staticClass:
-                  "tabs is-small is-centered is-toggle is-toggle-rounded"
-              },
-              [
-                _c(
-                  "ul",
-                  _vm._l(_vm.availablePresentations, function(presentation) {
-                    return _c(
-                      "li",
-                      {
-                        key: presentation.type,
-                        class: {
-                          "is-active": presentation.type === _vm.selectedType
-                        }
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            on: {
-                              click: function($event) {
-                                _vm.selectedType = presentation.type
+  return _c(
+    "aside",
+    [
+      _c(
+        "section",
+        { staticClass: "section" },
+        [
+          _vm.availablePresentations.length > 1
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "tabs is-small is-centered is-toggle is-toggle-rounded"
+                },
+                [
+                  _c(
+                    "ul",
+                    _vm._l(_vm.availablePresentations, function(presentation) {
+                      return _c(
+                        "li",
+                        {
+                          key: presentation.type,
+                          class: {
+                            "is-active": presentation.type === _vm.selectedType
+                          }
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              on: {
+                                click: function($event) {
+                                  _vm.selectedType = presentation.type
+                                }
                               }
-                            }
-                          },
-                          [_c("span", [_vm._v(_vm._s(presentation.label))])]
-                        )
-                      ]
-                    )
-                  })
-                )
-              ]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.selectedType === "highlighted"
-          ? _c(
-              "code-highlighter",
-              {
-                attrs: { language: _vm.language },
-                on: {
-                  error: function($event) {
-                    _vm.allowHighlights = false
+                            },
+                            [_c("span", [_vm._v(_vm._s(presentation.label))])]
+                          )
+                        ]
+                      )
+                    })
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.selectedType === "highlighted"
+            ? _c(
+                "code-highlighter",
+                {
+                  attrs: { language: _vm.language },
+                  on: {
+                    error: function($event) {
+                      _vm.allowHighlights = false
+                    }
                   }
+                },
+                [_vm._v(_vm._s(_vm.code))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.selectedType === "raw"
+            ? _c("div", { staticClass: "container" }, [
+                _c("pre", [_c("code", [_vm._v(_vm._s(_vm.rawCode))])])
+              ])
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.selectedType === "map"
+        ? _c(
+            "geojson-renderer",
+            {
+              on: {
+                error: function($event) {
+                  _vm.allowMaps = false
                 }
-              },
-              [_vm._v(_vm._s(_vm.code))]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.selectedType === "raw"
-          ? _c("div", { staticClass: "container" }, [
-              _c("pre", [_c("code", [_vm._v(_vm._s(_vm.rawCode))])])
-            ])
-          : _vm._e()
-      ],
-      1
-    )
-  ])
+              }
+            },
+            [_vm._v(_vm._s(_vm.code))]
+          )
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -8313,7 +8338,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\n.map[data-v-04caaaee] {\n  height: 80vh;\n}\n", ""]);
 
 // exports
 
@@ -8331,9 +8356,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {},
+  data: function data() {
+    return {
+      map: null
+    };
+  },
+
   computed: {
     geojson: function geojson() {
       var code = this.$slots.default[0].text;
@@ -8344,7 +8380,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    var map = new mapboxgl.Map({
+      container: "map_" + this._uid,
+      style: "mapbox://styles/mapbox/streets-v9"
+    });
+  }
 });
 
 /***/ }),
@@ -8355,7 +8396,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("Map\n")])
+  return _c("div", [
+    _c("div", { staticClass: "map", attrs: { id: "map_" + _vm._uid } })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
