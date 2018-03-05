@@ -8416,8 +8416,8 @@ var geojsonExtent = __webpack_require__(234);
           type: "fill",
           source: "code-content",
           paint: {
-            "fill-color": "#888888",
-            "fill-opacity": 0.4
+            "fill-color": ["get", "fill"],
+            "fill-opacity": 0.5
           },
           filter: ["==", "$type", "Polygon"]
         });
@@ -8428,7 +8428,7 @@ var geojsonExtent = __webpack_require__(234);
           source: "code-content",
           paint: {
             "circle-radius": 6,
-            "circle-color": "#B42222"
+            "circle-color": ["get", "marker-color"]
           },
           filter: ["==", "$type", "Point"]
         });
@@ -8442,8 +8442,8 @@ var geojsonExtent = __webpack_require__(234);
             "line-cap": "round"
           },
           paint: {
-            "line-color": "#888",
-            "line-width": 4
+            "line-color": ["get", "stroke"],
+            "line-width": ["get", "stroke-width"]
           },
           filter: ["==", "$type", "LineString"]
         });

@@ -61,8 +61,8 @@ export default {
           type: "fill",
           source: "code-content",
           paint: {
-            "fill-color": "#888888",
-            "fill-opacity": 0.4
+            "fill-color": ["get", "fill"],
+            "fill-opacity": 0.5
           },
           filter: ["==", "$type", "Polygon"]
         });
@@ -73,7 +73,7 @@ export default {
           source: "code-content",
           paint: {
             "circle-radius": 6,
-            "circle-color": "#B42222"
+            "circle-color": ["get", "marker-color"]
           },
           filter: ["==", "$type", "Point"]
         });
@@ -87,8 +87,8 @@ export default {
             "line-cap": "round"
           },
           paint: {
-            "line-color": "#888",
-            "line-width": 4
+            "line-color": ["get", "stroke"],
+            "line-width": ["get", "stroke-width"]
           },
           filter: ["==", "$type", "LineString"]
         });
