@@ -10,6 +10,8 @@
 
         <title>@yield('title', config("app.name"))</title>
 
+        @include("layouts.mapping")
+
         <!-- Styles -->
         <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
