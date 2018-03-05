@@ -3662,6 +3662,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     availablePresentations: function availablePresentations() {
       var presentations = [];
+
+      if (this.language === "geojson" && this.$store.state.maps.provider) {
+        presentations.push({
+          type: "map",
+          label: "Map"
+        });
+      }
+
       if (this.allowHighlights) {
         presentations.push({
           type: "highlighted",

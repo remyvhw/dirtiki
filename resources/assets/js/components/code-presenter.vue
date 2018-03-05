@@ -52,6 +52,14 @@ export default {
     },
     availablePresentations() {
       let presentations = [];
+
+      if (this.language === "geojson" && this.$store.state.maps.provider) {
+        presentations.push({
+          type: "map",
+          label: "Map"
+        });
+      }
+
       if (this.allowHighlights) {
         presentations.push({
           type: "highlighted",
