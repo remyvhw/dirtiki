@@ -60,8 +60,8 @@ export default {
           fillColor: feature.getProperty("fill")
             ? feature.getProperty("fill")
             : defaultColor,
-          fillOpacity: feature.getProperty("stroke-opacity")
-            ? feature.getProperty("stroke-opacity")
+          fillOpacity: feature.getProperty("fill-opacity")
+            ? feature.getProperty("fill-opacity")
             : 0.5,
           strokeColor: feature.getProperty("stroke")
             ? feature.getProperty("stroke")
