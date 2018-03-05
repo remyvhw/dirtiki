@@ -31,7 +31,9 @@ pre {
 <script type="text/babel">
 export default {
   components: {
-    codeHighlighter: require("./code-highlighter.vue")
+    codeHighlighter: require("./code-highlighter.vue"),
+    geojsonRendererMapbox: require("./geojson-renderer-mapbox.vue"),
+    geojsonRendererGoogle: require("./geojson-renderer-google.vue")
   },
   props: {
     language: { type: String, required: false }
