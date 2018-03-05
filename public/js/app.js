@@ -8399,6 +8399,7 @@ var geojsonExtent = __webpack_require__(234);
         container: "map_" + this._uid,
         style: "mapbox://styles/mapbox/streets-v9"
       });
+      map.scrollZoom.disable();
 
       map.fitBounds(extent, {
         padding: 20,

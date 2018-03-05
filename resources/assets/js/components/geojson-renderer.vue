@@ -44,6 +44,7 @@ export default {
         container: "map_" + this._uid,
         style: "mapbox://styles/mapbox/streets-v9"
       });
+      map.scrollZoom.disable();
 
       map.fitBounds(extent, {
         padding: 20,
