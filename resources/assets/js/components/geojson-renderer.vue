@@ -54,6 +54,27 @@ export default {
       );
       map.data.addGeoJson(this.geojson);
 
+      map.data.setStyle(function(feature) {
+        var defaultColor = "hsl(0, 0%, 21%)";
+        return /** @type {google.maps.Data.StyleOptions} */ ({
+          fillColor: feature.getProperty("fill")
+            ? feature.getProperty("fill")
+            : defaultColor,
+          fillOpacity: feature.getProperty("stroke-opacity")
+            ? feature.getProperty("stroke-opacity")
+            : 0.5,
+          strokeColor: feature.getProperty("stroke")
+            ? feature.getProperty("stroke")
+            : defaultColor,
+          strokeWeight: feature.getProperty("stroke-width")
+            ? feature.getProperty("stroke-width")
+            : 1,
+          strokeOpacity: feature.getProperty("stroke-opacity")
+            ? feature.getProperty("stroke-opacity")
+            : 1
+        });
+      });
+
       let bounds = new google.maps.LatLngBounds();
       bounds.extend(new google.maps.LatLng(this.bounds[1], this.bounds[0]));
       bounds.extend(new google.maps.LatLng(this.bounds[3], this.bounds[2]));
