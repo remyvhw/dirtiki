@@ -57,7 +57,7 @@ class Page extends Model implements Auditable
             "updated_at" => $this->updated_at,
             "archived_at" => $this->archived_at,
             "body" => [
-                "content" => $this->body->content,
+                "content" => strlen($this->body->content) > 9500 ? str_limit($this->body->content, 2375) : $this->body->content,
             ],
             "links" => [
                 "api" => route("api.pages.show", [$this]),
