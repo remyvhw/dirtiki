@@ -17,7 +17,7 @@ class CreateBodiesTable extends Migration
             $table->integer('page_id')->unsigned();
             $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');
             $table->string("type", 32)->default("text/markdown");
-            $table->longText("content");
+            $table->mediumText("content");
         });
     }
 
