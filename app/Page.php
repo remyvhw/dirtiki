@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Events\PageSaved;
-use App\Http\Resources\PageResource;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -50,7 +49,20 @@ class Page extends Model implements Auditable
      */
     public function toSearchableArray()
     {
-        return (new PageResource($this->load("body")))->toArray(null);
+        return [
+            "name" => $this->name,
+            "slug" => $this->slug,
+            "created_at" => $this->created_at,
+            "updated_at" => $this->updated_at,
+            "archived_at" => $this->archived_at,
+            "body" => [
+                "content" => $this->body->content,
+            ],
+            "links" => [
+                "api" => route("api.pages.show", [$this]),
+                "public" => route("pages.show", [$this]),
+            ],
+        ];
     }
 
     /**
