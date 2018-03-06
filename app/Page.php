@@ -50,7 +50,7 @@ class Page extends Model implements Auditable
      */
     public function toSearchableArray()
     {
-        return new PageResource($this->load("body")); //->append('body')->toArray();
+        return (new PageResource($this->load("body")))->toArray(null);
     }
 
     /**
