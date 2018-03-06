@@ -3,13 +3,16 @@
 namespace App;
 
 use App\Events\PageSaved;
+use App\Http\Resources\PageResource;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Page extends Model implements Auditable
 {
+    use Searchable;
     use \OwenIt\Auditing\Auditable;
     use Sluggable;
     use SoftDeletes;
@@ -41,6 +44,16 @@ class Page extends Model implements Auditable
     }
 
     /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return new PageResource($this->load("body")); //->append('body')->toArray();
+    }
+
+    /**
      * Get the route key for the model.
      *
      * @return string
@@ -65,6 +78,13 @@ class Page extends Model implements Auditable
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [];
 
     /**
      * Get the Body record associated with the Page.
