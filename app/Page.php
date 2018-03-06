@@ -50,6 +50,7 @@ class Page extends Model implements Auditable
     public function toSearchableArray()
     {
         return [
+            "id" => $this->id,
             "name" => $this->name,
             "slug" => $this->slug,
             "created_at" => $this->created_at,
