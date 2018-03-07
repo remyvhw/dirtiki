@@ -106,4 +106,19 @@ class PageController extends Controller
         return AuditResource::collection($page->audits()->with("user")->latest()->paginate());
 
     }
+
+    /**
+     * Search a given resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getSearch(Request $request)
+    {
+        abort_if(!policy(Page::class)->index(Auth::user()), 403);
+        abort_if(!config("scout.driver") || config("scout.driver") === "null", 405);
+        $this->validate($request, [
+            "query" => "required",
+        ]);
+        return PageResource::collection(Page::search($request->input("query"))->paginate(10));
+    }
 }
