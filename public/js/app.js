@@ -3221,10 +3221,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 var debounce = __webpack_require__(223);
 
@@ -3317,34 +3313,32 @@ var render = function() {
       { staticClass: "modal-content panel" },
       [
         _c("div", { staticClass: "panel-block" }, [
-          _c("p", { staticClass: "control has-icons-left" }, [
-            _c("input", {
-              staticClass: "input is-small",
-              attrs: {
-                id: "search-field-" + _vm._uid,
-                type: "text",
-                placeholder: "search"
-              },
-              on: {
-                input: function($event) {
-                  _vm.handleInput($event.target.value)
+          _c(
+            "p",
+            {
+              staticClass: "control has-icons-left",
+              class: { "is-loading": _vm.loading }
+            },
+            [
+              _c("input", {
+                staticClass: "input",
+                attrs: {
+                  id: "search-field-" + _vm._uid,
+                  type: "text",
+                  placeholder: "search"
                 },
-                keyup: _vm.debouncer
-              }
-            }),
-            _vm._v(" "),
-            _vm._m(0)
-          ])
+                on: {
+                  input: function($event) {
+                    _vm.handleInput($event.target.value)
+                  },
+                  keyup: _vm.debouncer
+                }
+              }),
+              _vm._v(" "),
+              _vm._m(0)
+            ]
+          )
         ]),
-        _vm._v(" "),
-        _vm.loading
-          ? _c(
-              "div",
-              { staticClass: "panel-tabs" },
-              [_c("loading-indicator")],
-              1
-            )
-          : _vm._e(),
         _vm._v(" "),
         _vm._l(_vm.results, function(result) {
           return _c(
