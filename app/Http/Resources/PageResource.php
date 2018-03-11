@@ -21,7 +21,7 @@ class PageResource extends JsonResource
             "archived_at" => $this->archived_at,
             "name" => $this->name,
             "slug" => $this->slug,
-
+            "permalink" => route("pages.show", [$this]),
         ];
     }
 
