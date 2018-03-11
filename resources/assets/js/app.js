@@ -32,10 +32,8 @@ Vue.component('folding-panel', require('./components/folding-panel.vue'));
 
 const app = new Vue({
     el: '#app',
-    data() {
-        return {
-            query: ""
-        }
+    data: {
+        query: ""
     },
     components: {
         searchModal: require("./components/search-modal.vue"),

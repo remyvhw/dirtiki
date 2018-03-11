@@ -2,7 +2,7 @@
 
 </style>
 <template>
-    <div class="modal">
+    <div class="modal is-active">
         <div class="modal-background"></div>
         <div class="modal-content">
             <!-- Any other Bulma elements you want -->
@@ -16,7 +16,7 @@ export default {
   components: {},
   props: {
     query: {
-      type: string,
+      type: String,
       required: true
     }
   },
