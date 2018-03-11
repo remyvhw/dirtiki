@@ -21,7 +21,7 @@
                 <loading-indicator></loading-indicator>
             </div>
 
-            <a v-for="result in results" :key="result.id" class="panel-block">
+            <a v-for="result in results" :key="result.id" :href="result.permalink" class="panel-block">
                 {{ result.name }}
             </a>
 

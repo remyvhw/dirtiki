@@ -3347,9 +3347,15 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _vm._l(_vm.results, function(result) {
-          return _c("a", { key: result.id, staticClass: "panel-block" }, [
-            _vm._v("\n            " + _vm._s(result.name) + "\n        ")
-          ])
+          return _c(
+            "a",
+            {
+              key: result.id,
+              staticClass: "panel-block",
+              attrs: { href: result.permalink }
+            },
+            [_vm._v("\n            " + _vm._s(result.name) + "\n        ")]
+          )
         })
       ],
       2
