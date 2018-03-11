@@ -6,7 +6,7 @@
         <div class="modal-background"></div>
         <div class="modal-content box">
             <div class="control has-icons-right">
-                <input :id="'search-field-' + _uid" class="input" v-model="value" @input="handleInput" placeholder="Search">
+                <input :id="'search-field-' + _uid" class="input" @input="handleInput($event.target.value)" placeholder="Search" @keyup="debouncer">
 
                 <span class="icon is-small is-right">
                     <i class="fas fa-search"></i>
@@ -18,6 +18,8 @@
 </template>
 
 <script type="text/babel">
+var debounce = require("lodash.debounce");
+
 export default {
   components: {},
   props: {
@@ -28,10 +30,15 @@ export default {
   },
   data() {
     return {
-      initialSearchField: null
+      initialSearchField: null,
+      debouncer: () => {}
     };
   },
   mounted() {
+    this.debouncer = debounce(this.refreshResults, 250, {
+      maxWait: 1000
+    });
+
     /*
         Keep track of the element that presented the search field, so we can
         give it back the focus when dismissed.
@@ -58,12 +65,15 @@ export default {
     }
   },
   methods: {
-    handleInput() {
-      this.$emit("input", this.value);
+    handleInput(input) {
+      this.$emit("input", input);
     },
     clear() {
       this.value = "";
       this.$emit("input", "");
+    },
+    refreshResults() {
+      console.log(this.value);
     }
   }
 };
