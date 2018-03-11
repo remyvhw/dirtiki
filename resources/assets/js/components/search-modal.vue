@@ -4,7 +4,7 @@
 <template>
     <div class="modal is-active">
         <div class="modal-background"></div>
-        <div class="modal-content">
+        <div class="modal-content box">
             <div class="control has-icons-right">
                 <input :id="'search-field-' + _uid" class="input" v-model="value" @input="handleInput" placeholder="Search">
 

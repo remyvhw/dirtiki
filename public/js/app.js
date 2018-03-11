@@ -3275,7 +3275,7 @@ var render = function() {
   return _c("div", { staticClass: "modal is-active" }, [
     _c("div", { staticClass: "modal-background" }),
     _vm._v(" "),
-    _c("div", { staticClass: "modal-content" }, [
+    _c("div", { staticClass: "modal-content box" }, [
       _c("div", { staticClass: "control has-icons-right" }, [
         _c("input", {
           directives: [
