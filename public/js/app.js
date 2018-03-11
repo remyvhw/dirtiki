@@ -3256,6 +3256,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     handleInput: function handleInput() {
       this.$emit("input", this.value);
+    },
+    clear: function clear() {
+      this.value = "";
+      this.$emit("input", "");
     }
   }
 });
@@ -3304,7 +3308,8 @@ var render = function() {
     _vm._v(" "),
     _c("button", {
       staticClass: "modal-close is-large",
-      attrs: { "aria-label": "close" }
+      attrs: { "aria-label": "close" },
+      on: { click: _vm.clear }
     })
   ])
 }

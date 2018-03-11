@@ -13,7 +13,7 @@
                 </span>
             </div>
         </div>
-        <button class="modal-close is-large" aria-label="close"></button>
+        <button @click="clear" class="modal-close is-large" aria-label="close"></button>
     </div>
 </template>
 
@@ -60,6 +60,10 @@ export default {
   methods: {
     handleInput() {
       this.$emit("input", this.value);
+    },
+    clear() {
+      this.value = "";
+      this.$emit("input", "");
     }
   }
 };
