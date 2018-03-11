@@ -26,14 +26,19 @@ window.Vue = require('vue');
  */
 Vue.prototype.$http = window.axios;
 
-
 Vue.component('dirtiki-input', require('./components/dirtiki-input.vue'));
 Vue.component('loading-indicator', require('./components/loading-indicator.vue'));
 Vue.component('folding-panel', require('./components/folding-panel.vue'));
 
 const app = new Vue({
     el: '#app',
+    data() {
+        return {
+            query: ""
+        }
+    },
     components: {
+        searchModal: require("./components/search-modal.vue"),
         pageViewer: require("./components/page-viewer.vue"),
         pageEditor: require("./components/page-editor.vue"),
         pageCreator: require("./components/page-creator.vue")

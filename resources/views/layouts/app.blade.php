@@ -28,6 +28,7 @@
             </aside>
             @endif @yield('content')
 
+            <search-modal v-if="query" :query.sync="query"></search-modal>
         </section>
 
         <!-- Scripts -->
