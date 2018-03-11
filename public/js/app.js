@@ -3182,7 +3182,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\n.panel[data-v-96fe0042] {\n  background-color: white;\n}\n", ""]);
 
 // exports
 
@@ -3193,6 +3193,19 @@ exports.push([module.i, "\n\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3225,6 +3238,8 @@ var debounce = __webpack_require__(223);
   },
   data: function data() {
     return {
+      loading: false,
+      results: [],
       initialSearchField: null,
       debouncer: function debouncer() {}
     };
@@ -3269,7 +3284,19 @@ var debounce = __webpack_require__(223);
       this.$emit("input", "");
     },
     refreshResults: function refreshResults() {
-      console.log(this.value);
+      var _this = this;
+
+      this.loading = true;
+      this.$http.get("api/pages/search", {
+        params: {
+          query: this.value
+        }
+      }).then(function (_ref) {
+        var data = _ref.data;
+
+        _this.results = data.data;
+        _this.loading = false;
+      });
     }
   }
 });
@@ -3285,22 +3312,48 @@ var render = function() {
   return _c("div", { staticClass: "modal is-active" }, [
     _c("div", { staticClass: "modal-background" }),
     _vm._v(" "),
-    _c("div", { staticClass: "modal-content box" }, [
-      _c("div", { staticClass: "control has-icons-right" }, [
-        _c("input", {
-          staticClass: "input",
-          attrs: { id: "search-field-" + _vm._uid, placeholder: "Search" },
-          on: {
-            input: function($event) {
-              _vm.handleInput($event.target.value)
-            },
-            keyup: _vm.debouncer
-          }
-        }),
+    _c(
+      "div",
+      { staticClass: "modal-content panel" },
+      [
+        _c("div", { staticClass: "panel-block" }, [
+          _c("p", { staticClass: "control has-icons-left" }, [
+            _c("input", {
+              staticClass: "input is-small",
+              attrs: {
+                id: "search-field-" + _vm._uid,
+                type: "text",
+                placeholder: "search"
+              },
+              on: {
+                input: function($event) {
+                  _vm.handleInput($event.target.value)
+                },
+                keyup: _vm.debouncer
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(0)
+          ])
+        ]),
         _vm._v(" "),
-        _vm._m(0)
-      ])
-    ]),
+        _vm.loading
+          ? _c(
+              "div",
+              { staticClass: "panel-tabs" },
+              [_c("loading-indicator")],
+              1
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm._l(_vm.results, function(result) {
+          return _c("a", { staticClass: "panel-block" }, [
+            _vm._v("\n            " + _vm._s(result.name) + "\n        ")
+          ])
+        })
+      ],
+      2
+    ),
     _vm._v(" "),
     _c("button", {
       staticClass: "modal-close is-large",
@@ -3314,7 +3367,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small is-right" }, [
+    return _c("span", { staticClass: "icon is-small is-left" }, [
       _c("i", { staticClass: "fas fa-search" })
     ])
   }

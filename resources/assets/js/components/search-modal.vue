@@ -1,17 +1,30 @@
 <style scoped>
-
+.panel {
+  background-color: white;
+}
 </style>
 <template>
     <div class="modal is-active">
         <div class="modal-background"></div>
-        <div class="modal-content box">
-            <div class="control has-icons-right">
-                <input :id="'search-field-' + _uid" class="input" @input="handleInput($event.target.value)" placeholder="Search" @keyup="debouncer">
+        <div class="modal-content panel">
 
-                <span class="icon is-small is-right">
-                    <i class="fas fa-search"></i>
-                </span>
+            <div class="panel-block">
+                <p class="control has-icons-left">
+                    <input :id="'search-field-' + _uid" @input="handleInput($event.target.value)" @keyup="debouncer" class="input is-small" type="text" placeholder="search">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </p>
             </div>
+
+            <div v-if="loading" class="panel-tabs">
+                <loading-indicator></loading-indicator>
+            </div>
+
+            <a v-for="result in results" class="panel-block">
+                {{ result.name }}
+            </a>
+
         </div>
         <button @click="clear" class="modal-close is-large" aria-label="close"></button>
     </div>
@@ -30,6 +43,8 @@ export default {
   },
   data() {
     return {
+      loading: false,
+      results: [],
       initialSearchField: null,
       debouncer: () => {}
     };
@@ -73,7 +88,17 @@ export default {
       this.$emit("input", "");
     },
     refreshResults() {
-      console.log(this.value);
+      this.loading = true;
+      this.$http
+        .get("api/pages/search", {
+          params: {
+            query: this.value
+          }
+        })
+        .then(({ data }) => {
+          this.results = data.data;
+          this.loading = false;
+        });
     }
   }
 };
