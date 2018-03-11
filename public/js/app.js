@@ -3206,21 +3206,58 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
-    query: {
+    value: {
       type: String,
       required: true
     }
   },
   data: function data() {
     return {
-      page: null
+      initialSearchField: null
     };
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    /*
+        Keep track of the element that presented the search field, so we can
+        give it back the focus when dismissed.
+    */
+    this.initialSearchField = document.activeElement;
+
+    /*
+        Transfer focus to the search field at the forefront.
+        We need to manually empty the field first (without triggering a change
+        on the query model) so Firefox puts the cursor at the very end of the
+        already typed in string.
+    */
+    var searchFieldId = "#search-field-" + this._uid;
+    var searchField = this.$el.querySelector(searchFieldId);
+    searchField.value = "";
+    searchField.focus();
+    searchField.value = this.value;
+  },
+  beforeDestroy: function beforeDestroy() {
+    // Give focus to the element where user initially started typing
+    // her request.
+    if (this.initialSearchField) {
+      this.initialSearchField.focus();
+    }
+  },
+
+  methods: {
+    handleInput: function handleInput() {
+      this.$emit("input", this.value);
+    }
+  }
 });
 
 /***/ }),
@@ -3231,22 +3268,53 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "modal is-active" }, [
+    _c("div", { staticClass: "modal-background" }),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal-content" }, [
+      _c("div", { staticClass: "control has-icons-right" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.value,
+              expression: "value"
+            }
+          ],
+          staticClass: "input",
+          attrs: { id: "search-field-" + _vm._uid, placeholder: "Search" },
+          domProps: { value: _vm.value },
+          on: {
+            input: [
+              function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.value = $event.target.value
+              },
+              _vm.handleInput
+            ]
+          }
+        }),
+        _vm._v(" "),
+        _vm._m(0)
+      ])
+    ]),
+    _vm._v(" "),
+    _c("button", {
+      staticClass: "modal-close is-large",
+      attrs: { "aria-label": "close" }
+    })
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal is-active" }, [
-      _c("div", { staticClass: "modal-background" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "modal-content" }),
-      _vm._v(" "),
-      _c("button", {
-        staticClass: "modal-close is-large",
-        attrs: { "aria-label": "close" }
-      })
+    return _c("span", { staticClass: "icon is-small is-right" }, [
+      _c("i", { staticClass: "fas fa-search" })
     ])
   }
 ]
