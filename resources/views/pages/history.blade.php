@@ -4,5 +4,6 @@
         {{ Breadcrumbs::render('page-history', $page) }}
     </section>
 </div>
+<page-history page-slug="{{ $page->slug }}"></page-history>
 
 @endsection
