@@ -17,6 +17,7 @@
         <loading-indicator :size="2" v-if="loading"></loading-indicator>
         <div class="diffs" else>
             <page-history-metadata-diff v-for="diff in data.data" :key="diff.key" :diff="diff"></page-history-metadata-diff>
+            <basic-paginator :links="data.links" :meta="data.meta" @select="handlePaginationSelect"></basic-paginator>
         </div>
     </div>
 
@@ -39,6 +40,9 @@ export default {
     this.loadHistory("/api/pages/" + this.pageSlug + "/history");
   },
   methods: {
+    handlePaginationSelect(url) {
+      this.loadHistory(url);
+    },
     loadHistory(url) {
       this.loading = true;
       this.$http.get(url).then(({ data }) => {

@@ -572,6 +572,7 @@ Vue.prototype.$http = window.axios;
 Vue.component('dirtiki-input', __webpack_require__(137));
 Vue.component('loading-indicator', __webpack_require__(140));
 Vue.component('folding-panel', __webpack_require__(143));
+Vue.component('basic-paginator', __webpack_require__(239));
 
 var app = new Vue({
   el: '#app',
@@ -8108,6 +8109,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -8127,6 +8129,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
+    handlePaginationSelect: function handlePaginationSelect(url) {
+      this.loadHistory(url);
+    },
     loadHistory: function loadHistory(url) {
       var _this = this;
 
@@ -8328,12 +8333,20 @@ var render = function() {
       _c(
         "div",
         { staticClass: "diffs", attrs: { else: "" } },
-        _vm._l(_vm.data.data, function(diff) {
-          return _c("page-history-metadata-diff", {
-            key: diff.key,
-            attrs: { diff: diff }
+        [
+          _vm._l(_vm.data.data, function(diff) {
+            return _c("page-history-metadata-diff", {
+              key: diff.key,
+              attrs: { diff: diff }
+            })
+          }),
+          _vm._v(" "),
+          _c("basic-paginator", {
+            attrs: { links: _vm.data.links, meta: _vm.data.meta },
+            on: { select: _vm.handlePaginationSelect }
           })
-        })
+        ],
+        2
       )
     ],
     1
@@ -8452,6 +8465,293 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-729cd303", module.exports)
+  }
+}
+
+/***/ }),
+/* 239 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(240)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(242)
+/* template */
+var __vue_template__ = __webpack_require__(243)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-0eb9636b"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/basic-paginator.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0eb9636b", Component.options)
+  } else {
+    hotAPI.reload("data-v-0eb9636b", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 240 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(241);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("c53ce77e", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0eb9636b\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./basic-paginator.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0eb9636b\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./basic-paginator.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 241 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 242 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    links: { type: Object, required: true },
+    meta: { type: Object, required: false }
+  },
+  methods: {
+    handleLinkClick: function handleLinkClick(url) {
+      this.$emit("select", url);
+    }
+  },
+  computed: {
+    isLastPage: function isLastPage() {
+      return this.links.next;
+    },
+    currentPageNumber: function currentPageNumber() {
+      return this.meta ? this.meta.current_page : 1;
+    },
+    lastPageNumber: function lastPageNumber() {
+      return this.meta ? this.meta.last_page : 1;
+    },
+    shouldShowLeftEllipsis: function shouldShowLeftEllipsis() {
+      return this.currentPageNumber > 2;
+    },
+    shouldShowRightEllipsis: function shouldShowRightEllipsis() {
+      return this.lastPageNumber - this.currentPageNumber > 1;
+    },
+    shouldShowFirstPageLink: function shouldShowFirstPageLink() {
+      return this.currentPageNumber > 1;
+    },
+    shouldShowLastPageLink: function shouldShowLastPageLink() {
+      return this.currentPageNumber != this.lastPageNumber;
+    }
+  }
+});
+
+/***/ }),
+/* 243 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "nav",
+    {
+      staticClass: "pagination",
+      attrs: { role: "navigation", "aria-label": "pagination" }
+    },
+    [
+      _c(
+        "a",
+        {
+          staticClass: "pagination-previous",
+          attrs: { disabled: !_vm.links.prev },
+          on: {
+            click: function($event) {
+              _vm.handleLinkClick(_vm.links.prev)
+            }
+          }
+        },
+        [_vm._v("Previous")]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "pagination-next",
+          attrs: { disabled: !_vm.links.next },
+          on: {
+            click: function($event) {
+              _vm.handleLinkClick(_vm.links.next)
+            }
+          }
+        },
+        [_vm._v("Next page")]
+      ),
+      _vm._v(" "),
+      _vm.meta
+        ? _c("ul", { staticClass: "pagination-list" }, [
+            _vm.shouldShowFirstPageLink
+              ? _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "pagination-link",
+                      attrs: { "aria-label": "Goto page 1" },
+                      on: {
+                        click: function($event) {
+                          _vm.handleLinkClick(_vm.links.first)
+                        }
+                      }
+                    },
+                    [_vm._v("1")]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.shouldShowLeftEllipsis
+              ? _c("li", [
+                  _c("span", { staticClass: "pagination-ellipsis" }, [
+                    _vm._v("…")
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "pagination-link is-current",
+                  attrs: {
+                    "aria-label": "Page " + _vm.currentPageNumber,
+                    "aria-current": "page"
+                  }
+                },
+                [_vm._v(_vm._s(_vm.currentPageNumber))]
+              )
+            ]),
+            _vm._v(" "),
+            _vm.shouldShowRightEllipsis
+              ? _c("li", [
+                  _c("span", { staticClass: "pagination-ellipsis" }, [
+                    _vm._v("…")
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.shouldShowLastPageLink
+              ? _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "pagination-link",
+                      attrs: {
+                        "aria-label": "Go to page " + _vm.lastPageNumber
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.handleLinkClick(_vm.links.last)
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.lastPageNumber))]
+                  )
+                ])
+              : _vm._e()
+          ])
+        : _vm._e()
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0eb9636b", module.exports)
   }
 }
 
