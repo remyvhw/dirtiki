@@ -8,22 +8,22 @@ th {
 }
 </style>
 <template>
-    <div class="diff">
-        <history-metadata :diff="diff"></history-metadata>
-        <table class='table is-striped is-narrow is-fullwidth'>
-            <tr v-for="pair in diffPairs" :key="attribute">
-                <th>{{ pair.attribute }}</th>
-                <td>
-                    <span v-if="pair.before">{{ pair.before }}</span>
-                    <span v-else>&mdash;</span>
-                </td>
-                <td>
-                    <span v-if="pair.after">{{ pair.after }}</span>
-                    <span v-else>&mdash;</span>
-                </td>
-            </tr>
-        </table>
-    </div>
+  <div class="diff">
+    <history-metadata :diff="diff"></history-metadata>
+    <table class='table is-striped is-narrow is-fullwidth'>
+      <tr v-for="pair in diffPairs" :key="attribute">
+        <th>{{ pair.attribute }}</th>
+        <td>
+          <span v-if="pair.before">{{ pair.before }}</span>
+          <span v-else>&mdash;</span>
+        </td>
+        <td>
+          <span v-if="pair.after">{{ pair.after }}</span>
+          <span v-else>&mdash;</span>
+        </td>
+      </tr>
+    </table>
+  </div>
 
 </template>
 <script type="text/babel">
