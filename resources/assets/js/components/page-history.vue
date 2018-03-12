@@ -1,8 +1,8 @@
 <template>
     <div class="section">
         <section class="container">
-            <folding-panel :deployed="activePanel === 'metadata'" title="Settings" ref="metadata" @toggle="toggleFolding">
-                <page-history-metadata :page-slug="pageSlug"></page-history-metadata>
+            <folding-panel :deployed="activePanel === 'settings'" title="Settings" ref="settings" @toggle="toggleFolding">
+                <page-history-settings :page-slug="pageSlug"></page-history-settings>
             </folding-panel>
         </section>
     </div>
@@ -11,21 +11,21 @@
 <script type="text/babel">
 export default {
   components: {
-    pageHistoryMetadata: require("./page-history-metadata.vue")
+    pageHistorySettings: require("./page-history-settings.vue")
   },
   props: {
     pageSlug: { Type: String, Required: true }
   },
   data() {
     return {
-      activePanel: "metadata"
+      activePanel: "settings"
     };
   },
   mounted() {},
   methods: {
     toggleFolding(component) {
-      if (component === this.$refs.metadata) {
-        this.activePanel = "metadata";
+      if (component === this.$refs.settings) {
+        this.activePanel = "settings";
       } else if (component === this.$refs.body) {
         this.activePanel = "body";
       }

@@ -9,23 +9,7 @@ th {
 </style>
 <template>
     <div class="diff">
-        <div class="level">
-            <!-- Left side -->
-            <div class="level-left">
-                <div class="level-item">
-                    <p class="subtitle is-5">
-                        {{ diff.data.created_at.date }}
-                    </p>
-                </div>
-            </div>
-
-            <!-- Right side -->
-            <div class="level-right">
-                <p class="level-item">
-                    {{ diff.data.author.ip }}
-                </p>
-            </div>
-        </div>
+        <history-metadata :diff="diff"></history-metadata>
         <table class='table is-striped is-narrow is-fullwidth'>
             <tr v-for="pair in diffPairs" :key="attribute">
                 <th>{{ pair.attribute }}</th>
@@ -44,6 +28,9 @@ th {
 </template>
 <script type="text/babel">
 export default {
+  components: {
+    historyMetadata: require("./history-metadata.vue")
+  },
   props: {
     diff: {
       type: Object,
