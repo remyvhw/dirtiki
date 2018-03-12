@@ -12,7 +12,7 @@
         <!-- Right side -->
         <div class="level-right">
             <p class="level-item">
-                {{ diff.data.author.ip }}
+                {{ author }}
             </p>
         </div>
     </header>
@@ -25,6 +25,12 @@ export default {
       required: true
     }
   },
-  computed: {}
+  computed: {
+    author() {
+      return this.diff.data.author.anonymous
+        ? "Anonyme (" + this.diff.data.author.ip + ")"
+        : this.diff.relationships.user.data.name;
+    }
+  }
 };
 </script>

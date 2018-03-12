@@ -26,7 +26,7 @@ class AuditResource extends JsonResource
                 "author" => [
                     "ip" => $this->ip_address,
                     "user_agent" => $this->user_agent,
-                    "anomymous" => !$this->user_id,
+                    "anonymous" => !$this->user_id,
                 ],
             ],
             'relationships' => [

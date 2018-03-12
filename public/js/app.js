@@ -8815,7 +8815,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       required: true
     }
   },
-  computed: {}
+  computed: {
+    author: function author() {
+      return this.diff.data.author.anonymous ? "Anonyme (" + this.diff.data.author.ip + ")" : this.diff.relationships.user.data.name;
+    }
+  }
 });
 
 /***/ }),
@@ -8841,9 +8845,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "level-right" }, [
       _c("p", { staticClass: "level-item" }, [
-        _vm._v(
-          "\n            " + _vm._s(_vm.diff.data.author.ip) + "\n        "
-        )
+        _vm._v("\n            " + _vm._s(_vm.author) + "\n        ")
       ])
     ])
   ])
