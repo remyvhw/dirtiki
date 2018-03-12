@@ -1,7 +1,21 @@
+<style scoped>
+.diffs > .diff {
+  padding: 1em 0 1em 0;
+}
+.diffs > .diff:first-child {
+  padding: 0 0 1em 0;
+}
+.diffs > :last-child {
+  padding: 1em 0 0 0;
+}
+.diffs > .diff:not(:last-child) {
+  border-bottom: 2px solid hsl(0, 0%, 96%);
+}
+</style>
 <template>
-    <div>
+    <div style="width:100%">
         <loading-indicator :size="2" v-if="loading"></loading-indicator>
-        <div else>
+        <div class="diffs" else>
             <page-history-metadata-diff v-for="diff in data.data" :key="diff.key" :diff="diff"></page-history-metadata-diff>
         </div>
     </div>
@@ -18,7 +32,7 @@ export default {
   data() {
     return {
       loading: false,
-      data: null
+      data: { data: null }
     };
   },
   mounted() {
