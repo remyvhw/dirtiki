@@ -16,7 +16,7 @@ class AuditResource extends JsonResource
     {
         return [
             "data" => [
-                "id" => $this->id,
+                "key" => md5($this->toJson()),
                 "created_at" => $this->created_at,
                 "type" => $this->event,
                 "changes" => [
