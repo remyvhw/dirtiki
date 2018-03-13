@@ -8673,7 +8673,7 @@ var render = function() {
         "table",
         { staticClass: "table is-striped is-narrow is-fullwidth" },
         _vm._l(_vm.diffPairs, function(pair) {
-          return _c("tr", { key: _vm.attribute }, [
+          return _c("tr", { key: pair.attribute }, [
             _c("th", [_vm._v(_vm._s(pair.attribute))]),
             _vm._v(" "),
             _c("td", [

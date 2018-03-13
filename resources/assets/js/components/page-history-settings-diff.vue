@@ -11,7 +11,7 @@ th {
   <div class="diff">
     <history-metadata :diff="diff"></history-metadata>
     <table class='table is-striped is-narrow is-fullwidth'>
-      <tr v-for="pair in diffPairs" :key="attribute">
+      <tr v-for="pair in diffPairs" :key="pair.attribute">
         <th>{{ pair.attribute }}</th>
         <td>
           <span v-if="pair.before">{{ pair.before }}</span>
