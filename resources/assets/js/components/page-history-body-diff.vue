@@ -1,12 +1,12 @@
 <template>
     <div class="diff">
         <history-metadata :diff="diff"></history-metadata>
-        <pre v-if="diff.data && diff.data.changes.diff">{{ diff.data.changes.diff }}</pre>
+        <pre v-if="styledDiff" v-html="styledDiff"></pre>
     </div>
 
 </template>
 <script type="text/babel">
-let diff2html = require("diff2html").Diff2Html;
+var jsDiff = require("diff");
 
 export default {
   components: {
@@ -18,12 +18,94 @@ export default {
       required: true
     }
   },
-  computed: {},
+  computed: {
+    styledDiff() {
+      if (!this.diff || !this.diff.data.changes.diff) return null;
+      let allLines = this.diff.data.changes.diff.split("\n");
+      return window
+        .collect(allLines)
+        .reject(line => {
+          return ["--- Original", "+++ New", "@@ @@"].includes(line);
+        })
+        .pipe(lines => {
+          allLines = lines.toArray();
+          return window.collect(allLines);
+        })
+        .map((line, index) => {
+          if (line === " " || !line) {
+            return index === 0 || index === allLines.length - 1 ? null : line;
+          }
+          return line;
+        })
+        .reject(line => {
+          return line === null;
+        })
+        .pipe(lines => {
+          allLines = lines.toArray();
+          return window.collect(allLines);
+        })
+        .map((line, index) => {
+          let nextLine = allLines[index + 1];
+          let previousLine = allLines[index - 1];
+          if (line.startsWith("-") && nextLine.startsWith("+")) {
+            return [line, nextLine];
+          }
+          if (line.startsWith("+") && previousLine.startsWith("-")) {
+            return null;
+          }
+          return line;
+        })
+        .reject(line => {
+          return line === null;
+        })
+        .map(line => {
+          if (typeof line === "object") {
+            return this.styleUpdatedLines(line);
+          } else if (line.startsWith("+")) {
+            return this.styleAddedLine(line);
+          } else if (line.startsWith("-")) {
+            return this.styleOriginalLine(line);
+          }
+          return this.stylePlainLine(line);
+        })
+        .implode("\n");
+    }
+  },
   data() {
     return {};
   },
   methods: {
-    computeDiff() {}
+    stylePlainLine(line) {
+      return "<span class='diff-regular'>" + line.substr(1) + "</span>";
+    },
+    styleOriginalLine(line, nextLine) {
+      return "<span class='diff-original'>" + line.substr(1) + "</span>";
+    },
+    styleAddedLine(line) {
+      return "<span class='diff-new'>" + line.substr(1) + "</span>";
+    },
+    styleUpdatedLines(lines) {
+      const before = lines[0].substr(1);
+      const after = lines[1].substr(1);
+      if (!after) {
+        return this.styleOriginalLine(lines[0]);
+      } else if (!before) {
+        return this.styleAddedLine(lines[1]);
+      }
+      let dummyNode = document.createElement("span");
+      dummyNode.classList.add("diff-updated");
+      jsDiff.diffChars(before, after).forEach(part => {
+        let partClass = part.added
+          ? "diff-fragment-added"
+          : part.removed ? "diff-fragment-removed" : "diff-fragment-regular";
+        let span = document.createElement("span");
+        span.classList.add(partClass);
+        span.appendChild(document.createTextNode(part.value));
+        dummyNode.appendChild(span);
+      });
+
+      return dummyNode.outerHTML;
+    }
   }
 };
 </script>
