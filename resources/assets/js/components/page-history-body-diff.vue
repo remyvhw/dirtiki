@@ -20,7 +20,18 @@ export default {
   },
   computed: {
     styledDiff() {
-      if (!this.diff || !this.diff.data.changes.diff) return null;
+      if (!this.diff) return null;
+      if (
+        this.diff.data.changes.before &&
+        !this.diff.data.changes.before.content
+      ) {
+        return this.createSpanNodeWithClass(
+          this.diff.data.changes.after.content,
+          "diff-new",
+          "div"
+        );
+      }
+      if (!this.diff.data.changes.diff) return null;
       let allLines = this.diff.data.changes.diff.split("\n");
       return window
         .collect(allLines)
@@ -75,8 +86,8 @@ export default {
     return {};
   },
   methods: {
-    createSpanNodeWithClass(text, className) {
-      let span = document.createElement("span");
+    createSpanNodeWithClass(text, className, element = "span") {
+      let span = document.createElement(element);
       span.classList.add(className);
       span.appendChild(document.createTextNode(text));
       return span.outerHTML;

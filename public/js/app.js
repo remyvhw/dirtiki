@@ -9185,7 +9185,11 @@ var jsDiff = __webpack_require__(265);
     styledDiff: function styledDiff() {
       var _this = this;
 
-      if (!this.diff || !this.diff.data.changes.diff) return null;
+      if (!this.diff) return null;
+      if (this.diff.data.changes.before && !this.diff.data.changes.before.content) {
+        return this.createSpanNodeWithClass(this.diff.data.changes.after.content, "diff-new", "div");
+      }
+      if (!this.diff.data.changes.diff) return null;
       var allLines = this.diff.data.changes.diff.split("\n");
       return window.collect(allLines).reject(function (line) {
         return ["--- Original", "+++ New", "@@ @@"].includes(line);
@@ -9232,7 +9236,9 @@ var jsDiff = __webpack_require__(265);
 
   methods: {
     createSpanNodeWithClass: function createSpanNodeWithClass(text, className) {
-      var span = document.createElement("span");
+      var element = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "span";
+
+      var span = document.createElement(element);
       span.classList.add(className);
       span.appendChild(document.createTextNode(text));
       return span.outerHTML;
