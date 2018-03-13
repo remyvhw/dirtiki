@@ -17,8 +17,30 @@
 
 require('./bootstrap');
 
-
 window.Vue = require('vue');
+import Vuex from 'vuex'
+
+/**
+ * We add vuex to vue. We'll mostly use Vuex in this application
+ * as a global state and localized strings store.
+ */
+Vue.use(Vuex)
+
+/**
+ * Initialize global store.
+ */
+const store = new Vuex.Store({
+    state: {
+        maps: {
+            provider: null
+        }
+    },
+    mutations: {
+        setMapsProvider(state, provider) {
+            state.maps.provider = provider;
+        }
+    }
+})
 
 /**
  * Next, registrer Axios on the Vue object so we can just call this.$http like
@@ -33,6 +55,7 @@ Vue.component('basic-paginator', require('./components/basic-paginator.vue'));
 
 const app = new Vue({
     el: '#app',
+    store,
     data: {
         query: ""
     },
@@ -44,3 +67,22 @@ const app = new Vue({
         pageHistory: require("./components/page-history.vue")
     }
 });
+
+
+/**
+ * Maps handling
+ */
+
+
+/**
+ * Handle maps callback
+ */
+window.initGoogleMap = function initGoogleMap() {
+    store.commit("setMapsProvider", "google");
+}
+
+if (typeof mapboxgl !== "undefined") {
+    mapboxgl.accessToken = document.getElementById("dirtiki-mapbox-key").content;
+    store.commit("setMapsProvider", "mapbox");
+}
+

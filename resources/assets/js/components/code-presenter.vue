@@ -26,12 +26,15 @@ pre {
         <pre><code>{{ rawCode }}</code></pre>
       </div>
     </section>
+
+    <geojson-renderer v-if="selectedType === 'map'" @error="allowMaps=false">{{ code }}</geojson-renderer>
   </aside>
 </template>
 <script type="text/babel">
 export default {
   components: {
-    codeHighlighter: require("./code-highlighter.vue")
+    codeHighlighter: require("./code-highlighter.vue"),
+    geojsonRenderer: require("./geojson-renderer.vue")
   },
   props: {
     language: { type: String, required: false }
@@ -39,8 +42,14 @@ export default {
   data() {
     return {
       allowHighlights: true,
+      allowMaps: true,
       selectedType: null
     };
+  },
+  watch: {
+    "$store.state.maps.provider": function() {
+      this.selectDefaultPresentationType();
+    }
   },
   computed: {
     code() {
@@ -52,6 +61,18 @@ export default {
     },
     availablePresentations() {
       let presentations = [];
+
+      if (
+        this.allowMaps &&
+        this.language === "geojson" &&
+        this.$store.state.maps.provider
+      ) {
+        presentations.push({
+          type: "map",
+          label: "Map"
+        });
+      }
+
       if (this.allowHighlights) {
         presentations.push({
           type: "highlighted",
@@ -64,22 +85,18 @@ export default {
         label: "Raw"
       });
 
-      if (
-        !this.selectedType ||
-        !window
-          .collect(presentations)
-          .where("type", this.selectedType)
-          .count()
-      ) {
-        this.selectedType = presentations[0].type;
-      }
-
       return presentations;
     }
   },
-
+  mounted() {
+    this.$nextTick(() => {
+      this.selectDefaultPresentationType();
+    });
+  },
   methods: {
-    selectFirstPresentationType() {}
+    selectDefaultPresentationType() {
+      this.selectedType = this.availablePresentations[0].type;
+    }
   }
 };
 </script>

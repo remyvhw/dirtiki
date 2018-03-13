@@ -9,9 +9,11 @@ pre code>>>.token.number {
 }
 </style>
 <template>
-  <div class="container">
-    <pre :class="'language-' + language"><code v-html="highlightedCode"></code></pre>
-  </div>
+  <section class="section">
+    <div class="container">
+      <pre :class="'language-' + language"><code v-html="highlightedCode"></code></pre>
+    </div>
+  </section>
 </template>
 <script type="text/babel">
 var Prism = require("prismjs");
