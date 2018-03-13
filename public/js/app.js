@@ -3052,13 +3052,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    deployed: { type: Boolean, default: true },
+    deployed: { type: Boolean, default: undefined },
     title: { type: String, required: true }
   },
+  computed: {
+    shouldBeDeployed: {
+      get: function get() {
+        if (typeof this.deployed === "undefined") {
+          return this.enclosedDeployed;
+        }
+        return this.deployed;
+      },
+      set: function set(newValue) {
+        if (typeof this.deployed === "undefined") {
+          this.enclosedDeployed = newValue;
+        }
+      }
+    }
+  },
+  data: function data() {
+    return {
+      enclosedDeployed: true
+    };
+  },
+
   methods: {
     toggle: function toggle() {
-      this.deployed = !this.deployed;
       this.$emit("toggle", this);
+      this.shouldBeDeployed = !this.shouldBeDeployed;
     }
   }
 });
@@ -3073,17 +3094,19 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "panel" }, [
     _c("p", { staticClass: "panel-heading", on: { click: _vm.toggle } }, [
-      _vm._v("\n        " + _vm._s(_vm.title) + "\n        "),
+      _vm._v("\n    " + _vm._s(_vm.title) + "\n    "),
       _c("span", { staticClass: "is-pulled-right" }, [
-        !_vm.deployed
+        !_vm.shouldBeDeployed
           ? _c("i", { staticClass: "fas fa-caret-right" })
           : _vm._e(),
         _vm._v(" "),
-        _vm.deployed ? _c("i", { staticClass: "fas fa-caret-down" }) : _vm._e()
+        _vm.shouldBeDeployed
+          ? _c("i", { staticClass: "fas fa-caret-down" })
+          : _vm._e()
       ])
     ]),
     _vm._v(" "),
-    _vm.deployed
+    _vm.shouldBeDeployed
       ? _c("div", { staticClass: "panel-block" }, [_vm._t("default")], 2)
       : _vm._e()
   ])
