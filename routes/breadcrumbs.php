@@ -27,3 +27,8 @@ Breadcrumbs::register('page-creator', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push("New Page", route('pages.create'));
 });
+
+Breadcrumbs::register('page-history', function ($breadcrumbs, $page) {
+    $breadcrumbs->parent('page', $page);
+    $breadcrumbs->push("History", route('pages.history', $page));
+});

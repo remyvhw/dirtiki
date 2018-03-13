@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use SebastianBergmann\Diff\Differ;
 
 class AuditResource extends JsonResource
 {
@@ -14,18 +15,24 @@ class AuditResource extends JsonResource
      */
     public function toArray($request)
     {
+        $audit = $this;
         return [
             "data" => [
+                "key" => md5($this->toJson()),
                 "created_at" => $this->created_at,
                 "type" => $this->event,
                 "changes" => [
                     "before" => $this->old_values,
                     "after" => $this->new_values,
+                    "diff" => $this->when($this->auditable_type === \App\Body::class && data_get($this->old_values, "content"), function () use ($audit) {
+                        $differ = new Differ;
+                        return $differ->diff(data_get($audit->old_values, "content"), data_get($audit->new_values, "content"));;
+                    }),
                 ],
                 "author" => [
                     "ip" => $this->ip_address,
                     "user_agent" => $this->user_agent,
-                    "anomymous" => !$this->user_id,
+                    "anonymous" => !$this->user_id,
                 ],
             ],
             'relationships' => [
