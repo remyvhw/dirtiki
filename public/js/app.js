@@ -8883,6 +8883,7 @@ var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(258)
+  __webpack_require__(379)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -8972,6 +8973,33 @@ exports.push([module.i, "\n.diffs > .diff[data-v-fa7a1f9c] {\n  padding: 1em 0 1
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9220,9 +9248,18 @@ var jsDiff = __webpack_require__(265);
       } else if (!before) {
         return this.styleAddedLine(lines[1]);
       }
+      var diffs = jsDiff.diffChars(before, after);
+      if (diffs.length === 1 && diffs[0].added) {
+        return this.styleAddedLine("+" + diffs[0].value);
+      } else if (diffs.length === 1 && diffs[0].removed) {
+        return this.styleOriginalLine("-" + diffs[0].value);
+      } else if (diffs.length === 1) {
+        return this.stylePlainLine(" " + diffs[0].value);
+      }
+
       var dummyNode = document.createElement("span");
       dummyNode.classList.add("diff-updated");
-      jsDiff.diffChars(before, after).forEach(function (part) {
+      diffs.forEach(function (part) {
         var partClass = part.added ? "diff-fragment-added" : part.removed ? "diff-fragment-removed" : "diff-fragment-regular";
         var span = document.createElement("span");
         span.classList.add(partClass);
@@ -11113,6 +11150,159 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
+
+/***/ }),
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(380);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("d4111d0c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fa7a1f9c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=1!./page-history-body.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fa7a1f9c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=1!./page-history-body.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.diff-regular {\n  border-left: 0.5em solid hsl(0, 0%, 96%);\n}\n.diff-original {\n  -webkit-text-decoration-line: line-through;\n          text-decoration-line: line-through;\n  -webkit-text-decoration-color: red;\n          text-decoration-color: red;\n  border-left: 0.5em solid hsl(348, 100%, 61%);\n}\n.diff-new {\n  border-left: 0.5em solid hsl(141, 71%, 48%);\n}\n.diff-updated {\n  border-left: 0.5em solid hsl(48, 100%, 67%);\n}\n.diff-fragment-added {\n  color: hsl(141, 71%, 48%);\n}\n.diff-fragment-added {\n  color: hsl(141, 71%, 48%);\n}\n.diff-fragment-removed {\n  -webkit-text-decoration-line: line-through;\n          text-decoration-line: line-through;\n  -webkit-text-decoration-color: red;\n          text-decoration-color: red;\n  color: hsl(348, 100%, 61%);\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 ],[20]);

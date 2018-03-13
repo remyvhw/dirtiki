@@ -12,14 +12,41 @@
   border-bottom: 2px solid hsl(0, 0%, 96%);
 }
 </style>
+<style>
+.diff-regular {
+  border-left: 0.5em solid hsl(0, 0%, 96%);
+}
+.diff-original {
+  text-decoration-line: line-through;
+  text-decoration-color: red;
+  border-left: 0.5em solid hsl(348, 100%, 61%);
+}
+.diff-new {
+  border-left: 0.5em solid hsl(141, 71%, 48%);
+}
+.diff-updated {
+  border-left: 0.5em solid hsl(48, 100%, 67%);
+}
+.diff-fragment-added {
+  color: hsl(141, 71%, 48%);
+}
+.diff-fragment-added {
+  color: hsl(141, 71%, 48%);
+}
+.diff-fragment-removed {
+  text-decoration-line: line-through;
+  text-decoration-color: red;
+  color: hsl(348, 100%, 61%);
+}
+</style>
 <template>
-    <div style="width:100%">
-        <loading-indicator :size="2" v-if="loading"></loading-indicator>
-        <div class="diffs" else>
-            <page-history-body-diff v-for="diff in data.data" :key="diff.key" :diff="diff"></page-history-body-diff>
-            <basic-paginator :links="data.links" :meta="data.meta" @select="handlePaginationSelect"></basic-paginator>
-        </div>
+  <div style="width:100%">
+    <loading-indicator :size="2" v-if="loading"></loading-indicator>
+    <div class="diffs" else>
+      <page-history-body-diff v-for="diff in data.data" :key="diff.key" :diff="diff"></page-history-body-diff>
+      <basic-paginator :links="data.links" :meta="data.meta" @select="handlePaginationSelect"></basic-paginator>
     </div>
+  </div>
 
 </template>
 <script type="text/babel">

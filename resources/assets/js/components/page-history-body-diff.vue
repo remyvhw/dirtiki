@@ -92,9 +92,18 @@ export default {
       } else if (!before) {
         return this.styleAddedLine(lines[1]);
       }
+      const diffs = jsDiff.diffChars(before, after);
+      if (diffs.length === 1 && diffs[0].added) {
+        return this.styleAddedLine("+" + diffs[0].value);
+      } else if (diffs.length === 1 && diffs[0].removed) {
+        return this.styleOriginalLine("-" + diffs[0].value);
+      } else if (diffs.length === 1) {
+        return this.stylePlainLine(" " + diffs[0].value);
+      }
+
       let dummyNode = document.createElement("span");
       dummyNode.classList.add("diff-updated");
-      jsDiff.diffChars(before, after).forEach(part => {
+      diffs.forEach(part => {
         let partClass = part.added
           ? "diff-fragment-added"
           : part.removed ? "diff-fragment-removed" : "diff-fragment-regular";
