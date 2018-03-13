@@ -23,6 +23,11 @@ Route::name('api.')->group(function () {
     Route::get('pages/{page}/body/history', 'Api\PageBodyController@getHistory')->name("pages.body.history");
 
     /**
+     * Search routes
+     */
+    Route::get('pages/search', 'Api\PageController@getSearch')->name("pages.search");
+
+    /**
      * API resources routes
      */
     Route::get('pages/{page}/body', 'Api\PageBodyController@index')->name("pages.body.show");

@@ -103,7 +103,22 @@ class PageController extends Controller
     public function getHistory(Page $page)
     {
         abort_if(!policy(Page::class)->view(Auth::user(), $page), 403);
-        return AuditResource::collection($page->audits()->with("user")->latest()->paginate());
+        return AuditResource::collection($page->audits()->with("user")->latest()->paginate(10));
 
+    }
+
+    /**
+     * Search a given resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getSearch(Request $request)
+    {
+        abort_if(!policy(Page::class)->index(Auth::user()), 403);
+        abort_if(!config("scout.driver") || config("scout.driver") === "null", 405);
+        $this->validate($request, [
+            "query" => "required",
+        ]);
+        return PageResource::collection(Page::search($request->input("query"))->paginate(10));
     }
 }

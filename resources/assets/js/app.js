@@ -48,18 +48,23 @@ const store = new Vuex.Store({
  */
 Vue.prototype.$http = window.axios;
 
-
 Vue.component('dirtiki-input', require('./components/dirtiki-input.vue'));
 Vue.component('loading-indicator', require('./components/loading-indicator.vue'));
 Vue.component('folding-panel', require('./components/folding-panel.vue'));
+Vue.component('basic-paginator', require('./components/basic-paginator.vue'));
 
 const app = new Vue({
     el: '#app',
     store,
+    data: {
+        query: ""
+    },
     components: {
+        searchModal: require("./components/search-modal.vue"),
         pageViewer: require("./components/page-viewer.vue"),
         pageEditor: require("./components/page-editor.vue"),
-        pageCreator: require("./components/page-creator.vue")
+        pageCreator: require("./components/page-creator.vue"),
+        pageHistory: require("./components/page-history.vue")
     }
 });
 

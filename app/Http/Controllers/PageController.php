@@ -54,6 +54,18 @@ class PageController extends Controller
     }
 
     /**
+     * Display the specified resource's history.
+     *
+     * @param  \App\Page  $page
+     * @return \Illuminate\Http\Response
+     */
+    public function getHistory(Request $request, Page $page)
+    {
+        abort_if(!policy(Page::class)->view(Auth::user(), $page), 403);
+        return view('pages.history', ['page' => $page]);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Page  $page

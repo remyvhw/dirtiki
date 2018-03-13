@@ -34,6 +34,7 @@
             </aside>
             @endif @yield('content')
 
+            <search-modal v-if="query" v-model="query"></search-modal>
         </section>
 
         <!-- Scripts -->
