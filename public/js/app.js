@@ -9231,14 +9231,20 @@ var jsDiff = __webpack_require__(265);
   },
 
   methods: {
+    createSpanNodeWithClass: function createSpanNodeWithClass(text, className) {
+      var span = document.createElement("span");
+      span.classList.add(className);
+      span.appendChild(document.createTextNode(text));
+      return span.outerHTML;
+    },
     stylePlainLine: function stylePlainLine(line) {
-      return "<span class='diff-regular'>" + line.substr(1) + "</span>";
+      return this.createSpanNodeWithClass(line.substr(1), "diff-regular");
     },
     styleOriginalLine: function styleOriginalLine(line, nextLine) {
-      return "<span class='diff-original'>" + line.substr(1) + "</span>";
+      return this.createSpanNodeWithClass(line.substr(1), "diff-original");
     },
     styleAddedLine: function styleAddedLine(line) {
-      return "<span class='diff-new'>" + line.substr(1) + "</span>";
+      return this.createSpanNodeWithClass(line.substr(1), "diff-new");
     },
     styleUpdatedLines: function styleUpdatedLines(lines) {
       var before = lines[0].substr(1);

@@ -75,14 +75,20 @@ export default {
     return {};
   },
   methods: {
+    createSpanNodeWithClass(text, className) {
+      let span = document.createElement("span");
+      span.classList.add(className);
+      span.appendChild(document.createTextNode(text));
+      return span.outerHTML;
+    },
     stylePlainLine(line) {
-      return "<span class='diff-regular'>" + line.substr(1) + "</span>";
+      return this.createSpanNodeWithClass(line.substr(1), "diff-regular");
     },
     styleOriginalLine(line, nextLine) {
-      return "<span class='diff-original'>" + line.substr(1) + "</span>";
+      return this.createSpanNodeWithClass(line.substr(1), "diff-original");
     },
     styleAddedLine(line) {
-      return "<span class='diff-new'>" + line.substr(1) + "</span>";
+      return this.createSpanNodeWithClass(line.substr(1), "diff-new");
     },
     styleUpdatedLines(lines) {
       const before = lines[0].substr(1);
