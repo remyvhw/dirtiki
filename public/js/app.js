@@ -8729,10 +8729,12 @@ var render = function() {
             })
           }),
           _vm._v(" "),
-          _c("basic-paginator", {
-            attrs: { links: _vm.data.links, meta: _vm.data.meta },
-            on: { select: _vm.handlePaginationSelect }
-          })
+          _vm.data.links
+            ? _c("basic-paginator", {
+                attrs: { links: _vm.data.links, meta: _vm.data.meta },
+                on: { select: _vm.handlePaginationSelect }
+              })
+            : _vm._e()
         ],
         2
       )
@@ -9085,10 +9087,12 @@ var render = function() {
             })
           }),
           _vm._v(" "),
-          _c("basic-paginator", {
-            attrs: { links: _vm.data.links, meta: _vm.data.meta },
-            on: { select: _vm.handlePaginationSelect }
-          })
+          _vm.data.links
+            ? _c("basic-paginator", {
+                attrs: { links: _vm.data.links, meta: _vm.data.meta },
+                on: { select: _vm.handlePaginationSelect }
+              })
+            : _vm._e()
         ],
         2
       )

@@ -17,7 +17,7 @@
     <loading-indicator :size="2" v-if="loading"></loading-indicator>
     <div class="diffs" else>
       <page-history-settings-diff v-for="diff in data.data" :key="diff.key" :diff="diff"></page-history-settings-diff>
-      <basic-paginator :links="data.links" :meta="data.meta" @select="handlePaginationSelect"></basic-paginator>
+      <basic-paginator v-if="data.links" :links="data.links" :meta="data.meta" @select="handlePaginationSelect"></basic-paginator>
     </div>
   </div>
 
