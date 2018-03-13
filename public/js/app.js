@@ -9139,6 +9139,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+var diff2html = __webpack_require__(302).Diff2Html;
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     historyMetadata: __webpack_require__(254)
@@ -9173,7 +9175,9 @@ var render = function() {
     [
       _c("history-metadata", { attrs: { diff: _vm.diff } }),
       _vm._v(" "),
-      _c("pre")
+      _vm.diff.data && _vm.diff.data.changes.diff
+        ? _c("pre", [_vm._v(_vm._s(_vm.diff.data.changes.diff))])
+        : _vm._e()
     ],
     1
   )
@@ -9187,6 +9191,49 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-7169e9f0", module.exports)
   }
 }
+
+/***/ }),
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/remyvanherweghem/Development/PHP/dirtiki/node_modules/diff2html/src/diff2html.js'\n    at Error (native)");
 
 /***/ })
 ],[20]);
