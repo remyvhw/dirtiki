@@ -40,7 +40,8 @@ const store = new Vuex.Store({
             state.maps.provider = provider;
         }
     }
-})
+});
+
 
 /**
  * Next, registrer Axios on the Vue object so we can just call this.$http like
