@@ -11,7 +11,20 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js').extract(['vue', 'axios', 'collect.js'])
+const prismLanguages = [
+    "prismjs/components/prism-sql",
+    "prismjs/components/prism-json",
+    "prismjs/components/prism-java",
+    "prismjs/components/prism-csharp",
+    "prismjs/components/prism-python",
+    "prismjs/components/prism-php",
+    "prismjs/components/prism-typescript",
+    "prismjs/components/prism-ruby",
+    "prismjs/components/prism-swift",
+];
+
+
+mix.js('resources/assets/js/app.js', 'public/js').extract(prismLanguages.concat(['vue', 'axios', 'collect.js', 'prismjs', "diff"]))
     .sass('resources/assets/sass/app.scss', 'public/css');
 
 if (mix.inProduction()) {
