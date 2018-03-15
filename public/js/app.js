@@ -603,7 +603,7 @@ module.exports = __webpack_require__(268);
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(273);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__localizationManager__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stringsLoader__ = __webpack_require__(275);
 /*
  ______    ________  ______   _________  ________  ___   ___   ________     
 /_____/\  /_______/\/_____/\ /________/\/_______/\/___/\/__/\ /_______/\    
@@ -10158,7 +10158,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 }));
 
 /***/ }),
-/* 274 */
+/* 274 */,
+/* 275 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10167,8 +10168,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /**
  * Initialize global store.
  */
-var _class = function _class() {
-  _classCallCheck(this, _class);
+var _class = function _class(language) {
+    _classCallCheck(this, _class);
+
+    this.locale = language;
 };
 
 /* unused harmony default export */ var _unused_webpack_default_export = (_class);

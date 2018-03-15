@@ -2,8 +2,10 @@
  * Initialize global store.
  */
 export default class {
-    constructor() {
-
+    constructor(language) {
+        this.locale = language
     }
+
+
 
 };
