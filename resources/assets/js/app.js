@@ -17,6 +17,7 @@
 
 require('./bootstrap');
 import store from "./store"
+import localizationManager from "./localizationManager"
 window.Vue = require('vue');
 
 

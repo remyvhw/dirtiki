@@ -603,6 +603,7 @@ module.exports = __webpack_require__(268);
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__localizationManager__ = __webpack_require__(274);
 /*
  ______    ________  ______   _________  ________  ___   ___   ________     
 /_____/\  /_______/\/_____/\ /________/\/_______/\/___/\/__/\ /_______/\    
@@ -621,6 +622,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  */
 
 __webpack_require__(34);
+
 
 window.Vue = __webpack_require__(17);
 
@@ -10154,6 +10156,23 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
         }
     }
 }));
+
+/***/ }),
+/* 274 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Initialize global store.
+ */
+var _class = function _class() {
+  _classCallCheck(this, _class);
+};
+
+/* unused harmony default export */ var _unused_webpack_default_export = (_class);
+;
 
 /***/ })
 ],[32]);
