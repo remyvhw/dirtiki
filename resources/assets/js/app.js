@@ -17,7 +17,7 @@
 
 require('./bootstrap');
 import store from "./store"
-import stringsLoader from "./stringsLoader"
+import StringsLoader from "./stringsLoader";
 window.Vue = require('vue');
 
 
@@ -37,6 +37,12 @@ const app = new Vue({
     store,
     data: {
         query: ""
+    },
+    mounted() {
+        let stringsLoader = new StringsLoader();
+        stringsLoader.loadStrings.then((strings) => {
+            store.commit("setLocalizedStrings", strings);
+        });
     },
     components: {
         searchModal: require("./components/search-modal.vue"),

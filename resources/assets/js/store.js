@@ -14,11 +14,17 @@ export default new Vuex.Store({
     state: {
         maps: {
             provider: null
+        },
+        strings: {
+
         }
     },
     mutations: {
         setMapsProvider(state, provider) {
             state.maps.provider = provider;
+        },
+        setLocalizedStrings(state, strings) {
+            state.strings = strings;
         }
     }
 });

@@ -643,6 +643,13 @@ var app = new Vue({
   data: {
     query: ""
   },
+  mounted: function mounted() {
+    var stringsLoader = new __WEBPACK_IMPORTED_MODULE_1__stringsLoader__["a" /* default */]();
+    stringsLoader.loadStrings.then(function (strings) {
+      __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].commit("setLocalizedStrings", strings);
+    });
+  },
+
   components: {
     searchModal: __webpack_require__(168),
     pageViewer: __webpack_require__(174),
@@ -10148,11 +10155,15 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
     state: {
         maps: {
             provider: null
-        }
+        },
+        strings: {}
     },
     mutations: {
         setMapsProvider: function setMapsProvider(state, provider) {
             state.maps.provider = provider;
+        },
+        setLocalizedStrings: function setLocalizedStrings(state, strings) {
+            state.strings = strings;
         }
     }
 }));
@@ -10163,18 +10174,62 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
  * Initialize global store.
  */
-var _class = function _class(language) {
-    _classCallCheck(this, _class);
+var _class = function () {
+    function _class(language) {
+        _classCallCheck(this, _class);
 
-    this.locale = language;
-};
+        this.locale = language ? language : document.documentElement.lang;
+        this.canUseCache = 'caches' in window;
+    }
 
-/* unused harmony default export */ var _unused_webpack_default_export = (_class);
+    _createClass(_class, [{
+        key: "retrieveCachedStrings",
+        value: function retrieveCachedStrings(callback) {
+            throw "No strings cached";
+        }
+    }, {
+        key: "fetchStrings",
+        value: function fetchStrings(callback) {
+            callback({
+                foo: "bar"
+            });
+        }
+    }, {
+        key: "loadStrings",
+        get: function get() {
+            var _this = this;
+
+            return new Promise(function (resolve, reject) {
+                if (_this.canUseCache) {
+                    try {
+                        _this.retrieveCachedStrings(function (strings) {
+                            resolve(strings);
+                        });
+                    } catch (e) {
+                        _this.fetchStrings(function (strings) {
+                            resolve(strings);
+                        });
+                    }
+                } else {
+                    _this.fetchStrings(function (strings) {
+                        resolve(strings);
+                    });
+                }
+            });
+        }
+    }]);
+
+    return _class;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (_class);
 ;
 
 /***/ })
