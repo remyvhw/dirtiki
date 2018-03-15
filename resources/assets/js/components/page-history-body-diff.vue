@@ -1,16 +1,43 @@
 <template>
-    <div class="diff">
-        <history-metadata :diff="diff"></history-metadata>
-        <pre v-if="styledDiff" v-html="styledDiff"></pre>
+  <div class="diff">
+    <history-metadata :diff="diff"></history-metadata>
+
+    <div class="tabs is-small is-centered is-toggle is-toggle-rounded">
+      <ul>
+        <li v-for="presentation in availablePresentations" :key="presentation.type" :class="{'is-active': presentation.type === selectedPresentation}">
+          <a @click="selectedPresentation = presentation.type">
+            <span>{{ presentation.label }}</span>
+          </a>
+        </li>
+      </ul>
     </div>
+
+    <diff-highlighter v-if="selectedPresentation === 'diff'" :before="diff.data.changes.before.content" :after="diff.data.changes.after.content" :diff="diff.data.changes.diff"></diff-highlighter>
+
+    <div v-if="selectedPresentation === 'raw'" class="columns">
+      <div class="column is-half">
+        <pre v-if="diff.data.changes.before.content">
+          {{ diff.data.changes.before.content }}
+        </pre>
+        <div class="has-text-centered" v-else>
+          &mdash;
+          <em>Empty</em> &mdash;
+        </div>
+      </div>
+      <div class="column is-half">
+        <pre>
+          {{ diff.data.changes.after.content }}
+        </pre>
+      </div>
+    </div>
+  </div>
 
 </template>
 <script type="text/babel">
-var jsDiff = require("diff");
-
 export default {
   components: {
-    historyMetadata: require("./history-metadata.vue")
+    historyMetadata: require("./history-metadata.vue"),
+    diffHighlighter: require("./diff-highlighter.vue")
   },
   props: {
     diff: {
@@ -18,120 +45,22 @@ export default {
       required: true
     }
   },
-  computed: {
-    styledDiff() {
-      if (!this.diff) return null;
-      if (
-        this.diff.data.changes.before &&
-        !this.diff.data.changes.before.content
-      ) {
-        return this.createSpanNodeWithClass(
-          this.diff.data.changes.after.content,
-          "diff-new",
-          "div"
-        );
-      }
-      if (!this.diff.data.changes.diff) return null;
-      let allLines = this.diff.data.changes.diff.split("\n");
-      return window
-        .collect(allLines)
-        .reject(line => {
-          return ["--- Original", "+++ New", "@@ @@"].includes(line);
-        })
-        .pipe(lines => {
-          allLines = lines.toArray();
-          return window.collect(allLines);
-        })
-        .map((line, index) => {
-          if (line === " " || !line) {
-            return index === 0 || index === allLines.length - 1 ? null : line;
-          }
-          return line;
-        })
-        .reject(line => {
-          return line === null;
-        })
-        .pipe(lines => {
-          allLines = lines.toArray();
-          return window.collect(allLines);
-        })
-        .map((line, index) => {
-          let nextLine = allLines[index + 1];
-          let previousLine = allLines[index - 1];
-          if (line.startsWith("-") && nextLine.startsWith("+")) {
-            return [line, nextLine];
-          }
-          if (line.startsWith("+") && previousLine.startsWith("-")) {
-            return null;
-          }
-          return line;
-        })
-        .reject(line => {
-          return line === null;
-        })
-        .map(line => {
-          if (typeof line === "object") {
-            return this.styleUpdatedLines(line);
-          } else if (line.startsWith("+")) {
-            return this.styleAddedLine(line);
-          } else if (line.startsWith("-")) {
-            return this.styleOriginalLine(line);
-          }
-          return this.stylePlainLine(line);
-        })
-        .implode("\n");
-    }
-  },
+  computed: {},
   data() {
-    return {};
+    return {
+      selectedPresentation: "diff",
+      availablePresentations: [
+        {
+          type: "diff",
+          label: "Diff"
+        },
+        {
+          type: "raw",
+          label: "Raw"
+        }
+      ]
+    };
   },
-  methods: {
-    createSpanNodeWithClass(text, className, element = "span") {
-      let span = document.createElement(element);
-      span.classList.add(className);
-      span.appendChild(document.createTextNode(text));
-      return span.outerHTML;
-    },
-    stylePlainLine(line) {
-      return this.createSpanNodeWithClass(line.substr(1), "diff-regular");
-    },
-    styleOriginalLine(line, nextLine) {
-      return this.createSpanNodeWithClass(line.substr(1), "diff-original");
-    },
-    styleAddedLine(line) {
-      return this.createSpanNodeWithClass(line.substr(1), "diff-new");
-    },
-    styleUpdatedLines(lines) {
-      const before = lines[0].substr(1);
-      const after = lines[1].substr(1);
-      if (!after) {
-        return this.styleOriginalLine(lines[0]);
-      } else if (!before) {
-        return this.styleAddedLine(lines[1]);
-      }
-      const diffs = jsDiff.diffChars(before, after);
-      if (diffs.length === 1 && diffs[0].added) {
-        return this.styleAddedLine("+" + diffs[0].value);
-      } else if (diffs.length === 1 && diffs[0].removed) {
-        return this.styleOriginalLine("-" + diffs[0].value);
-      } else if (diffs.length === 1) {
-        return this.stylePlainLine(" " + diffs[0].value);
-      }
-
-      let dummyNode = document.createElement("span");
-      dummyNode.classList.add("diff-updated");
-      diffs.forEach(part => {
-        let partClass = part.added
-          ? "diff-fragment-added"
-          : part.removed ? "diff-fragment-removed" : "diff-fragment-regular";
-        let span = document.createElement("span");
-        span.classList.add(partClass);
-        span.appendChild(document.createTextNode(part.value));
-        dummyNode.appendChild(span);
-      });
-
-      return dummyNode.outerHTML;
-    }
-  }
+  methods: {}
 };
 </script>

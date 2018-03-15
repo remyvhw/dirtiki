@@ -582,7 +582,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(22);
-module.exports = __webpack_require__(264);
+module.exports = __webpack_require__(267);
 
 
 /***/ }),
@@ -10097,7 +10097,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(239)
 /* template */
-var __vue_template__ = __webpack_require__(263)
+var __vue_template__ = __webpack_require__(266)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -10682,7 +10682,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(257)
 /* template */
-var __vue_template__ = __webpack_require__(262)
+var __vue_template__ = __webpack_require__(265)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -10902,7 +10902,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(259)
 /* template */
-var __vue_template__ = __webpack_require__(261)
+var __vue_template__ = __webpack_require__(264)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -10946,8 +10946,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 //
 //
 //
@@ -10955,12 +10953,39 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
-
-var jsDiff = __webpack_require__(260);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    historyMetadata: __webpack_require__(20)
+    historyMetadata: __webpack_require__(20),
+    diffHighlighter: __webpack_require__(260)
   },
   props: {
     diff: {
@@ -10968,16 +10993,106 @@ var jsDiff = __webpack_require__(260);
       required: true
     }
   },
+  computed: {},
+  data: function data() {
+    return {
+      selectedPresentation: "diff",
+      availablePresentations: [{
+        type: "diff",
+        label: "Diff"
+      }, {
+        type: "raw",
+        label: "Raw"
+      }]
+    };
+  },
+
+  methods: {}
+});
+
+/***/ }),
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(261)
+/* template */
+var __vue_template__ = __webpack_require__(263)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/diff-highlighter.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-345cbc30", Component.options)
+  } else {
+    hotAPI.reload("data-v-345cbc30", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 261 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+//
+//
+//
+
+var jsDiff = __webpack_require__(262);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    before: {
+      type: String
+    },
+    after: {
+      type: [String],
+      required: true
+    },
+    diff: {
+      type: String
+    }
+  },
   computed: {
     styledDiff: function styledDiff() {
       var _this = this;
 
-      if (!this.diff) return null;
-      if (this.diff.data.changes.before && !this.diff.data.changes.before.content) {
-        return this.createSpanNodeWithClass(this.diff.data.changes.after.content, "diff-new", "div");
+      if (!this.before) {
+        return this.createSpanNodeWithClass(this.after, "diff-new", "div");
       }
-      if (!this.diff.data.changes.diff) return null;
-      var allLines = this.diff.data.changes.diff.split("\n");
+
+      var allLines = this.diff.split("\n");
       return window.collect(allLines).reject(function (line) {
         return ["--- Original", "+++ New", "@@ @@"].includes(line);
       }).pipe(function (lines) {
@@ -11017,10 +11132,6 @@ var jsDiff = __webpack_require__(260);
       }).implode("\n");
     }
   },
-  data: function data() {
-    return {};
-  },
-
   methods: {
     createSpanNodeWithClass: function createSpanNodeWithClass(text, className) {
       var element = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "span";
@@ -11072,7 +11183,7 @@ var jsDiff = __webpack_require__(260);
 });
 
 /***/ }),
-/* 260 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -12920,7 +13031,27 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 
 /***/ }),
-/* 261 */
+/* 263 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("pre", { domProps: { innerHTML: _vm._s(_vm.styledDiff) } })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-345cbc30", module.exports)
+  }
+}
+
+/***/ }),
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -12933,8 +13064,80 @@ var render = function() {
     [
       _c("history-metadata", { attrs: { diff: _vm.diff } }),
       _vm._v(" "),
-      _vm.styledDiff
-        ? _c("pre", { domProps: { innerHTML: _vm._s(_vm.styledDiff) } })
+      _c(
+        "div",
+        {
+          staticClass: "tabs is-small is-centered is-toggle is-toggle-rounded"
+        },
+        [
+          _c(
+            "ul",
+            _vm._l(_vm.availablePresentations, function(presentation) {
+              return _c(
+                "li",
+                {
+                  key: presentation.type,
+                  class: {
+                    "is-active": presentation.type === _vm.selectedPresentation
+                  }
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.selectedPresentation = presentation.type
+                        }
+                      }
+                    },
+                    [_c("span", [_vm._v(_vm._s(presentation.label))])]
+                  )
+                ]
+              )
+            })
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _vm.selectedPresentation === "diff"
+        ? _c("diff-highlighter", {
+            attrs: {
+              before: _vm.diff.data.changes.before.content,
+              after: _vm.diff.data.changes.after.content,
+              diff: _vm.diff.data.changes.diff
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.selectedPresentation === "raw"
+        ? _c("div", { staticClass: "columns" }, [
+            _c("div", { staticClass: "column is-half" }, [
+              _vm.diff.data.changes.before.content
+                ? _c("pre", [
+                    _vm._v(
+                      "        " +
+                        _vm._s(_vm.diff.data.changes.before.content) +
+                        "\n      "
+                    )
+                  ])
+                : _c("div", { staticClass: "has-text-centered" }, [
+                    _vm._v("\n        —\n        "),
+                    _c("em", [_vm._v("Empty")]),
+                    _vm._v(" —\n      ")
+                  ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "column is-half" }, [
+              _c("pre", [
+                _vm._v(
+                  "        " +
+                    _vm._s(_vm.diff.data.changes.after.content) +
+                    "\n      "
+                )
+              ])
+            ])
+          ])
         : _vm._e()
     ],
     1
@@ -12951,7 +13154,7 @@ if (false) {
 }
 
 /***/ }),
-/* 262 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -12999,7 +13202,7 @@ if (false) {
 }
 
 /***/ }),
-/* 263 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -13055,7 +13258,7 @@ if (false) {
 }
 
 /***/ }),
-/* 264 */
+/* 267 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
