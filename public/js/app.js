@@ -10165,8 +10165,8 @@ var _class = function () {
 
         if (scriptName) {
             var scriptUrl = new URL(scriptName);
-            this.cacheVersionSuffix = url.searchParams.get("id");
-            this.cacheNamePrefix = "strings-";
+            this.cacheVersionSuffix = scriptUrl.searchParams.get("id");
+            this.cacheNamePrefix = "strings-" + this.locale + "-";
         } else {
             this.cacheVersionSuffix = null;
         }
@@ -10183,8 +10183,12 @@ var _class = function () {
         key: "fetchStrings",
         value: function fetchStrings(callback) {
 
-            axios.get("/api/strings/" + this.locale).then(function (_ref) {
+            axios.get("/strings").then(function (_ref) {
                 var data = _ref.data;
+
+                callback(data);
+            }, function () {
+                alert("Localizations cannot be loaded.");
             });
         }
     }, {

@@ -10,8 +10,8 @@ export default class {
 
         if (scriptName) {
             const scriptUrl = new URL(scriptName);
-            this.cacheVersionSuffix = url.searchParams.get("id");
-            this.cacheNamePrefix = "strings-";
+            this.cacheVersionSuffix = scriptUrl.searchParams.get("id");
+            this.cacheNamePrefix = "strings-" + this.locale + "-";
         } else {
             this.cacheVersionSuffix = null;
         }
@@ -26,8 +26,10 @@ export default class {
 
     fetchStrings(callback) {
 
-        axios.get("/api/strings/" + this.locale).then(({ data }) => {
-
+        axios.get("/strings").then(({ data }) => {
+            callback(data);
+        }, () => {
+            alert("Localizations cannot be loaded.");
         });
 
     }
