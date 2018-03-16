@@ -12,7 +12,10 @@ return [
     |
      */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
+    "pagination" => [
+        "next" => "Next",
+        "previous" => "Previous",
+        "aria_go_to" => "Go to page :page",
+        "aria_current" => "Page :page",
+    ],
 ];

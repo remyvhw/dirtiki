@@ -5573,7 +5573,15 @@ var render = function() {
             }
           }
         },
-        [_vm._v("Previous")]
+        [
+          _vm._v(
+            _vm._s(
+              _vm.$store.state.strings
+                ? _vm.$store.state.strings.pagination.previous
+                : ""
+            )
+          )
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -5587,7 +5595,15 @@ var render = function() {
             }
           }
         },
-        [_vm._v("Next page")]
+        [
+          _vm._v(
+            _vm._s(
+              _vm.$store.state.strings
+                ? _vm.$store.state.strings.pagination.next
+                : ""
+            )
+          )
+        ]
       ),
       _vm._v(" "),
       _vm.meta
@@ -5598,7 +5614,14 @@ var render = function() {
                     "a",
                     {
                       staticClass: "pagination-link",
-                      attrs: { "aria-label": "Goto page 1" },
+                      attrs: {
+                        "aria-label": _vm.$store.state.strings
+                          ? _vm.$store.state.strings.pagination.aria_go_to.replace(
+                              ":page",
+                              1
+                            )
+                          : ""
+                      },
                       on: {
                         click: function($event) {
                           _vm.handleLinkClick(_vm.links.first)
@@ -5624,7 +5647,12 @@ var render = function() {
                 {
                   staticClass: "pagination-link is-current",
                   attrs: {
-                    "aria-label": "Page " + _vm.currentPageNumber,
+                    "aria-label": _vm.$store.state.strings
+                      ? _vm.$store.state.strings.pagination.aria_current.replace(
+                          ":page",
+                          _vm.currentPageNumber
+                        )
+                      : "",
                     "aria-current": "page"
                   }
                 },
@@ -5647,7 +5675,12 @@ var render = function() {
                     {
                       staticClass: "pagination-link",
                       attrs: {
-                        "aria-label": "Go to page " + _vm.lastPageNumber
+                        "aria-label": _vm.$store.state.strings
+                          ? _vm.$store.state.strings.pagination.aria_go_to.replace(
+                              ":page",
+                              _vm.lastPageNumber
+                            )
+                          : ""
                       },
                       on: {
                         click: function($event) {
