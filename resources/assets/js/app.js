@@ -17,15 +17,23 @@
 
 require('./bootstrap');
 import store from "./store"
-import StringsLoader from "./stringsLoader";
-window.Vue = require('vue');
 
+import StringsLoader from "./stringsLoader";
+
+window.Vue = require('vue');
 
 /**
  * Next, registrer Axios on the Vue object so we can just call this.$http like
  * we did with vue-resource. Idiot proofing future debugging.
  */
 Vue.prototype.$http = window.axios;
+
+/**
+ * Registrer `marker`, our marked.js customizer.
+ */
+window.marked = require("marked");
+import Marker from "./marker"
+const marker = new Marker(store);
 
 Vue.component('dirtiki-input', require('./components/dirtiki-input.vue'));
 Vue.component('loading-indicator', require('./components/loading-indicator.vue'));

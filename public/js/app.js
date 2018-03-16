@@ -604,6 +604,7 @@ module.exports = __webpack_require__(269);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(147);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stringsLoader__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__marker__ = __webpack_require__(274);
 /*
  ______    ________  ______   _________  ________  ___   ___   ________     
 /_____/\  /_______/\/_____/\ /________/\/_______/\/___/\/__/\ /_______/\    
@@ -624,6 +625,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 __webpack_require__(34);
 
 
+
+
 window.Vue = __webpack_require__(10);
 
 /**
@@ -631,6 +634,13 @@ window.Vue = __webpack_require__(10);
  * we did with vue-resource. Idiot proofing future debugging.
  */
 Vue.prototype.$http = window.axios;
+
+/**
+ * Registrer `marker`, our marked.js customizer.
+ */
+window.marked = __webpack_require__(145);
+
+var marker = new __WEBPACK_IMPORTED_MODULE_2__marker__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */]);
 
 Vue.component('dirtiki-input', __webpack_require__(152));
 Vue.component('loading-indicator', __webpack_require__(155));
@@ -704,9 +714,6 @@ if (token) {
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
-
-window.marked = __webpack_require__(145);
-__webpack_require__(146);
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -2225,30 +2232,7 @@ if (true) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 146 */
-/***/ (function(module, exports) {
-
-var renderer = new window.marked.Renderer();
-
-// Override function
-renderer.heading = function (text, level) {
-    var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-    return '<header-anchor :level=\'' + escape(level) + '\' anchor=\'' + escapedText + '\'>' + escape(text) + '</header-anchor>';
-};
-
-renderer.code = function (code, language) {
-    return '</div></section><code-presenter language=\'' + escape(language) + '\'>' + escape(code) + '</code-presenter><section class="section"><div class="container content">';
-};
-
-window.marked.setOptions({
-    gfm: true,
-    tables: true,
-    breaks: true,
-    sanitize: true,
-    renderer: renderer
-});
-
-/***/ }),
+/* 146 */,
 /* 147 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10329,6 +10313,43 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var _class = function _class(store) {
+    _classCallCheck(this, _class);
+
+    var renderer = new window.marked.Renderer();
+
+    // Override function
+    renderer.heading = function (text, level) {
+        var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+        return '<header-anchor :level=\'' + escape(level) + '\' anchor=\'' + escapedText + '\'>' + escape(text) + '</header-anchor>';
+    };
+
+    renderer.code = function (code, language) {
+        return '</div></section><code-presenter language=\'' + escape(language) + '\'>' + escape(code) + '</code-presenter><section class="section"><div class="container content">';
+    };
+
+    window.marked.setOptions({
+        gfm: true,
+        tables: true,
+        breaks: true,
+        sanitize: true,
+        renderer: renderer
+    });
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (_class);
 
 /***/ })
 ],[32]);
