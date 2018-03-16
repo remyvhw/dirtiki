@@ -24,7 +24,7 @@ export default class {
 
     retrieveCachedStrings(callback) {
         return new Promise((resolve, reject) => {
-            caches.open(this.cacheNamePrefix + this.cacheVersionSuffix).then(function (cache) {
+            caches.open(this.cacheNamePrefix + this.cacheVersionSuffix).then((cache) => {
 
                 cache.match(stringsUrl).then(function (response) {
                     return response.json();
@@ -41,18 +41,31 @@ export default class {
         });
     }
 
+    cleanupStringsCache() {
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (cacheName.startsWith(this.cacheNamePrefix) && !cacheName.endsWith(this.cacheVersionSuffix)) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        });
+    }
+
     fetchStrings() {
 
         if (this.canUseCache) {
             return new Promise((resolve, reject) => {
-                caches.open(this.cacheNamePrefix + this.cacheVersionSuffix).then(function (cache) {
+                caches.open(this.cacheNamePrefix + this.cacheVersionSuffix).then((cache) => {
                     cache.add(stringsUrl).then(() => {
-                        cache.match(stringsUrl).then(function (response) {
+                        cache.match(stringsUrl).then((response) => {
                             return response.json();
                         }).then((response) => {
                             if (!response) {
                                 reject();
                             }
+                            this.cleanupStringsCache();
                             resolve(response);
                         }, () => {
                             reject();

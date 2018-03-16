@@ -10198,13 +10198,26 @@ var _class = function () {
             });
         }
     }, {
+        key: "cleanupStringsCache",
+        value: function cleanupStringsCache() {
+            var _this2 = this;
+
+            caches.keys().then(function (cacheNames) {
+                return Promise.all(cacheNames.map(function (cacheName) {
+                    if (cacheName.startsWith(_this2.cacheNamePrefix) && !cacheName.endsWith(_this2.cacheVersionSuffix)) {
+                        return caches.delete(cacheName);
+                    }
+                }));
+            });
+        }
+    }, {
         key: "fetchStrings",
         value: function fetchStrings() {
-            var _this2 = this;
+            var _this3 = this;
 
             if (this.canUseCache) {
                 return new Promise(function (resolve, reject) {
-                    caches.open(_this2.cacheNamePrefix + _this2.cacheVersionSuffix).then(function (cache) {
+                    caches.open(_this3.cacheNamePrefix + _this3.cacheVersionSuffix).then(function (cache) {
                         cache.add(stringsUrl).then(function () {
                             cache.match(stringsUrl).then(function (response) {
                                 return response.json();
@@ -10212,6 +10225,7 @@ var _class = function () {
                                 if (!response) {
                                     reject();
                                 }
+                                _this3.cleanupStringsCache();
                                 resolve(response);
                             }, function () {
                                 reject();
@@ -10235,19 +10249,19 @@ var _class = function () {
     }, {
         key: "loadStrings",
         get: function get() {
-            var _this3 = this;
+            var _this4 = this;
 
             return new Promise(function (resolve, reject) {
-                if (_this3.canUseCache) {
-                    _this3.retrieveCachedStrings().then(function (strings) {
+                if (_this4.canUseCache) {
+                    _this4.retrieveCachedStrings().then(function (strings) {
                         resolve(strings);
                     }, function () {
-                        _this3.fetchStrings().then(function (strings) {
+                        _this4.fetchStrings().then(function (strings) {
                             resolve(strings);
                         });
                     });
                 } else {
-                    _this3.fetchStrings().then(function (strings) {
+                    _this4.fetchStrings().then(function (strings) {
                         resolve(strings);
                     });
                 }
