@@ -1,10 +1,23 @@
+window.axios = require('axios');
+
 /**
  * Initialize global store.
  */
 export default class {
     constructor(language) {
         this.locale = language ? language : document.documentElement.lang;
-        this.canUseCache = 'caches' in window;
+        let scriptName = document.currentScript ? document.currentScript.src : null;
+
+        if (scriptName) {
+            const scriptUrl = new URL(scriptName);
+            this.cacheVersionSuffix = url.searchParams.get("id");
+            this.cacheNamePrefix = "strings-";
+        } else {
+            this.cacheVersionSuffix = null;
+        }
+
+        this.canUseCache = 'caches' in window && this.cacheVersionSuffix;
+
     }
 
     retrieveCachedStrings(callback) {
@@ -12,9 +25,11 @@ export default class {
     }
 
     fetchStrings(callback) {
-        callback({
-            foo: "bar"
+
+        axios.get("/api/strings/" + this.locale).then(({ data }) => {
+
         });
+
     }
 
 
