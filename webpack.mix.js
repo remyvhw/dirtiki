@@ -26,9 +26,8 @@ const prismLanguages = [
 
 mix.js('resources/assets/js/app.js', 'public/js').extract(['vue', 'axios', 'collect.js', 'prismjs', "diff"].concat(prismLanguages))
     .sass('resources/assets/sass/app.scss', 'public/css');
-/*
+
 if (mix.inProduction()) {
     mix.version();
 }
-*/
-mix.version();
+
