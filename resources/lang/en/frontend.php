@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | The following language lines are used by frontend assets. They are loaded
-    | by via a GET request on `/api/strings/{language}`.
+    | by via a GET request on `/strings`.
     |
      */
 
