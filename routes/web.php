@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
+
+
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('images/{image}', 'ImageController@getShow')->name("images.show");
@@ -19,5 +21,9 @@ Route::get('pages/{page}/history', 'PageController@getHistory')->name("pages.his
 Route::resource('pages', 'PageController', ['only' => [
     'create', 'show', 'edit',
 ]]);
+
+Route::get('strings', function () {
+    return __("frontend");
+});
 
 Auth::routes();
