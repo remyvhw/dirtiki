@@ -10152,6 +10152,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 window.axios = __webpack_require__("./node_modules/axios/index.js");
 
+var stringsUrl = "/strings";
+
 /**
  * Initialize global store.
  */
@@ -10177,38 +10179,75 @@ var _class = function () {
     _createClass(_class, [{
         key: "retrieveCachedStrings",
         value: function retrieveCachedStrings(callback) {
-            throw "No strings cached";
+            var _this = this;
+
+            return new Promise(function (resolve, reject) {
+                caches.open(_this.cacheNamePrefix + _this.cacheVersionSuffix).then(function (cache) {
+
+                    cache.match(stringsUrl).then(function (response) {
+                        return response.json();
+                    }).then(function (response) {
+                        if (!response) {
+                            reject();
+                        }
+                        resolve(response);
+                    }, function () {
+                        reject();
+                    });
+                });
+            });
         }
     }, {
         key: "fetchStrings",
-        value: function fetchStrings(callback) {
+        value: function fetchStrings() {
+            var _this2 = this;
 
-            axios.get("/strings").then(function (_ref) {
-                var data = _ref.data;
+            if (this.canUseCache) {
+                return new Promise(function (resolve, reject) {
+                    caches.open(_this2.cacheNamePrefix + _this2.cacheVersionSuffix).then(function (cache) {
+                        cache.add(stringsUrl).then(function () {
+                            cache.match(stringsUrl).then(function (response) {
+                                return response.json();
+                            }).then(function (response) {
+                                if (!response) {
+                                    reject();
+                                }
+                                resolve(response);
+                            }, function () {
+                                reject();
+                            });
+                        });
+                    });
+                });
+            } else {
+                return new Promise(function (resolve, reject) {
+                    axios.get("/strings").then(function (_ref) {
+                        var data = _ref.data;
 
-                callback(data);
-            }, function () {
-                alert("Localizations cannot be loaded.");
-            });
+                        resolve(data);
+                    }, function () {
+                        alert("Localizations cannot be loaded.");
+                        reject();
+                    });
+                });
+            }
         }
     }, {
         key: "loadStrings",
         get: function get() {
-            var _this = this;
+            var _this3 = this;
 
             return new Promise(function (resolve, reject) {
-                if (_this.canUseCache) {
-                    try {
-                        _this.retrieveCachedStrings(function (strings) {
+                if (_this3.canUseCache) {
+                    _this3.retrieveCachedStrings().then(function (strings) {
+                        resolve(strings);
+                    }, function () {
+                        _this3.fetchStrings().then(function (strings) {
                             resolve(strings);
                         });
-                    } catch (e) {
-                        _this.fetchStrings(function (strings) {
-                            resolve(strings);
-                        });
-                    }
+                    });
                 } else {
-                    _this.fetchStrings(function (strings) {
+                    _this3.fetchStrings().then(function (strings) {
                         resolve(strings);
                     });
                 }
