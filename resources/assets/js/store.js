@@ -15,8 +15,9 @@ export default new Vuex.Store({
         maps: {
             provider: null
         },
-        strings: {
-
+        strings: {},
+        parsed: {
+            headers: {}
         }
     },
     mutations: {
@@ -25,6 +26,9 @@ export default new Vuex.Store({
         },
         setLocalizedStrings(state, strings) {
             state.strings = strings;
+        },
+        setParsedHeaders(state, key, header) {
+            Vue.set(state.parsed.headers, key, header);
         }
     }
 });

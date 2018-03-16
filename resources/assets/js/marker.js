@@ -1,11 +1,11 @@
 export default class {
-    constructor(store) {
+    constructor() {
         var renderer = new window.marked.Renderer();
 
         // Override function
         renderer.heading = function (text, level) {
-            const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-            return `<header-anchor :level='${escape(level)}' anchor='${escapedText}'>${escape(text)}</header-anchor>`;
+            const slug = text.toLowerCase().replace(/[^\w]+/g, '-');
+            return `<header-anchor :level='${escape(level)}' anchor='${slug}'>${escape(text)}</header-anchor>`;
         };
 
         renderer.code = function (code, language) {

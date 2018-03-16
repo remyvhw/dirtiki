@@ -640,7 +640,7 @@ Vue.prototype.$http = window.axios;
  */
 window.marked = __webpack_require__(145);
 
-var marker = new __WEBPACK_IMPORTED_MODULE_2__marker__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */]);
+var marker = new __WEBPACK_IMPORTED_MODULE_2__marker__["a" /* default */]();
 
 Vue.component('dirtiki-input', __webpack_require__(152));
 Vue.component('loading-indicator', __webpack_require__(155));
@@ -2257,7 +2257,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
         maps: {
             provider: null
         },
-        strings: {}
+        strings: {},
+        parsed: {
+            headers: {}
+        }
     },
     mutations: {
         setMapsProvider: function setMapsProvider(state, provider) {
@@ -2265,6 +2268,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
         },
         setLocalizedStrings: function setLocalizedStrings(state, strings) {
             state.strings = strings;
+        },
+        setParsedHeaders: function setParsedHeaders(state, key, header) {
+            __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(state.parsed.headers, key, header);
         }
     }
 }));
@@ -10325,15 +10331,15 @@ if (false) {
 "use strict";
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _class = function _class(store) {
+var _class = function _class() {
     _classCallCheck(this, _class);
 
     var renderer = new window.marked.Renderer();
 
     // Override function
     renderer.heading = function (text, level) {
-        var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-        return '<header-anchor :level=\'' + escape(level) + '\' anchor=\'' + escapedText + '\'>' + escape(text) + '</header-anchor>';
+        var slug = text.toLowerCase().replace(/[^\w]+/g, '-');
+        return '<header-anchor :level=\'' + escape(level) + '\' anchor=\'' + slug + '\'>' + escape(text) + '</header-anchor>';
     };
 
     renderer.code = function (code, language) {

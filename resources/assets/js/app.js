@@ -33,7 +33,7 @@ Vue.prototype.$http = window.axios;
  */
 window.marked = require("marked");
 import Marker from "./marker"
-const marker = new Marker(store);
+const marker = new Marker();
 
 Vue.component('dirtiki-input', require('./components/dirtiki-input.vue'));
 Vue.component('loading-indicator', require('./components/loading-indicator.vue'));
