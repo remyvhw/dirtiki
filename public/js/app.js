@@ -5714,7 +5714,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var linkSpan = createElement("span", [createElement("br"), createElement("small", [self.linkUrl])]);
 
     var headingContent = [anchorA, safeAnchorA, mainSpan];
-    if (this.showLink) headerChildren.push(linkSpan);
+    if (this.showLink) headingContent.push(linkSpan);
 
     var toc = void 0;
     if (this.isFirst) {

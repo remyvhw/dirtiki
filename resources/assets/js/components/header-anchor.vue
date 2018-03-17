@@ -113,7 +113,7 @@ export default {
     ]);
 
     let headingContent = [anchorA, safeAnchorA, mainSpan];
-    if (this.showLink) headerChildren.push(linkSpan);
+    if (this.showLink) headingContent.push(linkSpan);
 
     let toc;
     if (this.isFirst) {
