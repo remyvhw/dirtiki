@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e508a49b0b572182a3e1babc35f3fd21",
+    "content-hash": "ed3b2925ead7d46533be759cacd56775",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -55,6 +55,63 @@
             "description": "Algolia Search API Client for PHP",
             "homepage": "https://github.com/algolia/algoliasearch-client-php",
             "time": "2018-03-02T13:24:10+00:00"
+        },
+        {
+            "name": "anlutro/l4-settings",
+            "version": "0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anlutro/laravel-settings.git",
+                "reference": "4c52bfa8cce6a589617defc7fbaf383c299ee868"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anlutro/laravel-settings/zipball/4c52bfa8cce6a589617defc7fbaf383c299ee868",
+                "reference": "4c52bfa8cce6a589617defc7fbaf383c299ee868",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=4.1 <6.0",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "illuminate/database": ">=4.1 <6.0",
+                "illuminate/filesystem": ">=4.1 <6.0",
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": ">=4.8, <6"
+            },
+            "suggest": {
+                "illuminate/database": "Save settings to a database table.",
+                "illuminate/filesystem": "Save settings to a JSON file."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Setting": "anlutro\\LaravelSettings\\Facade"
+                    },
+                    "providers": [
+                        "anlutro\\LaravelSettings\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "anlutro\\LaravelSettings\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Lutro",
+                    "email": "anlutro@gmail.com"
+                }
+            ],
+            "description": "Persistent settings in Laravel.",
+            "time": "2018-03-14T07:45:47+00:00"
         },
         {
             "name": "cocur/slugify",
