@@ -1,8 +1,8 @@
 <style scoped>
 .toc {
-  width: 30%;
   border: 1px solid #dbdbdb;
   padding: 1em;
+  overflow: hidden;
 }
 .toc div.level2 {
   font-size: 0.8em;
@@ -26,15 +26,19 @@
 }
 </style>
 <template>
-    <nav class="toc">
+    <div class="columns">
+        <div class="column is-one-third">
+            <nav class="toc">
 
-        <div v-for="(header, key) in headers" :key="key" :class="'level' + header.level">
-            <a :href="header.link">
-                {{ header.title }}
-            </a>
+                <div v-for="(header, key) in headers" :key="key" :class="'level' + header.level">
+                    <a :href="header.link">
+                        {{ header.title }}
+                    </a>
+                </div>
+
+            </nav>
         </div>
-
-    </nav>
+    </div>
 </template>
 
 <script type="text/babel">

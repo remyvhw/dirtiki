@@ -10491,7 +10491,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.toc[data-v-429e1e02] {\n  width: 30%;\n  border: 1px solid #dbdbdb;\n  padding: 1em;\n}\n.toc div.level2[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 2em;\n}\n.toc div.level3[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 3em;\n}\n.toc div.level4[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 4em;\n}\n.toc div.level5[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 5em;\n}\n.toc div.level6[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 6em;\n}\n", ""]);
+exports.push([module.i, "\n.toc[data-v-429e1e02] {\n  border: 1px solid #dbdbdb;\n  padding: 1em;\n  overflow: hidden;\n}\n.toc div.level2[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 2em;\n}\n.toc div.level3[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 3em;\n}\n.toc div.level4[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 4em;\n}\n.toc div.level5[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 5em;\n}\n.toc div.level6[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 6em;\n}\n", ""]);
 
 // exports
 
@@ -10502,6 +10502,10 @@ exports.push([module.i, "\n.toc[data-v-429e1e02] {\n  width: 30%;\n  border: 1px
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -10563,17 +10567,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "nav",
-    { staticClass: "toc" },
-    _vm._l(_vm.headers, function(header, key) {
-      return _c("div", { key: key, class: "level" + header.level }, [
-        _c("a", { attrs: { href: header.link } }, [
-          _vm._v("\n            " + _vm._s(header.title) + "\n        ")
-        ])
-      ])
-    })
-  )
+  return _c("div", { staticClass: "columns" }, [
+    _c("div", { staticClass: "column is-one-third" }, [
+      _c(
+        "nav",
+        { staticClass: "toc" },
+        _vm._l(_vm.headers, function(header, key) {
+          return _c("div", { key: key, class: "level" + header.level }, [
+            _c("a", { attrs: { href: header.link } }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(header.title) +
+                  "\n                "
+              )
+            ])
+          ])
+        })
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
