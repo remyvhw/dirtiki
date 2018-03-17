@@ -4,8 +4,7 @@ export default class {
 
         // Override function
         renderer.heading = function (text, level) {
-            const slug = text.toLowerCase().replace(/[^\w]+/g, '-');
-            return `<header-anchor :level='${escape(level)}' anchor='${slug}'>${escape(text)}</header-anchor>`;
+            return `<header-anchor :level='${escape(level)}'>${escape(text)}</header-anchor>`;
         };
 
         renderer.code = function (code, language) {

@@ -12,7 +12,6 @@ small i {
 <script type="text/babel">
 export default {
   props: {
-    anchor: { Type: String, Required: true },
     level: { Type: Number, Required: true }
   },
   data() {
@@ -22,6 +21,9 @@ export default {
     };
   },
   computed: {
+    anchor() {
+      return this.$slots.default[0].text.toLowerCase().replace(/[^\w]+/g, "-");
+    },
     linkUrl() {
       return (
         document.location.href.substr(0, document.location.href.indexOf("#")) +
@@ -29,6 +31,22 @@ export default {
         this.anchor
       );
     }
+  },
+  mounted() {
+    if (!this.$store.state.parsed.headers[this.anchor]) {
+      this.$store.commit({
+        type: "setParsedHeader",
+        key: this.anchor,
+        header: {
+          title: this.$slots.default[0].text,
+          level: this.level,
+          link: this.linkUrl
+        }
+      });
+    }
+  },
+  destroyed() {
+    this.$store.unsetParsedHeader(this.anchor);
   },
   render(createElement) {
     var self = this;

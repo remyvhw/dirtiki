@@ -27,8 +27,11 @@ export default new Vuex.Store({
         setLocalizedStrings(state, strings) {
             state.strings = strings;
         },
-        setParsedHeaders(state, key, header) {
-            Vue.set(state.parsed.headers, key, header);
+        setParsedHeader(state, payload) {
+            Vue.set(state.parsed.headers, payload.key, payload.header);
+        },
+        unsetParsedHeader(state, key, header) {
+            Vue.delete(state.parsed.headers, key);
         }
     }
 });

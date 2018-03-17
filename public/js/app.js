@@ -2269,8 +2269,11 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
         setLocalizedStrings: function setLocalizedStrings(state, strings) {
             state.strings = strings;
         },
-        setParsedHeaders: function setParsedHeaders(state, key, header) {
-            __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(state.parsed.headers, key, header);
+        setParsedHeader: function setParsedHeader(state, payload) {
+            __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(state.parsed.headers, payload.key, payload.header);
+        },
+        unsetParsedHeader: function unsetParsedHeader(state, key, header) {
+            __WEBPACK_IMPORTED_MODULE_0_vue___default.a.delete(state.parsed.headers, key);
         }
     }
 }));
@@ -5626,7 +5629,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    anchor: { Type: String, Required: true },
     level: { Type: Number, Required: true }
   },
   data: function data() {
@@ -5637,9 +5639,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   computed: {
+    anchor: function anchor() {
+      return this.$slots.default[0].text.toLowerCase().replace(/[^\w]+/g, "-");
+    },
     linkUrl: function linkUrl() {
       return document.location.href.substr(0, document.location.href.indexOf("#")) + "#" + this.anchor;
     }
+  },
+  mounted: function mounted() {
+    if (!this.$store.state.parsed.headers[this.anchor]) {
+      this.$store.commit({
+        type: "setParsedHeader",
+        key: this.anchor,
+        header: {
+          title: this.$slots.default[0].text,
+          level: this.level,
+          link: this.linkUrl
+        }
+      });
+    }
+  },
+  destroyed: function destroyed() {
+    this.$store.unsetParsedHeader(this.anchor);
   },
   render: function render(createElement) {
     var self = this;
@@ -10338,12 +10359,11 @@ var _class = function _class() {
 
     // Override function
     renderer.heading = function (text, level) {
-        var slug = text.toLowerCase().replace(/[^\w]+/g, '-');
-        return '<header-anchor :level=\'' + escape(level) + '\' anchor=\'' + slug + '\'>' + escape(text) + '</header-anchor>';
+        return "<header-anchor :level='" + escape(level) + "'>" + escape(text) + "</header-anchor>";
     };
 
     renderer.code = function (code, language) {
-        return '</div></section><code-presenter language=\'' + escape(language) + '\'>' + escape(code) + '</code-presenter><section class="section"><div class="container content">';
+        return "</div></section><code-presenter language='" + escape(language) + "'>" + escape(code) + "</code-presenter><section class=\"section\"><div class=\"container content\">";
     };
 
     window.marked.setOptions({
