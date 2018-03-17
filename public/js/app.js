@@ -10491,7 +10491,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\n.toc[data-v-429e1e02] {\n  width: 30%;\n  border: 1px solid #dbdbdb;\n  padding: 1em;\n}\n.toc div.level2[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 2em;\n}\n.toc div.level3[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 3em;\n}\n.toc div.level4[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 4em;\n}\n.toc div.level5[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 5em;\n}\n.toc div.level6[data-v-429e1e02] {\n  font-size: 0.8em;\n  margin-left: 6em;\n}\n", ""]);
 
 // exports
 
@@ -10511,14 +10511,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {},
-  props: {},
-  data: function data() {
-    return {};
-  },
-  mounted: function mounted() {}
+  computed: {
+    headers: function headers() {
+      var headers = Object.values(this.$store.state.parsed.headers);
+      return headers.sort(function (a, b) {
+        if (a.chaining < b.chaining) return -1;
+        if (a.chaining > b.chaining) return 1;
+        return 0;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -10529,16 +10563,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "nav",
+    { staticClass: "toc" },
+    _vm._l(_vm.headers, function(header, key) {
+      return _c("div", { class: "level" + header.level }, [
+        _c("a", { attrs: { href: header.link } }, [
+          _vm._v("\n            " + _vm._s(header.title) + "\n        ")
+        ])
+      ])
+    })
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box" }, [_c("h1", [_vm._v("Hello")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
