@@ -24,6 +24,16 @@ export default {
     anchor() {
       return this.$slots.default[0].text.toLowerCase().replace(/[^\w]+/g, "-");
     },
+    safeAnchor() {
+      return this.anchor + "-" + this._uid;
+    },
+    safeLinkUrl() {
+      return (
+        document.location.href.substr(0, document.location.href.indexOf("#")) +
+        "#" +
+        this.safeAnchor
+      );
+    },
     linkUrl() {
       return (
         document.location.href.substr(0, document.location.href.indexOf("#")) +
@@ -36,11 +46,11 @@ export default {
     if (!this.$store.state.parsed.headers[this.anchor]) {
       this.$store.commit({
         type: "setParsedHeader",
-        key: this.anchor,
+        key: this.safeAnchor,
         header: {
           title: this.$slots.default[0].text,
           level: this.level,
-          link: this.linkUrl
+          link: this.safeLinkUrl
         }
       });
     }
@@ -55,6 +65,13 @@ export default {
       domProps: {
         name: this.anchor,
         href: "#" + this.anchor
+      }
+    });
+
+    const safeAnchorA = createElement("a", {
+      domProps: {
+        name: this.safeAnchor,
+        href: "#" + this.safeAnchor
       }
     });
 
@@ -88,7 +105,7 @@ export default {
       createElement("small", [self.linkUrl])
     ]);
 
-    let headerChildren = [anchorA, mainSpan];
+    let headerChildren = [anchorA, safeAnchorA, mainSpan];
     if (this.showLink) headerChildren.push(linkSpan);
     return createElement("h" + this.level, headerChildren);
   }

@@ -5642,6 +5642,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     anchor: function anchor() {
       return this.$slots.default[0].text.toLowerCase().replace(/[^\w]+/g, "-");
     },
+    safeAnchor: function safeAnchor() {
+      return this.anchor + "-" + this._uid;
+    },
+    safeLinkUrl: function safeLinkUrl() {
+      return document.location.href.substr(0, document.location.href.indexOf("#")) + "#" + this.safeAnchor;
+    },
     linkUrl: function linkUrl() {
       return document.location.href.substr(0, document.location.href.indexOf("#")) + "#" + this.anchor;
     }
@@ -5650,11 +5656,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     if (!this.$store.state.parsed.headers[this.anchor]) {
       this.$store.commit({
         type: "setParsedHeader",
-        key: this.anchor,
+        key: this.safeAnchor,
         header: {
           title: this.$slots.default[0].text,
           level: this.level,
-          link: this.linkUrl
+          link: this.safeLinkUrl
         }
       });
     }
@@ -5669,6 +5675,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       domProps: {
         name: this.anchor,
         href: "#" + this.anchor
+      }
+    });
+
+    var safeAnchorA = createElement("a", {
+      domProps: {
+        name: this.safeAnchor,
+        href: "#" + this.safeAnchor
       }
     });
 
@@ -5693,7 +5706,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     var linkSpan = createElement("span", [createElement("br"), createElement("small", [self.linkUrl])]);
 
-    var headerChildren = [anchorA, mainSpan];
+    var headerChildren = [anchorA, safeAnchorA, mainSpan];
     if (this.showLink) headerChildren.push(linkSpan);
     return createElement("h" + this.level, headerChildren);
   }
