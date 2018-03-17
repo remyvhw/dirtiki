@@ -10567,7 +10567,7 @@ var render = function() {
     "nav",
     { staticClass: "toc" },
     _vm._l(_vm.headers, function(header, key) {
-      return _c("div", { class: "level" + header.level }, [
+      return _c("div", { key: key, class: "level" + header.level }, [
         _c("a", { attrs: { href: header.link } }, [
           _vm._v("\n            " + _vm._s(header.title) + "\n        ")
         ])

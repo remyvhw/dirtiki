@@ -28,7 +28,7 @@
 <template>
     <nav class="toc">
 
-        <div v-for="(header, key) in headers" :class="'level' + header.level">
+        <div v-for="(header, key) in headers" :key="key" :class="'level' + header.level">
             <a :href="header.link">
                 {{ header.title }}
             </a>
