@@ -11,13 +11,17 @@ small i {
 </style>
 <script type="text/babel">
 export default {
+  components: {
+    tocBox: require("./toc-box.vue")
+  },
   props: {
     level: { Type: Number, Required: true }
   },
   data() {
     return {
       showHelper: false,
-      showLink: false
+      showLink: false,
+      isFirst: null
     };
   },
   computed: {
@@ -43,6 +47,8 @@ export default {
     }
   },
   mounted() {
+    this.isFirst = !Object.keys(this.$store.state.parsed.headers).length;
+
     if (!this.$store.state.parsed.headers[this.anchor]) {
       this.$store.commit({
         type: "setParsedHeader",
@@ -106,9 +112,17 @@ export default {
       createElement("small", [self.linkUrl])
     ]);
 
-    let headerChildren = [anchorA, safeAnchorA, mainSpan];
+    let headingContent = [anchorA, safeAnchorA, mainSpan];
     if (this.showLink) headerChildren.push(linkSpan);
-    return createElement("h" + this.level, headerChildren);
+
+    let toc;
+    if (this.isFirst) {
+      toc = createElement("toc-box");
+    }
+
+    let header = createElement("h" + this.level, headingContent);
+
+    return createElement("div", this.isFirst ? [toc, header] : [header]);
   }
 };
 </script>
