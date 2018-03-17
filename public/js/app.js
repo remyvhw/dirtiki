@@ -5660,7 +5660,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         header: {
           title: this.$slots.default[0].text,
           level: this.level,
-          link: this.safeLinkUrl
+          link: this.safeLinkUrl,
+          chaining: Object.keys(this.$store.state.parsed.headers).length
         }
       });
     }

@@ -50,7 +50,8 @@ export default {
         header: {
           title: this.$slots.default[0].text,
           level: this.level,
-          link: this.safeLinkUrl
+          link: this.safeLinkUrl,
+          chaining: Object.keys(this.$store.state.parsed.headers).length
         }
       });
     }
