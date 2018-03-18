@@ -19,6 +19,7 @@
         "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",
         "owen-it/laravel-auditing": "^6.0",
+        "rachidlaasri/laravel-installer": "^4.0",
         "sebastian/diff": "^3.0"
     },
     "require-dev": {
