@@ -7,7 +7,7 @@ return [
      * Shared translations.
      *
      */
-    'title' => 'Laravel Installer',
+    'title' => 'Dirtiki Installer',
     'next' => 'Next Step',
     'back' => 'Previous',
     'finish' => 'Install',
@@ -22,9 +22,9 @@ return [
      */
     'welcome' => [
         'templateTitle' => 'Welcome',
-        'title'   => 'Laravel Installer',
+        'title' => 'Dirtiki Installer',
         'message' => 'Easy Installation and Setup Wizard.',
-        'next'    => 'Check Requirements',
+        'next' => 'Check Requirements',
     ],
 
     /**
@@ -35,7 +35,7 @@ return [
     'requirements' => [
         'templateTitle' => 'Step 1 | Server Requirements',
         'title' => 'Server Requirements',
-        'next'    => 'Check Permissions',
+        'next' => 'Check Permissions',
     ],
 
     /**
@@ -68,7 +68,7 @@ return [
             'tabs' => [
                 'environment' => 'Environment',
                 'database' => 'Database',
-                'application' => 'Application'
+                'application' => 'Application',
             ],
             'form' => [
                 'name_required' => 'An environment name is required.',
@@ -175,7 +175,7 @@ return [
      *
      */
     'installed' => [
-        'success_log_message' => 'Laravel Installer successfully INSTALLED on ',
+        'success_log_message' => 'Dirtiki Installer successfully INSTALLED on ',
     ],
 
     /**
@@ -205,7 +205,7 @@ return [
          * Shared translations.
          *
          */
-        'title' => 'Laravel Updater',
+        'title' => 'Dirtiki Updater',
 
         /**
          *
@@ -213,7 +213,7 @@ return [
          *
          */
         'welcome' => [
-            'title'   => 'Welcome To The Updater',
+            'title' => 'Welcome To The Updater',
             'message' => 'Welcome to the update wizard.',
         ],
 
@@ -223,9 +223,9 @@ return [
          *
          */
         'overview' => [
-            'title'   => 'Overview',
+            'title' => 'Overview',
             'message' => 'There is 1 update.|There are :number updates.',
-            'install_updates' => "Install Updates"
+            'install_updates' => "Install Updates",
         ],
 
         /**
@@ -240,7 +240,7 @@ return [
         ],
 
         'log' => [
-            'success_message' => 'Laravel Installer successfully UPDATED on ',
+            'success_message' => 'Dirtiki Installer successfully UPDATED on ',
         ],
     ],
 ];

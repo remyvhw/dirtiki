@@ -7,9 +7,8 @@ return [
      * Shared translations.
      *
      */
-    'title' => 'Laravel Instalator',
+    'title' => 'Dirtiki Instalator',
     'next' => 'Następny krok',
-
 
     /**
      *
@@ -17,10 +16,9 @@ return [
      *
      */
     'welcome' => [
-        'title'   => 'Instalacja Laravel',
+        'title' => 'Instalacja Dirtiki',
         'message' => 'Witaj w kreatorze instalacji.',
     ],
-
 
     /**
      *
@@ -31,7 +29,6 @@ return [
         'title' => 'Wymagania systemowe ',
     ],
 
-
     /**
      *
      * Permissions page translations.
@@ -40,7 +37,6 @@ return [
     'permissions' => [
         'title' => 'Uprawnienia',
     ],
-
 
     /**
      *
@@ -53,7 +49,6 @@ return [
         'success' => 'Plik .env został poprawnie zainstalowany.',
         'errors' => 'Nie można zapisać pliku .env, Proszę utworzyć go ręcznie.',
     ],
-
 
     /**
      *
