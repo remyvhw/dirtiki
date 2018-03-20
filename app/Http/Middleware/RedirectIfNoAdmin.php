@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
+use Cache;
 use Closure;
 
 class RedirectIfNoAdmin
@@ -28,6 +30,8 @@ class RedirectIfNoAdmin
      */
     public static function adminsAreAlreadySet()
     {
-        return file_exists(storage_path('admins-set'));
+        return Cache::rememberForever('config:has-admin', function () {
+            return User::where("admin", true)->exists();
+        });
     }
 }

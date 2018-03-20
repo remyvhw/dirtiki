@@ -22,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\BodySaved' => [
             'App\Listeners\RegeneratePageImagePivots',
         ],
+        'App\Events\UserCreated' => [
+            'App\Listeners\UpdateAdminCreatedStatus',
+        ],
     ];
 
     /**
