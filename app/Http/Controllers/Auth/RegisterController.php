@@ -63,10 +63,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+        $user = new User([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if (!\App\Http\Middleware\RedirectIfNoAdmin::adminsAreAlreadySet()) {
+            $user->admin = true;
+            $user->save();
+        }
+        $user->save();
+        return $user;
     }
 }
