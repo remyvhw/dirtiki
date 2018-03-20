@@ -5,7 +5,10 @@
     {{ Breadcrumbs::render('register') }}
         <div class="columns">
             <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered">
-                <h2 class="title is-2">Login</h2>
+                <h2 class="title is-2">Register</h2>
+                @if (!\App\Http\Middleware\RedirectIfNoAdmin::adminsAreAlreadySet())
+                <div class="notification is-info">Thanks for installing Dirtiki! This first account will become the <em>de facto</em> admin.</div>
+                @endif
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
 
