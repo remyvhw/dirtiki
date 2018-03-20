@@ -11,8 +11,7 @@
 |
  */
 
-
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home')->middleware(['installcheck']);
 
 Route::get('images/{image}', 'ImageController@getShow')->name("images.show");
 
