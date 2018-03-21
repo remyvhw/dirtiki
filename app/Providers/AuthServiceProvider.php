@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -26,6 +27,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('update-settings', function ($user) {
+            return (bool) $user->admin;
+        });
     }
 }
