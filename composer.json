@@ -20,7 +20,8 @@
         "laravel/tinker": "~1.0",
         "owen-it/laravel-auditing": "^6.0",
         "rachidlaasri/laravel-installer": "^4.0",
-        "sebastian/diff": "^3.0"
+        "sebastian/diff": "^3.0",
+        "stuartmccord/formbuilder": "^0.0.3"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
