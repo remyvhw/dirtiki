@@ -21,6 +21,7 @@ Route::resource('pages', 'PageController', ['only' => [
     'create', 'show', 'edit',
 ]]);
 
+Route::get('settings', 'SettingController@getIndex')->name("settings.index");
 Route::get('settings/{group}', 'SettingController@getEdit')->name("settings.edit");
 Route::post('settings/{group}', 'SettingController@postUpdate')->name("settings.update");
 

@@ -32,3 +32,13 @@ Breadcrumbs::register('page-history', function ($breadcrumbs, $page) {
     $breadcrumbs->parent('page', $page);
     $breadcrumbs->push("History", route('pages.history', $page));
 });
+
+Breadcrumbs::register('settings', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push("Settings", route('settings.index'));
+});
+
+Breadcrumbs::register('settings-editor', function ($breadcrumbs, $group) {
+    $breadcrumbs->parent('settings');
+    $breadcrumbs->push($group->label(), route('settings.edit', ["group" => $group->key]));
+});

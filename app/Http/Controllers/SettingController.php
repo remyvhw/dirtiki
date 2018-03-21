@@ -74,18 +74,22 @@ class SettingController extends Controller
         });
     }
 
+    public function getIndex(Request $request)
+    {
+        $this->authorize("update-settings");
+        return redirect(route("settings.edit", [$this->getSettingsMetadata()->first()->key]));
+    }
+
     public function getEdit(Request $request, string $group)
     {
         $this->authorize("update-settings");
 
         $dirtikiSettings = $this->getSettingsMetadata();
-        if (!($dirtikiSetting = data_get($dirtikiSettings, $group))) {
+        if (!($group = data_get($dirtikiSettings, $group))) {
             abort(404);
         }
 
-        $settings = $dirtikiSetting;
-
-        return $settings;
+        return view('settings.edit', ['group' => $group]);
     }
 
     public function postUpdate(Request $request, string $group)
