@@ -28,6 +28,11 @@ class DirtikiSetting
         return array_get($this->structure, "label");
     }
 
+    public function rules()
+    {
+        return array_get($this->structure, "rules");
+    }
+
     function default() {
         return array_get($this->structure, "default", null);
     }
@@ -60,7 +65,7 @@ class SettingController extends Controller
                 "children" => [
                     "app_name" => [
                         "label" => __("Application Name"),
-                        "validation" => "required|min:1|max:32",
+                        "rules" => "required|min:1|max:32",
                     ],
                 ],
             ],
