@@ -21,6 +21,9 @@ Route::resource('pages', 'PageController', ['only' => [
     'create', 'show', 'edit',
 ]]);
 
+Route::get('settings/{group}', 'SettingController@getEdit')->name("settings.edit");
+Route::post('settings/{group}', 'SettingController@postUpdate')->name("settings.update");
+
 Route::get('strings', function () {
     return __("frontend");
 });
