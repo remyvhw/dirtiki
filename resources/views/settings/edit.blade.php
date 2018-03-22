@@ -22,7 +22,7 @@
                 </aside>
             </div>
             <div class="column">
-            {!! Form::open(['route' => ['settings.update', $group->key]]) !!}
+            {!! Form::open(['route' => ['settings.edit', $group->key]]) !!}
                 @foreach($group->children() as $setting)
                 <div class="field">
                     {!! Bulma::label($setting->label())->text($setting->key); !!}
