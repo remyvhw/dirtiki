@@ -96,11 +96,11 @@ class SettingController extends Controller
             abort(404);
         }
 
+        if ($request->isMethod("POST")) {
+
+        }
+
         return view('settings.edit', ['settings' => $dirtikiSettings, 'group' => $group]);
     }
 
-    public function postUpdate(Request $request, string $group)
-    {
-        $this->authorize("update-settings");
-    }
 }
