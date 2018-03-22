@@ -24,7 +24,7 @@ class DirtikiSetting
         $keyPrefix = $this->key;
         $level = $this->level + 1;
         return collect(array_get($this->structure, "children", []))->mapWithKeys(function ($structure, $key) use ($keyPrefix, $level) {
-            $key = "{$keyPrefix}_{$key}";
+            $key = "{$keyPrefix}.{$key}";
             return [$key => new DirtikiSetting($structure, $key, $level)];
         });
     }
@@ -43,14 +43,36 @@ class DirtikiSetting
         return array_get($this->structure, "default", null);
     }
 
+    public function paramName(): string
+    {
+        return str_replace(".", "_", $this->key);
+    }
+
     public function getValue()
     {
         return Setting::get($this->key, $this->default());
     }
 
+    public function groupName(): string
+    {
+        return collect(explode(".", $this->key))->first();
+    }
+
+    public function groupLessKey(): string
+    {
+        return collect(explode(".", $this->key))->slice(1)->implode(".");
+    }
+
+    public function group()
+    {
+        return Setting::get($this->groupName());
+    }
+
     public function setValue($value)
     {
-        return Setting::set($this->key, $value);
+        $group = $this->group();
+        array_set($group, $this->groupLessKey(), $value);
+        Setting::set($this->groupName(), $group);
     }
 
     public function __toString(): string
@@ -97,9 +119,20 @@ class SettingController extends Controller
         }
 
         if ($request->isMethod("POST")) {
-            $rules = $group->children()->mapWithKeys(function ($setting) {return [$setting->key => $setting->rules()];})->toArray();
-            $customAttributes = $group->children()->mapWithKeys(function ($setting) {return [$setting->key => $setting->label()];})->toArray();
+            $rules = $group->children()->mapWithKeys(function ($setting) {return [$setting->paramName() => $setting->rules()];})->toArray();
+            $customAttributes = $group->children()->mapWithKeys(function ($setting) {return [$setting->paramName() => $setting->label()];})->toArray();
             $this->validate($request, $rules, [], $customAttributes);
+
+            collect($request->only($group->children()->map(function ($setting) {
+                return $setting->paramName();
+            })->toArray()))->each(function ($input, $paramName) use ($group) {
+                $setting = $group->children()->filter(function ($setting) use ($paramName) {
+                    return $setting->paramName() === $paramName;
+                })->first();
+                $setting->setValue($input);
+            });
+
+            Setting::save();
 
         }
 

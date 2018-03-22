@@ -43,7 +43,7 @@
             {!! Form::open(['route' => ['settings.edit', $group->key]]) !!}
                 @foreach($group->children() as $setting)
                 <div class="field">
-                    {!! Bulma::label($setting->label())->text($setting->key); !!}
+                    {!! Bulma::label($setting->label())->text($setting->paramName())->value($setting->getValue()); !!}
                 </div>
                 @endforeach
                 <div class="field">
