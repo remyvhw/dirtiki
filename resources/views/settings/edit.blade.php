@@ -5,6 +5,9 @@
         <div class="columns">
             <div class="column is-one-quarter">
                 <aside class="menu">
+                    <p class="menu-label">
+                        Settings
+                    </p>
                     <ul class="menu-list">
                         @foreach($settings as $setting)
 
@@ -22,6 +25,21 @@
                 </aside>
             </div>
             <div class="column">
+            @if ($errors->any())
+<article class="message is-danger">
+  <div class="message-header">
+    <p>Oops</p>
+  </div>
+  <div class="message-body">
+  <ul>
+     @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+  </div>
+</article>
+
+@endif
             {!! Form::open(['route' => ['settings.edit', $group->key]]) !!}
                 @foreach($group->children() as $setting)
                 <div class="field">

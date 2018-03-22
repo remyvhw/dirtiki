@@ -24,7 +24,7 @@ class DirtikiSetting
         $keyPrefix = $this->key;
         $level = $this->level + 1;
         return collect(array_get($this->structure, "children", []))->mapWithKeys(function ($structure, $key) use ($keyPrefix, $level) {
-            $key = "{$keyPrefix}.{$key}";
+            $key = "{$keyPrefix}_{$key}";
             return [$key => new DirtikiSetting($structure, $key, $level)];
         });
     }
@@ -34,9 +34,9 @@ class DirtikiSetting
         return array_get($this->structure, "label");
     }
 
-    public function rules(): Collection
+    public function rules()
     {
-        return collect(explode(",", array_get($this->structure, "rules", "")));
+        return array_get($this->structure, "rules", "");
     }
 
     function default(): ?string {
@@ -71,7 +71,7 @@ class SettingController extends Controller
                 "children" => [
                     "app_name" => [
                         "label" => __("Application Name"),
-                        "rules" => "required|min:1|max:32",
+                        "rules" => "required|min:2|max:32",
                         "default" => config("app.name"),
                     ],
                 ],
@@ -97,6 +97,9 @@ class SettingController extends Controller
         }
 
         if ($request->isMethod("POST")) {
+            $rules = $group->children()->mapWithKeys(function ($setting) {return [$setting->key => $setting->rules()];})->toArray();
+            $customAttributes = $group->children()->mapWithKeys(function ($setting) {return [$setting->key => $setting->label()];})->toArray();
+            $this->validate($request, $rules, [], $customAttributes);
 
         }
 
