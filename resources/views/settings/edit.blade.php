@@ -24,8 +24,15 @@
             <div class="column">
             {!! Form::open(['route' => ['settings.update', $group->key]]) !!}
                 @foreach($group->children() as $setting)
+                <div class="field">
                     {!! Bulma::label($setting->label())->text($setting->key); !!}
+                </div>
                 @endforeach
+                <div class="field">
+                    <div class="control">
+                        <button type="submit" class="button is-primary">Save</button>
+                    </div>
+                </div>
             {!! Form::close() !!}
             </div>
         </div>
