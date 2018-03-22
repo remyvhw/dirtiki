@@ -213,6 +213,7 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Bulma' => Stuartmccord\FormBuilder\BulmaFormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 

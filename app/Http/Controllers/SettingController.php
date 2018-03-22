@@ -3,37 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Setting;
 
 class DirtikiSetting
 {
+    public $level;
     public $structure;
     public $key;
-    public function __construct(array $structure, string $key)
+
+    public function __construct(array $structure, string $key, ?int $level = 0)
     {
         $this->structure = $structure;
         $this->key = $key;
+        $this->level = $level;
     }
 
-    public function children()
+    public function children(): Collection
     {
         $keyPrefix = $this->key;
-        return collect(array_get($this->structure, "children", []))->mapWithKeys(function ($structure, $key) use ($keyPrefix) {
-            return new DirtikiSetting($structure, "{$keyPrefix}.{$key}");
+        $level = $this->level + 1;
+        return collect(array_get($this->structure, "children", []))->mapWithKeys(function ($structure, $key) use ($keyPrefix, $level) {
+            $key = "{$keyPrefix}.{$key}";
+            return [$key => new DirtikiSetting($structure, $key, $level)];
         });
     }
 
-    public function label()
+    public function label(): ?string
     {
         return array_get($this->structure, "label");
     }
 
-    public function rules()
+    public function rules(): Collection
     {
-        return array_get($this->structure, "rules");
+        return collect(explode(",", array_get($this->structure, "rules", "")));
     }
 
-    function default() {
+    function default(): ?string {
         return array_get($this->structure, "default", null);
     }
 
@@ -47,7 +53,7 @@ class DirtikiSetting
         return Setting::set($this->key, $value);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return collect($this)->toJson();
     }
@@ -66,6 +72,7 @@ class SettingController extends Controller
                     "app_name" => [
                         "label" => __("Application Name"),
                         "rules" => "required|min:1|max:32",
+                        "default" => config("app.name"),
                     ],
                 ],
             ],
@@ -89,7 +96,7 @@ class SettingController extends Controller
             abort(404);
         }
 
-        return view('settings.edit', ['group' => $group]);
+        return view('settings.edit', ['settings' => $dirtikiSettings, 'group' => $group]);
     }
 
     public function postUpdate(Request $request, string $group)
