@@ -34,7 +34,7 @@
   <ul>
      @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
-            @endforeach
+    @endforeach
         </ul>
   </div>
 </article>
@@ -43,8 +43,19 @@
             {!! Form::open(['route' => ['settings.edit', $group->key]]) !!}
                 @foreach($group->children() as $setting)
                 <div class="field">
-                    {!! $setting->fieldHtml() !!}
-                </div>
+  {!! Form::label($setting->paramName(), $setting->label(), ['class' => 'label']) !!}
+
+  <div class="control
+@if($errors->has($setting->paramName()))
+  is-danger
+@endif
+  ">
+
+  {!! $setting->fieldHtml() !!}
+  </div>
+  
+</div>
+                
                 @endforeach
                 <div class="field">
                     <div class="control">

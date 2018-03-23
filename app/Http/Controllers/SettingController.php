@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Bulma;
+use Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Setting;
@@ -68,22 +68,22 @@ class DirtikiSetting
         return collect(explode(".", $this->key))->slice(1)->implode(".");
     }
 
-    public function group()
+    public function group(): string
     {
         return Setting::get($this->groupName());
     }
 
-    public function fieldHtml()
+    public function fieldHtml(): string
     {
-        $field = Bulma::label($this->label())->value($this->getValue());
         $type = data_get($this->structure, "type", "text");
         if ($type === self::TYPE_TEXTAREA) {
-            return $field->textarea($this->paramName());
+            return Form::textarea($this->paramName(), $this->getValue(), ['class' => 'textarea']);
         } elseif ($type === self::TYPE_CHECKBOX) {
-            return $field->checkbox($this->paramName());
+            return Form::checkbox($this->paramName(), $this->getValue(), ['class' => 'checkbox']);
         }
 
-        return $field->text($this->paramName());
+        return Form::text($this->paramName(), $this->getValue(), ['class' => 'input']);
+
     }
 
     public function setValue($value)
@@ -120,6 +120,12 @@ class SettingController extends Controller
                         "rules" => "required|min:2|max:32",
                         "default" => config("app.name"),
                         "type" => DirtikiSetting::TYPE_CHECKBOX,
+                    ],
+                    "app_name_ctx" => [
+                        "label" => __("Application Name"),
+                        "rules" => "required|min:2|max:32",
+                        "default" => config("app.name"),
+                        "type" => DirtikiSetting::TYPE_TEXTAREA,
                     ],
                 ],
             ],
@@ -158,7 +164,6 @@ class SettingController extends Controller
             });
 
             Setting::save();
-
         }
 
         return view('settings.edit', ['settings' => $dirtikiSettings, 'group' => $group]);
