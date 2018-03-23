@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4fb9ffa74c7281699426673e4ac5bb6",
+    "content-hash": "88fc65bb9099c74f42185901cd8287ec",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1380,16 +1380,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.24.2",
+            "version": "1.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "bba6c6e410c6b4317e37a9474aeaa753808c3875"
+                "reference": "cbcf13da0b531767e39eb86e9687f5deba9857b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/bba6c6e410c6b4317e37a9474aeaa753808c3875",
-                "reference": "bba6c6e410c6b4317e37a9474aeaa753808c3875",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/cbcf13da0b531767e39eb86e9687f5deba9857b4",
+                "reference": "cbcf13da0b531767e39eb86e9687f5deba9857b4",
                 "shasum": ""
             },
             "require": {
@@ -1429,7 +1429,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2018-03-10T10:10:14+00:00"
+            "time": "2018-03-19T15:50:49+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -1881,16 +1881,16 @@
         },
         {
             "name": "rachidlaasri/laravel-installer",
-            "version": "4.0.0",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RachidLaasri/LaravelInstaller.git",
-                "reference": "09ae107328c7893a1f64134c60a7c040b9daff20"
+                "reference": "28b8c412d8ad86c6588afc84b7027e8e8ae196be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RachidLaasri/LaravelInstaller/zipball/09ae107328c7893a1f64134c60a7c040b9daff20",
-                "reference": "09ae107328c7893a1f64134c60a7c040b9daff20",
+                "url": "https://api.github.com/repos/RachidLaasri/LaravelInstaller/zipball/28b8c412d8ad86c6588afc84b7027e8e8ae196be",
+                "reference": "28b8c412d8ad86c6588afc84b7027e8e8ae196be",
                 "shasum": ""
             },
             "require": {
@@ -1927,7 +1927,7 @@
                 }
             ],
             "description": "Laravel web installer",
-            "time": "2018-03-17T21:45:11+00:00"
+            "time": "2018-03-23T15:17:33+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -2064,42 +2064,6 @@
                 "unified diff"
             ],
             "time": "2018-02-01T13:45:15+00:00"
-        },
-        {
-            "name": "stuartmccord/formbuilder",
-            "version": "0.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stuartmccord/FormBuilder.git",
-                "reference": "5ac6aac7033f6b9ee65f1a4599b6ca1cbb76920f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stuartmccord/FormBuilder/zipball/5ac6aac7033f6b9ee65f1a4599b6ca1cbb76920f",
-                "reference": "5ac6aac7033f6b9ee65f1a4599b6ca1cbb76920f",
-                "shasum": ""
-            },
-            "require": {
-                "laravelcollective/html": "^5.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Stuartmccord\\FormBuilder\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL"
-            ],
-            "authors": [
-                {
-                    "name": "Stuart McCord",
-                    "email": "stuart.mccord@gmail.com"
-                }
-            ],
-            "description": "Custom Laravel collective formbuilder",
-            "time": "2017-02-19T20:08:41+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
