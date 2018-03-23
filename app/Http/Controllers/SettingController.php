@@ -12,6 +12,8 @@ class DirtikiSetting
     const TYPE_TEXT = "text";
     const TYPE_TEXTAREA = "textarea";
     const TYPE_CHECKBOX = "checkbox";
+    const TYPE_NUMBER = "number";
+    const TYPE_EMAIL = "email";
 
     public $level;
     public $structure;
@@ -78,6 +80,10 @@ class DirtikiSetting
         $type = data_get($this->structure, "type", "text");
         if ($type === self::TYPE_TEXTAREA) {
             return Form::textarea($this->paramName(), $this->getValue(), ['class' => 'textarea']);
+        } elseif ($type === self::TYPE_EMAIL) {
+            return Form::email($this->paramName(), $this->getValue(), ['class' => 'input']);
+        } elseif ($type === self::TYPE_NUMBER) {
+            return Form::number($this->paramName(), $this->getValue(), ['class' => 'input']);
         } elseif ($type === self::TYPE_CHECKBOX) {
             return Form::checkbox($this->paramName(), $this->getValue(), ['class' => 'checkbox']);
         }
@@ -115,18 +121,7 @@ class SettingController extends Controller
                         "default" => config("app.name"),
                         "type" => DirtikiSetting::TYPE_TEXT,
                     ],
-                    "app_name_checkbox" => [
-                        "label" => __("Application Name"),
-                        "rules" => "required|min:2|max:32",
-                        "default" => config("app.name"),
-                        "type" => DirtikiSetting::TYPE_CHECKBOX,
-                    ],
-                    "app_name_ctx" => [
-                        "label" => __("Application Name"),
-                        "rules" => "required|min:2|max:32",
-                        "default" => config("app.name"),
-                        "type" => DirtikiSetting::TYPE_TEXTAREA,
-                    ],
+
                 ],
             ],
         ])->mapWithKeys(function ($structure, $key) {
