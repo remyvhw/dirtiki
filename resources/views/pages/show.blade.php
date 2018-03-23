@@ -1,4 +1,4 @@
-@section('title', htmlspecialchars($page->name) . " | " . config("app.name"))
+@section('title', htmlspecialchars($page->name) . " — " . config("app.name"))
 @extends('layouts.app') @section('content')
 <div class="section">
     <section class="container">
