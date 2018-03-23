@@ -11,6 +11,7 @@ class DirtikiSetting
 {
     const TYPE_TEXT = "text";
     const TYPE_TEXTAREA = "textarea";
+    const TYPE_CHECKBOX = "checkbox";
 
     public $level;
     public $structure;
@@ -77,7 +78,9 @@ class DirtikiSetting
         $field = Bulma::label($this->label())->value($this->getValue());
         $type = data_get($this->structure, "type", "text");
         if ($type === self::TYPE_TEXTAREA) {
-            return $field->text($this->paramName(), ["type" => "email"]);
+            return $field->textarea($this->paramName());
+        } elseif ($type === self::TYPE_CHECKBOX) {
+            return $field->checkbox($this->paramName());
         }
 
         return $field->text($this->paramName());
@@ -111,6 +114,12 @@ class SettingController extends Controller
                         "rules" => "required|min:2|max:32",
                         "default" => config("app.name"),
                         "type" => DirtikiSetting::TYPE_TEXT,
+                    ],
+                    "app_name_checkbox" => [
+                        "label" => __("Application Name"),
+                        "rules" => "required|min:2|max:32",
+                        "default" => config("app.name"),
+                        "type" => DirtikiSetting::TYPE_CHECKBOX,
                     ],
                 ],
             ],
