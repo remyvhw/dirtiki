@@ -124,6 +124,36 @@ class SettingController extends Controller
 
                 ],
             ],
+            "permissions" => [
+                "label" => __("Authorizations"),
+                "children" => [
+                    "public_read" => [
+                        "label" => __("Allow anonymous visitors to read pages."),
+                        "rules" => "required|boolean",
+                        "default" => true,
+                        "type" => DirtikiSetting::TYPE_CHECKBOX,
+                    ],
+                    "public_updates" => [
+                        "label" => __("Allow anonymous visitors to update existing pages."),
+                        "rules" => "required|boolean",
+                        "default" => false,
+                        "type" => DirtikiSetting::TYPE_CHECKBOX,
+                    ],
+                    "public_create" => [
+                        "label" => __("Allow anonymous visitors to create new pages."),
+                        "rules" => "required|boolean",
+                        "default" => false,
+                        "type" => DirtikiSetting::TYPE_CHECKBOX,
+                    ],
+                    "public_deletes" => [
+                        "label" => __("Allow anonymous visitors to delete pages."),
+                        "rules" => "required|boolean",
+                        "default" => false,
+                        "type" => DirtikiSetting::TYPE_CHECKBOX,
+                    ],
+
+                ],
+            ],
         ])->mapWithKeys(function ($structure, $key) {
             return [$key => new DirtikiSetting($structure, $key)];
         });
