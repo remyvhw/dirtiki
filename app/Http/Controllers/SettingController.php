@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Bulma;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Setting;
 
 class DirtikiSetting
 {
+    const TYPE_TEXT = "text";
+    const TYPE_TEXTAREA = "textarea";
+
     public $level;
     public $structure;
     public $key;
@@ -68,6 +72,17 @@ class DirtikiSetting
         return Setting::get($this->groupName());
     }
 
+    public function fieldHtml()
+    {
+        $field = Bulma::label($this->label())->value($this->getValue());
+        $type = data_get($this->structure, "type", "text");
+        if ($type === self::TYPE_TEXTAREA) {
+            return $field->text($this->paramName(), ["type" => "email"]);
+        }
+
+        return $field->text($this->paramName());
+    }
+
     public function setValue($value)
     {
         $group = $this->group();
@@ -95,6 +110,7 @@ class SettingController extends Controller
                         "label" => __("Application Name"),
                         "rules" => "required|min:2|max:32",
                         "default" => config("app.name"),
+                        "type" => DirtikiSetting::TYPE_TEXT,
                     ],
                 ],
             ],
