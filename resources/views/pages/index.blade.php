@@ -8,7 +8,7 @@
             <ul class="menu-list">
                 @foreach($pages as $page)
                 <li>
-                    <a href="{{ route('pages.show', $page) }}">
+                    <a href="{{ route('pages.show', $page) }}" style="padding-left: 0.75em;">
                         {{ $page->name }}
                     </a>
                 </li>
