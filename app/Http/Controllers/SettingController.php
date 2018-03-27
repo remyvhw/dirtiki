@@ -70,9 +70,9 @@ class DirtikiSetting
         return collect(explode(".", $this->key))->slice(1)->implode(".");
     }
 
-    public function group(): string
+    public function group(): ?array
     {
-        return Setting::get($this->groupName());
+        return Setting::get($this->groupName(), []);
     }
 
     public function fieldHtml(): string
@@ -85,7 +85,7 @@ class DirtikiSetting
         } elseif ($type === self::TYPE_NUMBER) {
             return Form::number($this->paramName(), $this->getValue(), ['class' => 'input']);
         } elseif ($type === self::TYPE_CHECKBOX) {
-            return Form::checkbox($this->paramName(), $this->getValue(), ['class' => 'checkbox']);
+            return Form::checkbox($this->paramName(), "1", $this->getValue());
         }
 
         return Form::text($this->paramName(), $this->getValue(), ['class' => 'input']);
@@ -129,25 +129,25 @@ class SettingController extends Controller
                 "children" => [
                     "public_read" => [
                         "label" => __("Allow anonymous visitors to read pages."),
-                        "rules" => "required|boolean",
+                        "rules" => "filled|boolean",
                         "default" => true,
                         "type" => DirtikiSetting::TYPE_CHECKBOX,
                     ],
                     "public_updates" => [
                         "label" => __("Allow anonymous visitors to update existing pages."),
-                        "rules" => "required|boolean",
+                        "rules" => "filled|boolean",
                         "default" => false,
                         "type" => DirtikiSetting::TYPE_CHECKBOX,
                     ],
                     "public_create" => [
                         "label" => __("Allow anonymous visitors to create new pages."),
-                        "rules" => "required|boolean",
+                        "rules" => "filled|boolean",
                         "default" => false,
                         "type" => DirtikiSetting::TYPE_CHECKBOX,
                     ],
                     "public_deletes" => [
                         "label" => __("Allow anonymous visitors to delete pages."),
-                        "rules" => "required|boolean",
+                        "rules" => "filled|boolean",
                         "default" => false,
                         "type" => DirtikiSetting::TYPE_CHECKBOX,
                     ],
@@ -175,19 +175,15 @@ class SettingController extends Controller
         }
 
         if ($request->isMethod("POST")) {
+
             $rules = $group->children()->mapWithKeys(function ($setting) {return [$setting->paramName() => $setting->rules()];})->toArray();
+
             $customAttributes = $group->children()->mapWithKeys(function ($setting) {return [$setting->paramName() => $setting->label()];})->toArray();
-            $this->validate($request, $rules, [], $customAttributes);
+            $validated = $this->validate($request, $rules, [], $customAttributes);
 
-            collect($request->only($group->children()->map(function ($setting) {
-                return $setting->paramName();
-            })->toArray()))->each(function ($input, $paramName) use ($group) {
-                $setting = $group->children()->filter(function ($setting) use ($paramName) {
-                    return $setting->paramName() === $paramName;
-                })->first();
-                $setting->setValue($input);
+            $group->children()->each(function ($setting) use ($validated) {
+                $setting->setValue(data_get($validated, $setting->paramName(), false));
             });
-
             Setting::save();
         }
 
