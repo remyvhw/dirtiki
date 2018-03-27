@@ -17,7 +17,7 @@ class PageController extends Controller
      */
     public function __construct()
     {
-        if (!config("dirtiki.allow_anonymous.views")) {
+        if (!Setting::get("permissions.public_read")) {
             $this->middleware('auth');
         }
 

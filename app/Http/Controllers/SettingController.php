@@ -133,7 +133,7 @@ class SettingController extends Controller
                         "default" => true,
                         "type" => DirtikiSetting::TYPE_CHECKBOX,
                     ],
-                    "public_updates" => [
+                    "public_update" => [
                         "label" => __("Allow anonymous visitors to update existing pages."),
                         "rules" => "filled|boolean",
                         "default" => false,
@@ -145,7 +145,7 @@ class SettingController extends Controller
                         "default" => false,
                         "type" => DirtikiSetting::TYPE_CHECKBOX,
                     ],
-                    "public_deletes" => [
+                    "public_delete" => [
                         "label" => __("Allow anonymous visitors to delete pages."),
                         "rules" => "filled|boolean",
                         "default" => false,

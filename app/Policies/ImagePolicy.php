@@ -18,7 +18,7 @@ class ImagePolicy
      */
     public function index(?User $user)
     {
-        if (!$user && !config("dirtiki.allow_anonymous.views")) {
+        if (!$user && !Setting::get("permissions.public_read")) {
             return false;
         }
         return true;
@@ -33,7 +33,7 @@ class ImagePolicy
      */
     public function view(?User $user, Image $image)
     {
-        if (!$user && !config("dirtiki.allow_anonymous.views")) {
+        if (!$user && !Setting::get("permissions.public_read")) {
             return false;
         }
         return true;
@@ -47,7 +47,7 @@ class ImagePolicy
      */
     public function create(?User $user)
     {
-        if (!$user && !config("dirtiki.allow_anonymous.updates")) {
+        if (!$user && !Setting::get("permissions.public_create")) {
             return false;
         }
         return true;
@@ -62,7 +62,7 @@ class ImagePolicy
      */
     public function delete(?User $user, Image $image)
     {
-        if (!$user && !config("dirtiki.allow_anonymous.updates")) {
+        if (!$user && !Setting::get("permissions.public_update")) {
             return false;
         }
         return true;

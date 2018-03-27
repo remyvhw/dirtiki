@@ -19,7 +19,7 @@ class PagePolicy
      */
     public function index(?User $user): bool
     {
-        if (!$user && !config("dirtiki.allow_anonymous.views")) {
+        if (!$user && !Setting::get("permissions.public_read")) {
             return false;
         }
         return true;
@@ -34,7 +34,7 @@ class PagePolicy
      */
     public function view(?User $user, Page $page): bool
     {
-        if (!$user && !config("dirtiki.allow_anonymous.views")) {
+        if (!$user && !Setting::get("permissions.public_read")) {
             return false;
         }
         return true;
@@ -48,7 +48,7 @@ class PagePolicy
      */
     public function store(?User $user): bool
     {
-        if (!$user && !config("dirtiki.allow_anonymous.stores")) {
+        if (!$user && !Setting::get("permissions.public_create")) {
             return false;
         }
         return true;
@@ -63,7 +63,7 @@ class PagePolicy
      */
     public function update(?User $user, Page $page): bool
     {
-        if (!$user && !config("dirtiki.allow_anonymous.updates")) {
+        if (!$user && !Setting::get("permissions.public_update")) {
             return false;
         }
         return true;
@@ -78,7 +78,7 @@ class PagePolicy
      */
     public function delete(?User $user, Page $page): bool
     {
-        if (!$user && !config("dirtiki.allow_anonymous.deletes")) {
+        if (!$user && !Setting::get("permissions.public_delete")) {
             return false;
         }
         return true;

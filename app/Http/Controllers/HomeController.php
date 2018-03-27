@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use Setting;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        if (!config("dirtiki.allow_anonymous.views")) {
+        if (!Setting::get("permissions.public_read")) {
             $this->middleware('auth');
         }
 

@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function view(?User $user, User $model)
     {
-        if (!$user && !config("dirtiki.allow_anonymous.views")) {
+        if (!$user && !Setting::get("permissions.public_read")) {
             return false;
         }
         return true;
