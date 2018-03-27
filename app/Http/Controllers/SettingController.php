@@ -109,7 +109,7 @@ class DirtikiSetting
 class SettingController extends Controller
 {
 
-    public function getSettingsMetadata()
+    public function getSettingsMetadata(): Collection
     {
         return collect([
             "general" => [
