@@ -9,7 +9,9 @@
                         Settings
                     </p>
                     <ul class="menu-list">
-                        @foreach($settings as $setting)
+                        @foreach($settings->sortBy(function ($item) {
+                            return $item->label();
+                        }) as $setting)
 
                         <li>
                             <a
