@@ -7,6 +7,7 @@ use App\PageRedirection;
 use Auth;
 use Illuminate\Http\Request;
 use Route;
+use Setting;
 
 class PageController extends Controller
 {

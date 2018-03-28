@@ -24,24 +24,4 @@ return [
         ],
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Markdown Rendering
-    |--------------------------------------------------------------------------
-    |
-    | Anything related to markdown rendering.
-    |
-    |
-     */
-    'rendering' => [
-        /**
-         * Used to render geojson code.
-         * Provider can either be `google` or `mapbox`.
-         */
-        "maps" => [
-            "provider" => env('RENDERING_MAPS_PROVIDER', null),
-            "key" => env('RENDERING_MAPS_KEY', null),
-        ],
-    ],
-
 ];
