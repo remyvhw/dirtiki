@@ -14,6 +14,7 @@ class DirtikiSetting
     const TYPE_CHECKBOX = "checkbox";
     const TYPE_NUMBER = "number";
     const TYPE_EMAIL = "email";
+    const TYPE_SELECT = "select";
 
     public $level;
     public $structure;
@@ -43,7 +44,15 @@ class DirtikiSetting
 
     public function rules()
     {
+        if ($this->type() === self::TYPE_SELECT) {
+            return "required|in:" . collect($this->options())->keys()->implode(",");
+        }
         return array_get($this->structure, "rules", "");
+    }
+
+    public function options()
+    {
+        return array_get($this->structure, "options", "");
     }
 
     function default(): ?string {
@@ -75,9 +84,14 @@ class DirtikiSetting
         return Setting::get($this->groupName(), []);
     }
 
+    public function type(): string
+    {
+        return data_get($this->structure, "type", "text");
+    }
+
     public function fieldHtml(): string
     {
-        $type = data_get($this->structure, "type", "text");
+        $type = $this->type();
         if ($type === self::TYPE_TEXTAREA) {
             return Form::textarea($this->paramName(), $this->getValue(), ['class' => 'textarea']);
         } elseif ($type === self::TYPE_EMAIL) {
@@ -86,6 +100,8 @@ class DirtikiSetting
             return Form::number($this->paramName(), $this->getValue(), ['class' => 'input']);
         } elseif ($type === self::TYPE_CHECKBOX) {
             return Form::checkbox($this->paramName(), "1", $this->getValue());
+        } elseif ($type === self::TYPE_SELECT) {
+            return Form::select($this->paramName(), $this->options(), $this->getValue(), ["class" => "select is-fullwidth"]);
         }
 
         return Form::text($this->paramName(), $this->getValue(), ['class' => 'input']);
@@ -152,6 +168,27 @@ class SettingController extends Controller
                         "type" => DirtikiSetting::TYPE_CHECKBOX,
                     ],
 
+                ],
+            ],
+            "maps" => [
+                "label" => __("Maps"),
+                "children" => [
+                    "provider" => [
+                        "label" => __("Maps Provider"),
+                        "default" => "null",
+                        "type" => DirtikiSetting::TYPE_SELECT,
+                        "options" => [
+                            "null" => "None",
+                            "google" => "Google Maps",
+                            "mapbox" => "Mapbox",
+                        ],
+                    ],
+                    "api_key" => [
+                        "label" => __("API Key"),
+                        "rules" => "min:30|max:100",
+                        "default" => "",
+                        "type" => DirtikiSetting::TYPE_TEXT,
+                    ],
                 ],
             ],
         ])->mapWithKeys(function ($structure, $key) {
