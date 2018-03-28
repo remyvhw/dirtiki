@@ -20,6 +20,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
         "owen-it/laravel-auditing": "^6.0",
+        "pragmarx/version": "^0.2.7",
         "rachidlaasri/laravel-installer": "^4.0",
         "sebastian/diff": "^3.0"
     },
