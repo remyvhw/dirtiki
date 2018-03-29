@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Version;
 
 class MigrateSettings extends Command
 {
@@ -18,17 +19,7 @@ class MigrateSettings extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $description = 'Upgrade settings so they are compatible with the latest version of the app.';
 
     /**
      * Execute the console command.
@@ -37,6 +28,28 @@ class MigrateSettings extends Command
      */
     public function handle()
     {
-        //
+        $currentVersion = Version::version();
+        $migrationsPath = base_path("settings/migrations");
+        $files = preg_grep('/^([^.])/', scandir($migrationsPath));
+        collect($files)->values()->map(function ($filename) {
+
+            $nameparts = collect(explode("_", str_replace(".php", "", $filename)));
+
+            if (!$nameparts->count()) {
+                return null;
+            }
+
+            return [
+                "version" => $nameparts->shift(),
+                "filename" => $filename,
+                "className" => studly_case($nameparts->implode("_")),
+            ];
+        })->filter(function ($file) use ($currentVersion) {
+            return version_compare($currentVersion, data_get($file, "version", 0));
+        })->each(function ($file) use ($migrationsPath) {
+            require_once ($migrationsPath . "/" . $file["filename"]);
+            $migration = new $file["className"]();
+            $migration->migrate();
+        });
     }
 }
