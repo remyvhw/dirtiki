@@ -11,7 +11,7 @@ class InitialProvisioning extends SettingsMigration
      */
     public function run()
     {
-        dd("Hello, world!");
+
     }
 
 }

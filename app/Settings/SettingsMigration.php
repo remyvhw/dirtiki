@@ -3,14 +3,10 @@
 namespace App\Settings;
 
 use Setting;
+use Version;
 
 class SettingsMigration
 {
-
-    public function loadSettings()
-    {
-        return Setting::all();
-    }
 
     public function saveSettings()
     {
@@ -29,6 +25,7 @@ class SettingsMigration
     public function migrate()
     {
         $this->run();
+        Setting::set("meta.version", Version::number());
         $this->saveSettings();
     }
 }
