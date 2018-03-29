@@ -7,6 +7,7 @@ use Version;
 
 class SettingsMigration
 {
+    public $version = "0.0.0";
 
     public function saveSettings()
     {
@@ -25,7 +26,7 @@ class SettingsMigration
     public function migrate()
     {
         $this->run();
-        Setting::set("meta.version", Version::number());
+        Setting::set("meta.version", $this->version);
         $this->saveSettings();
     }
 }

@@ -62,5 +62,8 @@ class MigrateSettings extends Command
                 $command->info("Nothing to migrate.");
             }
         });
+
+        Setting::set("meta.version", $currentVersion);
+        Setting::save();
     }
 }
