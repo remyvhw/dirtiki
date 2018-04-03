@@ -70,7 +70,7 @@ class SettingController extends Controller
                     ],
                     "api_key" => [
                         "label" => __("API Key"),
-                        "rules" => "min:30|max:100",
+                        "rules" => "nullable|required_unless:maps_provider,null|min:30|max:100",
                         "default" => "",
                         "type" => DirtikiSetting::TYPE_TEXT,
                     ],
