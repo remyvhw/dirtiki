@@ -13,7 +13,14 @@ class InitialProvisioning extends SettingsMigration
      */
     public function run()
     {
+        Setting::set("general.app_name", "Dirtiki");
 
+        Setting::set("permissions.public_read", true);
+        Setting::set("permissions.public_update", false);
+        Setting::set("permissions.public_create", false);
+        Setting::set("permissions.public_delete", false);
+
+        Setting::set("maps.provider", "null");
     }
 
 }
