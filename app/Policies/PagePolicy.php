@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Page;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Setting;
 
 class PagePolicy
 {

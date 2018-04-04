@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Image;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Setting;
 
 class ImagePolicy
 {
