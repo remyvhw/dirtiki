@@ -10,6 +10,12 @@
 
         <div class="navbar-end">
 
+            @can("update-settings")
+            <a class="navbar-item" href="{{ route('settings.index') }}">
+                Settings
+            </a>
+            @endcan
+
             @if(config("scout.driver"))
             <div class="navbar-item">
                 <div class="control has-icons-right">
