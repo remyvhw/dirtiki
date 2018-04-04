@@ -109,6 +109,9 @@ class DirtikiSetting
 
     public function setValue($value)
     {
+        if (!$value) {
+            $value = "";
+        }
         $group = $this->group();
         array_set($group, $this->groupLessKey(), $value);
         Setting::set($this->groupName(), $group);
