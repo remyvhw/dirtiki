@@ -67,7 +67,7 @@ class ImagePolicy
     {
         if (!$user && !Setting::get("permissions.public_update")) {
             return false;
-        } elseif (!optional($user)->admin && !Setting::get("permissions.user_delete")) {
+        } elseif (!optional($user)->admin && !Setting::get("permissions.public_update")) {
             return false;
         }
         return true;

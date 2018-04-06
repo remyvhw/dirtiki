@@ -171,7 +171,7 @@ class PageBodyApiTest extends TestCase
         $faker = Faker::create();
         $page = Page::inRandomOrder()->first();
         $response = $this
-            ->actingAs(User::inRandomOrder()->first(), 'api')
+            ->actingAs(User::where("admin", true)->inRandomOrder()->first(), 'api')
             ->withHeaders([
                 "User-Agent" => $faker->userAgent(),
             ])
