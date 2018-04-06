@@ -51,6 +51,8 @@ class PagePolicy
     {
         if (!$user && !Setting::get("permissions.public_create")) {
             return false;
+        } elseif (!optional($user)->admin && !Setting::get("permissions.user_create")) {
+            return false;
         }
         return true;
     }
@@ -66,6 +68,8 @@ class PagePolicy
     {
         if (!$user && !Setting::get("permissions.public_update")) {
             return false;
+        } elseif (!optional($user)->admin && !Setting::get("permissions.user_update")) {
+            return false;
         }
         return true;
     }
@@ -80,6 +84,8 @@ class PagePolicy
     public function delete(?User $user, Page $page): bool
     {
         if (!$user && !Setting::get("permissions.public_delete")) {
+            return false;
+        } elseif (!optional($user)->admin && !Setting::get("permissions.user_delete")) {
             return false;
         }
         return true;

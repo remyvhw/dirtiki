@@ -48,7 +48,9 @@ class ImagePolicy
      */
     public function create(?User $user)
     {
-        if (!$user && !Setting::get("permissions.public_create")) {
+        if (!$user && !Setting::get("permissions.public_update")) {
+            return false;
+        } elseif (!optional($user)->admin && !Setting::get("permissions.user_update")) {
             return false;
         }
         return true;
@@ -64,6 +66,8 @@ class ImagePolicy
     public function delete(?User $user, Image $image)
     {
         if (!$user && !Setting::get("permissions.public_update")) {
+            return false;
+        } elseif (!optional($user)->admin && !Setting::get("permissions.user_delete")) {
             return false;
         }
         return true;
