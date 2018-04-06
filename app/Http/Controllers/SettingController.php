@@ -26,7 +26,7 @@ class SettingController extends Controller
                 ],
             ],
             "permissions" => [
-                "label" => __("Authorizations"),
+                "label" => __("Permissions"),
                 "children" => [
                     "public_read" => [
                         "label" => __("Allow anonymous visitors to read pages."),
