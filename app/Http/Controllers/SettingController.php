@@ -52,7 +52,24 @@ class SettingController extends Controller
                         "default" => false,
                         "type" => DirtikiSetting::TYPE_CHECKBOX,
                     ],
-
+                    "user_update" => [
+                        "label" => __("Allow regular users to update existing pages."),
+                        "rules" => "filled|boolean",
+                        "default" => true,
+                        "type" => DirtikiSetting::TYPE_CHECKBOX,
+                    ],
+                    "user_create" => [
+                        "label" => __("Allow regular users to create new pages."),
+                        "rules" => "filled|boolean",
+                        "default" => true,
+                        "type" => DirtikiSetting::TYPE_CHECKBOX,
+                    ],
+                    "user_delete" => [
+                        "label" => __("Allow regular users to delete pages."),
+                        "rules" => "filled|boolean",
+                        "default" => true,
+                        "type" => DirtikiSetting::TYPE_CHECKBOX,
+                    ],
                 ],
             ],
             "maps" => [
