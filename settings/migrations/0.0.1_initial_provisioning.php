@@ -19,6 +19,9 @@ class InitialProvisioning extends SettingsMigration
         Setting::set("permissions.public_update", false);
         Setting::set("permissions.public_create", false);
         Setting::set("permissions.public_delete", false);
+        Setting::set("permissions.user_update", true);
+        Setting::set("permissions.user_create", true);
+        Setting::set("permissions.user_delete", false);
 
         Setting::set("maps.provider", "null");
     }

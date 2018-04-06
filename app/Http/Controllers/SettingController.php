@@ -67,7 +67,7 @@ class SettingController extends Controller
                     "user_delete" => [
                         "label" => __("Allow regular users to delete pages."),
                         "rules" => "filled|boolean",
-                        "default" => true,
+                        "default" => false,
                         "type" => DirtikiSetting::TYPE_CHECKBOX,
                     ],
                 ],
