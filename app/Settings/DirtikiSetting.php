@@ -41,6 +41,11 @@ class DirtikiSetting
         return array_get($this->structure, "label");
     }
 
+    public function help(): ?string
+    {
+        return array_get($this->structure, "help");
+    }
+
     public function rules()
     {
         if ($this->type() === self::TYPE_SELECT) {

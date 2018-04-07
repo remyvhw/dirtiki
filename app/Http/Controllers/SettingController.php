@@ -81,7 +81,13 @@ class SettingController extends Controller
                         "default" => true,
                         "type" => DirtikiSetting::TYPE_CHECKBOX,
                     ],
-
+                    "signup_domains" => [
+                        "label" => __("Allow only sign ups with emails addresses from these domains:"),
+                        "rules" => "nullable",
+                        "default" => "",
+                        "type" => DirtikiSetting::TYPE_TEXT,
+                        "help" => __("To allow email addresses from multiple domains, separate them with commas. If you don't want to restrict registration to emails from specific domains, leave this field empty."),
+                    ],
                 ],
             ],
             "maps" => [

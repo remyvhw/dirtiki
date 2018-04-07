@@ -54,6 +54,9 @@
   ">
 
   {!! $setting->fieldHtml() !!}
+  @if ($setting->help())
+  <p class="help">{{ $setting->help() }}</p>
+  @endif
   </div>
   
 </div>
