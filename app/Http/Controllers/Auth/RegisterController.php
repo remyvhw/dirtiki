@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Setting;
 
 class RegisterController extends Controller
 {
@@ -73,6 +74,10 @@ class RegisterController extends Controller
         if (!\App\Http\Middleware\RedirectIfNoAdmin::adminsAreAlreadySet()) {
             $user->admin = true;
             $user->save();
+        } else {
+            if (!Setting::get("users.allow_signups", false)) {
+                abort(403);
+            }
         }
         $user->save();
         return $user;

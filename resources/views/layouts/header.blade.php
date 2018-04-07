@@ -26,10 +26,13 @@
                     </span>
                 </div>
             </div>
-            @endif @guest
+            @endif 
+            @guest
+            @if (Setting::get("users.allow_signups", false))
             <a class="navbar-item" href="{{ route('register') }}">
                 Register
             </a>
+            @endif
             <a class="navbar-item" href="{{ route('login') }}">
                 Login
             </a>
