@@ -75,8 +75,8 @@ class SettingController extends Controller
             "users" => [
                 "label" => __("Users"),
                 "children" => [
-                    "allow_any_signups" => [
-                        "label" => __("Allow anyone to register and become a regular user."),
+                    "allow_signups" => [
+                        "label" => __("Allow new users to sign up."),
                         "rules" => "filled|boolean",
                         "default" => true,
                         "type" => DirtikiSetting::TYPE_CHECKBOX,

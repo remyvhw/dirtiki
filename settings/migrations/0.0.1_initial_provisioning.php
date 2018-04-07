@@ -23,6 +23,8 @@ class InitialProvisioning extends SettingsMigration
         Setting::set("permissions.user_create", true);
         Setting::set("permissions.user_delete", false);
 
+        Setting::set("users.allow_signups", true);
+
         Setting::set("maps.provider", "null");
     }
 
