@@ -111,7 +111,7 @@ class PageBodyApiTest extends TestCase
     {
         $faker = Faker::create();
         $response = $this
-            ->actingAs(User::inRandomOrder()->first(), 'api')
+            ->actingAs(User::whereNotNull("verified")->inRandomOrder()->first(), 'api')
             ->withHeaders([
                 "User-Agent" => $faker->userAgent(),
             ])
@@ -171,7 +171,7 @@ class PageBodyApiTest extends TestCase
         $faker = Faker::create();
         $page = Page::inRandomOrder()->first();
         $response = $this
-            ->actingAs(User::where("admin", true)->inRandomOrder()->first(), 'api')
+            ->actingAs(User::where("admin", true)->whereNotNull("verified")->inRandomOrder()->first(), 'api')
             ->withHeaders([
                 "User-Agent" => $faker->userAgent(),
             ])
