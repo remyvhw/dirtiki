@@ -3738,7 +3738,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         unique: "The :attribute has already been taken.",
         uploaded: "The :attribute failed to upload.",
         url: "The :attribute format is invalid.",
-        mustEndWith: "The :attribute must end with the following: :end"
+        must_end_with: "The :attribute must end with the following: :end"
       }
     };
   },
@@ -3901,7 +3901,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       // MustEndWith validation
       if (this.mustEndWith && !RegExp(".+(" + this.mustEndWith.join("|") + ")$").test(this.value)) {
         valid = false;
-        messages.push(this.trans.mustEndWith.replace(":attribute", this.label).replace(":end", this.mustEndWith.join(", ")));
+        messages.push(this.trans.must_end_with.replace(":attribute", this.label).replace(":end", this.mustEndWith.join(", ")));
       }
 
       // Number validation (for decimal steps)
