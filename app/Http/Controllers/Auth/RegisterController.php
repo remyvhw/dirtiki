@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\AccountCreated;
 use App\Rules\MustEndWith;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -84,6 +85,9 @@ class RegisterController extends Controller
             }
         }
         $user->save();
+
+        $user->notify(new AccountCreated());
+
         return $user;
     }
 }
