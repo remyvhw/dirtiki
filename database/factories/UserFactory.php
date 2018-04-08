@@ -19,5 +19,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => \Hash::make("secret"),
         'remember_token' => str_random(10),
+        'verified' => $faker->boolean(75) ? $faker->date() : null,
+        'admin' => $faker->boolean(10),
     ];
 });
