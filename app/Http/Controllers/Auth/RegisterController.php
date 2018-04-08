@@ -52,7 +52,10 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users', new MustEndWith(Setting::get('users.signup_domains', ""))],
+            'email' => collect(['required', 'string', 'email', 'max:255', 'unique:users'])->when(Setting::get('users.signup_domains', false), function ($collection) {
+                $collection->push(new MustEndWith(Setting::get('users.signup_domains', "")));
+                return $collection;
+            })->toArray(),
             'password' => 'required|string|min:6|confirmed',
         ]);
     }

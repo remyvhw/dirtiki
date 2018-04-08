@@ -25,8 +25,7 @@
                         @endif
                         
                         @if (Setting::get('users.signup_domains', null))
-                            :must-end-with="[@foreach((new App\Rules\MustEndWith(Setting::get('users.signup_domains')))->validEnds as $domain)'{{ $domain }}'@endforeach
-                            ]"
+                            :must-end-with='{!! (new App\Rules\MustEndWith(Setting::get('users.signup_domains')))->validEnds->toJson() !!}'
                         @endif
                         >
                     </dirtiki-input>
