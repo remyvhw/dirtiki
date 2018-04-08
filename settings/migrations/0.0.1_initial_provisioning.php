@@ -26,6 +26,9 @@ class InitialProvisioning extends SettingsMigration
         Setting::set("users.allow_signups", true);
 
         Setting::set("maps.provider", "null");
+
+        Setting::set("captcha.provider", "null");
+        Setting::set("captcha.require_on_signup", true);
     }
 
 }
