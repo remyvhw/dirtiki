@@ -57,7 +57,8 @@ const app = new Vue({
         pageViewer: require("./components/page-viewer.vue"),
         pageEditor: require("./components/page-editor.vue"),
         pageCreator: require("./components/page-creator.vue"),
-        pageHistory: require("./components/page-history.vue")
+        pageHistory: require("./components/page-history.vue"),
+        registerForm: require("./components/register-form.vue")
     }
 });
 

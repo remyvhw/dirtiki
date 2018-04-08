@@ -9,6 +9,8 @@
                 @if (!\App\Http\Middleware\RedirectIfNoAdmin::adminsAreAlreadySet())
                 <div class="notification is-info">Thanks for installing Dirtiki! This first account will become the <em>de facto</em> admin.</div>
                 @endif
+
+                <register-form inline-template>
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
 
@@ -52,6 +54,7 @@
 
 
                 </form>
+                </register-form>
 
             </div>
         </div>
