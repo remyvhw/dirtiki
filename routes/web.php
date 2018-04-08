@@ -13,6 +13,8 @@
 
 Route::get('/', 'HomeController@index')->name('home')->middleware(['installcheck']);
 
+Route::get('verify/{user}', 'Auth/VerifyController@getVerification')->name("auth.verify");
+
 Route::get('images/{image}', 'ImageController@getShow')->name("images.show");
 
 Route::get('pages/{page}/history', 'PageController@getHistory')->name("pages.history");

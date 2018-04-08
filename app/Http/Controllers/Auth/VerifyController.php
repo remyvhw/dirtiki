@@ -12,7 +12,7 @@ class VerifyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getVerify(Request $request, User $user)
+    public function getVerification(Request $request, User $user)
     {
         if (!$request->hasValidSignature()) {
             abort(401);
