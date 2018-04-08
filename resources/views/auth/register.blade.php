@@ -25,11 +25,7 @@
                         @endif
                         
                         @if (Setting::get('users.signup_domains', null))
-                            @php
-                                $signupDomains = preg_replace('/\s+/', '', Setting::get('users.signup_domains', ""));
-                                $signupDomains = explode(",", $signupDomains);
-                            @endphp
-                            :must-end-with="[@foreach($signupDomains as $domain)'{{ $domain }}'@endforeach
+                            :must-end-with="[@foreach((new App\Rules\MustEndWith(Setting::get('users.signup_domains')))->validEnds as $domain)'{{ $domain }}'@endforeach
                             ]"
                         @endif
                         >
