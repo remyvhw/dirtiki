@@ -1,0 +1,25 @@
+<template>
+
+</template>
+<script type="text/babel">
+export default {
+  methods: {
+    /**
+     * Check for valid and hard validate subcomponents. Part of the validation chain.
+     * @param  boolean hard If true, error messages will be displayed next to the fields.
+     * @return boolean      True if valid.
+     */
+    validate(hard) {
+      let allValid = true;
+      // Check for required fields.
+      window.collect(this.$children).each(child => {
+        if (typeof child.validate === "function") {
+          allValid = child.validate(hard) ? allValid : false;
+        }
+      });
+
+      return allValid;
+    }
+  }
+};
+</script>

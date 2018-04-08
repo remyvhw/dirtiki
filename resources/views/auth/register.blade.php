@@ -46,9 +46,12 @@
 
                     <div class="field">
                         <p class="control">
+                            @if (Setting::get(""))
+                            @else
                             <button @click.prevent="submit" class="button is-primary">
                                 Register
                             </button>
+                            @endif
                         </p>
                     </div>
 
