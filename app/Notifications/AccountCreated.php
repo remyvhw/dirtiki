@@ -3,23 +3,13 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use URL;
 
 class AccountCreated extends Notification
 {
     use Queueable;
-
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
 
     /**
      * Get the notification's delivery channels.
@@ -41,9 +31,9 @@ class AccountCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line(__("Your account has been created. Please follow the following link to activate it."))
+            ->action(__("Activate Now"), URL::signedRoute('auth.verify', ['user' => $notifiable->id]))
+            ->line('If you are experiencing issues with activating your account, please reply to this email.');
     }
 
     /**
@@ -55,7 +45,7 @@ class AccountCreated extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            "url" => URL::signedRoute('auth.verify', ['user' => $notifiable->id]),
         ];
     }
 }
