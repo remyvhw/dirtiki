@@ -5,7 +5,7 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use URL;
+use Illuminate\Support\Facades\URL;
 
 class AccountCreated extends Notification
 {
