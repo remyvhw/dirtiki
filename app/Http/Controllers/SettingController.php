@@ -111,6 +111,32 @@ class SettingController extends Controller
                     ],
                 ],
             ],
+            "captcha" => [
+                "label" => __("Captcha"),
+                "children" => [
+                    "provider" => [
+                        "label" => __("CAPTCHA Provider"),
+                        "default" => "null",
+                        "type" => DirtikiSetting::TYPE_SELECT,
+                        "options" => [
+                            "null" => "None",
+                            "recaptcha" => "reCAPTCHA (Google)",
+                        ],
+                    ],
+                    "api_key" => [
+                        "label" => __("API Key"),
+                        "rules" => "nullable|required_unless:maps_provider,null|min:30|max:100",
+                        "default" => "",
+                        "type" => DirtikiSetting::TYPE_TEXT,
+                    ],
+                    "require_on_signup" => [
+                        "label" => __("Require CAPTCHA challenge on new user sign ups."),
+                        "rules" => "filled|boolean",
+                        "default" => true,
+                        "type" => DirtikiSetting::TYPE_CHECKBOX,
+                    ],
+                ],
+            ],
         ])->mapWithKeys(function ($structure, $key) {
             return [$key => new DirtikiSetting($structure, $key)];
         });
