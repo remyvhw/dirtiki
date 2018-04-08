@@ -83,6 +83,15 @@ export default {
     },
 
     /**
+     * An array of strings the string must end with to validate.
+     * Used on the registration form to validate an email address agains't
+     * a list of preapproved domains.
+     */
+    mustEndWith: {
+      type: Array
+    },
+
+    /**
      * In the case of a 'number' type, step between numbers.
      */
     step: {
@@ -291,7 +300,8 @@ export default {
         timezone: "The :attribute must be a valid zone.",
         unique: "The :attribute has already been taken.",
         uploaded: "The :attribute failed to upload.",
-        url: "The :attribute format is invalid."
+        url: "The :attribute format is invalid.",
+        mustEndWith: "The :attribute must end with the following: :end"
       }
     };
   },
@@ -471,6 +481,19 @@ export default {
       if (this.type == "email" && this.isEmailInvalid()) {
         valid = false;
         messages.push(this.trans.email.replace(":attribute", this.label));
+      }
+
+      // MustEndWith validation
+      if (
+        this.mustEndWith &&
+        !RegExp(".+(" + this.mustEndWith.join("|") + ")$").test(this.value)
+      ) {
+        valid = false;
+        messages.push(
+          this.trans.mustEndWith
+            .replace(":attribute", this.label)
+            .replace(":end", this.mustEndWith.join(", "))
+        );
       }
 
       // Number validation (for decimal steps)

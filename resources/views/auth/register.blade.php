@@ -12,16 +12,27 @@
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
 
-                    <dirtiki-input :should-hard-validate-on-blur="true" :required="true" label="Name" name="name" value="{{ old('name') }}" 
+                    <dirtiki-input :should-hard-validate-on-blur="true" :required="true" label="Name" name="name" value="{{ old('name') }}"  
                     @if ($errors->has('name'))
                      :error-messages="['{{$errors->first('name')}}']" 
-                    @endif>
+                    @endif
+                    >
                     </dirtiki-input>
 
                     <dirtiki-input type="email" :should-hard-validate-on-blur="true"  :required="true"  label="Email address" name="email" value="{{ old('email') }}"
                         @if ($errors->has('email')) 
                         :error-messages="['{{$errors->first('email')}}']" 
-                        @endif >
+                        @endif
+                        
+                        @if (Setting::get('users.signup_domains', null))
+                            @php
+                                $signupDomains = preg_replace('/\s+/', '', Setting::get('users.signup_domains', ""));
+                                $signupDomains = explode(",", $signupDomains);
+                            @endphp
+                            :must-end-with="[@foreach($signupDomains as $domain)'{{ $domain }}'@endforeach
+                            ]"
+                        @endif
+                        >
                     </dirtiki-input>
 
                     <dirtiki-input label="Password" name="password"  :required="true"  type="password"
