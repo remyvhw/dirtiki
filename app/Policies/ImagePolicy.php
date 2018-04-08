@@ -19,7 +19,7 @@ class ImagePolicy
      */
     public function index(?User $user)
     {
-        if (!$user && !Setting::get("permissions.public_read")) {
+        if (!optional($user)->verified && !Setting::get("permissions.public_read")) {
             return false;
         }
         return true;
@@ -34,7 +34,7 @@ class ImagePolicy
      */
     public function view(?User $user, Image $image)
     {
-        if (!$user && !Setting::get("permissions.public_read")) {
+        if (!optional($user)->verified && !Setting::get("permissions.public_read")) {
             return false;
         }
         return true;
@@ -48,7 +48,7 @@ class ImagePolicy
      */
     public function create(?User $user)
     {
-        if (!$user && !Setting::get("permissions.public_update")) {
+        if (!optional($user)->verified && !Setting::get("permissions.public_update")) {
             return false;
         } elseif (!optional($user)->admin && !Setting::get("permissions.user_update")) {
             return false;
@@ -65,7 +65,7 @@ class ImagePolicy
      */
     public function delete(?User $user, Image $image)
     {
-        if (!$user && !Setting::get("permissions.public_update")) {
+        if (!optional($user)->verified && !Setting::get("permissions.public_update")) {
             return false;
         } elseif (!optional($user)->admin && !Setting::get("permissions.public_update")) {
             return false;

@@ -19,7 +19,7 @@ class UserPolicy
      */
     public function view(?User $user, User $model)
     {
-        if (!$user && !Setting::get("permissions.public_read")) {
+        if (!optional($user)->verified && !Setting::get("permissions.public_read")) {
             return false;
         }
         return true;

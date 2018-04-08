@@ -20,7 +20,7 @@ class PagePolicy
      */
     public function index(?User $user): bool
     {
-        if (!$user && !Setting::get("permissions.public_read")) {
+        if (!optional($user)->verified && !Setting::get("permissions.public_read")) {
             return false;
         }
         return true;
@@ -35,7 +35,7 @@ class PagePolicy
      */
     public function view(?User $user, Page $page): bool
     {
-        if (!$user && !Setting::get("permissions.public_read")) {
+        if (!optional($user)->verified && !Setting::get("permissions.public_read")) {
             return false;
         }
         return true;
@@ -49,7 +49,7 @@ class PagePolicy
      */
     public function store(?User $user): bool
     {
-        if (!$user && !Setting::get("permissions.public_create")) {
+        if (!optional($user)->verified && !Setting::get("permissions.public_create")) {
             return false;
         } elseif (!optional($user)->admin && !Setting::get("permissions.user_create")) {
             return false;
@@ -66,7 +66,7 @@ class PagePolicy
      */
     public function update(?User $user, Page $page): bool
     {
-        if (!$user && !Setting::get("permissions.public_update")) {
+        if (!optional($user)->verified && !Setting::get("permissions.public_update")) {
             return false;
         } elseif (!optional($user)->admin && !Setting::get("permissions.user_update")) {
             return false;
@@ -83,7 +83,7 @@ class PagePolicy
      */
     public function delete(?User $user, Page $page): bool
     {
-        if (!$user && !Setting::get("permissions.public_delete")) {
+        if (!optional($user)->verified && !Setting::get("permissions.public_delete")) {
             return false;
         } elseif (!optional($user)->admin && !Setting::get("permissions.user_delete")) {
             return false;
