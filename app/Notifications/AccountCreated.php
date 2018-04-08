@@ -31,6 +31,7 @@ class AccountCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            ->subject(__("Confirm your Email"))
             ->line(__("Your account has been created. Please follow the following link to activate it."))
             ->action(__("Activate Now"), URL::signedRoute('auth.verify', ['user' => $notifiable->id]))
             ->line('If you are experiencing issues with activating your account, please reply to this email.');
