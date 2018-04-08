@@ -46,7 +46,7 @@
 
                     <div class="field">
                         <p class="control">
-                            <button type="submit" class="button is-primary">
+                            <button @click.prevent="submit" class="button is-primary">
                                 Register
                             </button>
                         </p>
