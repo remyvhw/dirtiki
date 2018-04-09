@@ -16,7 +16,7 @@ class SettingsServiceProvider extends ServiceProvider
     public function boot()
     {
         // Avoid relying on settings if no migration has been ran yet.
-        if (Schema::hasTable('settings')) {
+        if (!Schema::hasTable('settings')) {
             return;
         }
 
