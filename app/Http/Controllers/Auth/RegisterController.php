@@ -69,7 +69,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
+        dd($data);
         $user = new User([
             'name' => $data['name'],
             'email' => $data['email'],
