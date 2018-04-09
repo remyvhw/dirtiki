@@ -15,6 +15,9 @@ export default new Vuex.Store({
         maps: {
             provider: null
         },
+        captcha: {
+            provider: null
+        },
         strings: {},
         parsed: {
             headers: {}
@@ -32,6 +35,9 @@ export default new Vuex.Store({
         },
         unsetParsedHeader(state, key, header) {
             Vue.delete(state.parsed.headers, key);
+        },
+        setCaptchaProvider(state, provider) {
+            state.captcha.provider = provider;
         }
     }
 });

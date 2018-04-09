@@ -123,9 +123,15 @@ class SettingController extends Controller
                             "recaptcha" => "reCAPTCHA (Google)",
                         ],
                     ],
-                    "api_key" => [
-                        "label" => __("API Key"),
-                        "rules" => "nullable|required_unless:maps_provider,null|min:30|max:100",
+                    "public_key" => [
+                        "label" => __("Public/Site Key"),
+                        "rules" => "nullable|required_unless:captcha_provider,null|min:40|max:100",
+                        "default" => "",
+                        "type" => DirtikiSetting::TYPE_TEXT,
+                    ],
+                    "secret_key" => [
+                        "label" => __("Secret Key"),
+                        "rules" => "nullable|required_unless:captcha_provider,null|min:40|max:100",
                         "default" => "",
                         "type" => DirtikiSetting::TYPE_TEXT,
                     ],

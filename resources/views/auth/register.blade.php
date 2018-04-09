@@ -1,4 +1,5 @@
-@extends('layouts.app') @section('content')
+@extends('layouts.app') 
+@section('content')
 
 <main class="section">
     <section class="container">
@@ -46,7 +47,8 @@
 
                     <div class="field">
                         <p class="control">
-                            @if (Setting::get(""))
+                            @if (Setting::get("captcha.require_on_signup") && Setting::get("captcha.provider") === "recaptcha")
+                                <recaptcha-button @complete="submit" public-key="{{ Setting::get('captcha.public_key') }}">Register</recaptcha-button>
                             @else
                             <button @click.prevent="submit" class="button is-primary">
                                 Register
@@ -63,4 +65,9 @@
         </div>
     </section>
 </main>
+@endsection
+@section("scripts")
+@if (Setting::get("captcha.require_on_signup") && Setting::get("captcha.provider") === "recaptcha")
+    <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaOnloadCallback&render=explicit" async defer></script>
+@endif
 @endsection

@@ -80,3 +80,6 @@ if (typeof mapboxgl !== "undefined") {
     store.commit("setMapsProvider", "mapbox");
 }
 
+window.recaptchaOnloadCallback = function () {
+    store.commit("setCaptchaProvider", "recaptcha");
+};

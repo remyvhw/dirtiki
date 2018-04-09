@@ -40,9 +40,12 @@
         <!-- Scripts -->
         <script src="{{ mix('js/manifest.js') }}"></script>
         <script src="{{ mix('js/vendor.js') }}"></script>
-        <script src="{{ mix('js/app.js') }}" data-manual></script> @if (Setting::get("maps.provider") === "google")
+        <script src="{{ mix('js/app.js') }}" data-manual></script>
+        @if (Setting::get("maps.provider") === "google")
         <script src="https://maps.googleapis.com/maps/api/js?key={{ Setting::get('maps.api_key') }}&callback=initGoogleMap"
-            async defer></script> @endif
+            async defer></script> 
+        @endif
+        @yield('scripts')
     </body>
 
 </html>

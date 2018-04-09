@@ -1,5 +1,8 @@
 <script type="text/babel">
 export default {
+  components: {
+    recaptchaButton: require("./recaptcha-button.vue")
+  },
   methods: {
     /**
      * Check for valid and hard validate subcomponents. Part of the validation chain.
