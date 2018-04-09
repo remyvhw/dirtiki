@@ -3,19 +3,11 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use ReCaptcha\ReCaptcha as Grecaptcha;
+use Setting;
 
 class Recaptcha implements Rule
 {
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Determine if the validation rule passes.
      *
@@ -25,7 +17,9 @@ class Recaptcha implements Rule
      */
     public function passes($attribute, $value)
     {
-        //
+        $recaptcha = new Grecaptcha(Setting::get('captcha.secret_key'));
+        $response = $recaptcha->verify($value, optional(request())->ip());
+        return $response->isSuccess();
     }
 
     /**
@@ -35,6 +29,6 @@ class Recaptcha implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return trans("validation.captcha");
     }
 }

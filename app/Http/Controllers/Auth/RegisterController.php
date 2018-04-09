@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Notifications\AccountCreated;
 use App\Rules\MustEndWith;
+use App\Rules\Recaptcha;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -51,14 +52,20 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        return Validator::make($data, collect([
             'name' => 'required|string|max:255',
-            'email' => collect(['required', 'string', 'email', 'max:255', 'unique:users'])->when(Setting::get('users.signup_domains', false), function ($collection) {
-                $collection->push(new MustEndWith(Setting::get('users.signup_domains', "")));
-                return $collection;
-            })->toArray(),
+            'email' => collect(['required', 'string', 'email', 'max:255', 'unique:users'])
+                ->when(Setting::get('users.signup_domains', false), function ($collection) {
+                    $collection->push(new MustEndWith(Setting::get('users.signup_domains', "")));
+                    return $collection;
+                })
+                ->toArray(),
             'password' => 'required|string|min:6|confirmed',
-        ]);
+        ])->when(Setting::get('captcha.provider') === 'recaptcha', function ($collection) {
+            $collection->put('g-recaptcha-response', new Recaptcha());
+            return $collection;
+        })
+                ->toArray());
     }
 
     /**
@@ -69,7 +76,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        dd($data);
         $user = new User([
             'name' => $data['name'],
             'email' => $data['email'],

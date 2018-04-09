@@ -88,6 +88,7 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'must_end_with' => "The :attribute must end with the following: :end",
+    'captcha' => "The captcha validation failed.",
 
     /*
     |--------------------------------------------------------------------------
