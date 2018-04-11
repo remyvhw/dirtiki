@@ -17,7 +17,7 @@ export default {
         template +
         "</div></section></article>",
       components: {
-        headerAnchor: require("./header-anchor.vue"),
+        headerAnchor: require("./header-presenter.vue"),
         codePresenter: require("./code-presenter.vue"),
         imagePresenter: require("./image-presenter.vue")
       }
