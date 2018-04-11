@@ -3383,7 +3383,7 @@ var _class = function _class() {
 
     // Override function
     renderer.heading = function (text, level) {
-        return "<header-presenter :level='" + escape(level) + "'>" + escape(text) + "</header-presenter>";
+        return "<header-presenter :level='" + level + "'>" + text + "</header-presenter>";
     };
 
     renderer.code = function (code, language) {
@@ -5564,9 +5564,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   render: function render(createElement) {
     var template = this.parseMarkdown(this.value);
     var component = Vue.component("rendered-markdown", {
-      template: "<article><section class='section'><div class='container'>" + template + "</div></section></article>",
+      template: "<article><section class='section content'><div class='container'>" + template + "</div></section></article>",
       components: {
-        headerAnchor: __webpack_require__(289),
+        headerPresenter: __webpack_require__(289),
         codePresenter: __webpack_require__(190),
         imagePresenter: __webpack_require__(213)
       }

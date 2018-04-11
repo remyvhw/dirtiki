@@ -5,7 +5,7 @@ export default class {
 
         // Override function
         renderer.heading = function (text, level) {
-            return `<header-presenter :level='${escape(level)}'>${escape(text)}</header-presenter>`;
+            return `<header-presenter :level='${level}'>${text}</header-presenter>`;
         };
 
         renderer.code = function (code, language) {

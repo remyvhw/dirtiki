@@ -13,11 +13,11 @@ export default {
     const template = this.parseMarkdown(this.value);
     var component = Vue.component("rendered-markdown", {
       template:
-        "<article><section class='section'><div class='container'>" +
+        "<article><section class='section content'><div class='container'>" +
         template +
         "</div></section></article>",
       components: {
-        headerAnchor: require("./header-presenter.vue"),
+        headerPresenter: require("./header-presenter.vue"),
         codePresenter: require("./code-presenter.vue"),
         imagePresenter: require("./image-presenter.vue")
       }
