@@ -3391,7 +3391,7 @@ var _class = function _class() {
     };
 
     renderer.image = function (href, title, text) {
-        return "</div></section><image-presenter href='" + escape(href) + "' title='" + escape(title) + "'>" + escape(text) + "</image-presenter><section class=\"section\"><div class=\"container content\">";
+        return "</div></section><image-presenter href='" + href + "' title='" + title + "'>" + text + "</image-presenter><section class=\"section\"><div class=\"container content\">";
     };
 
     window.marked.setOptions({
@@ -5454,7 +5454,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.content img {\r\n  display: block;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  max-width: 75%;\n}\r\n", ""]);
+exports.push([module.i, "\n\n", ""]);
 
 // exports
 
@@ -5465,11 +5465,6 @@ exports.push([module.i, "\n.content img {\r\n  display: block;\r\n  margin-left:
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
 //
 //
 //
@@ -7634,7 +7629,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\nimg[data-v-0cb210ef] {\n  display: block;\n  margin-left: auto;\n  margin-right: auto;\n  max-width: 75%;\n}\n", ""]);
 
 // exports
 
@@ -7652,10 +7647,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
-  props: {},
+  props: {
+    href: {
+      type: String,
+      required: true
+    },
+    alt: {
+      type: String
+    },
+    title: {
+      type: String
+    }
+  },
   data: function data() {},
 
   computed: {}
@@ -7669,7 +7680,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("This is an image!")])
+  return _c("div", [
+    _c("img", { attrs: { src: _vm.href, alt: _vm.alt, title: _vm.title } })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

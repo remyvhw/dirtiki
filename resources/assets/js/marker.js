@@ -13,7 +13,7 @@ export default class {
         };
 
         renderer.image = function (href, title, text) {
-            return `</div></section><image-presenter href='${escape(href)}' title='${escape(title)}'>${escape(text)}</image-presenter><section class="section"><div class="container content">`;
+            return `</div></section><image-presenter href='${href}' title='${title}'>${text}</image-presenter><section class="section"><div class="container content">`;
         };
 
         window.marked.setOptions({

@@ -1,10 +1,5 @@
 <style>
-.content img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 75%;
-}
+
 </style>
 <template>
   <article>
