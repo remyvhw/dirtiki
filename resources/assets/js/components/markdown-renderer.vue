@@ -18,7 +18,8 @@ export default {
         "</div></section></article>",
       components: {
         headerAnchor: require("./header-anchor.vue"),
-        codePresenter: require("./code-presenter.vue")
+        codePresenter: require("./code-presenter.vue"),
+        imagePresenter: require("./image-presenter.vue")
       }
     });
 
