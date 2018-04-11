@@ -3387,11 +3387,11 @@ var _class = function _class() {
     };
 
     renderer.code = function (code, language) {
-        return "</div></section><code-presenter language='" + escape(language) + "'>" + escape(code) + "</code-presenter><section class=\"section\"><div class=\"container content\">";
+        return "</div></section><code-presenter language='" + escape(language) + "'>" + escape(code) + "</code-presenter><section class=\"section\"><div class=\"container\">";
     };
 
     renderer.image = function (href, title, text) {
-        return "</div></section><image-presenter href='" + href + "' title='" + title + "'>" + text + "</image-presenter><section class=\"section\"><div class=\"container content\">";
+        return "<image-presenter href='" + href + "' title='" + title + "'>" + text + "</image-presenter>";
     };
 
     window.marked.setOptions({
@@ -5564,7 +5564,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   render: function render(createElement) {
     var template = this.parseMarkdown(this.value);
     var component = Vue.component("rendered-markdown", {
-      template: "<article><section class='section'><div class='container content'>" + template + "</div></section></article>",
+      template: "<article><section class='section'><div class='container'>" + template + "</div></section></article>",
       components: {
         headerAnchor: __webpack_require__(181),
         codePresenter: __webpack_require__(190),
@@ -7629,7 +7629,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\nimg[data-v-0cb210ef] {\n  display: block;\n  margin-left: auto;\n  margin-right: auto;\n  max-width: 75%;\n}\n", ""]);
+exports.push([module.i, "\nimg[data-v-0cb210ef] {\r\n  display: block;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  max-width: 75%;\n}\r\n", ""]);
 
 // exports
 
@@ -7667,8 +7667,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: String
     }
   },
-  data: function data() {},
-
   computed: {}
 });
 

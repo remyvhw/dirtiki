@@ -7,7 +7,7 @@ img {
 }
 </style>
 <template>
-    <div><img :src='href' :alt='alt' :title="title"></div>
+  <div><img :src='href' :alt='alt' :title="title"></div>
 </template>
 
 <script type="text/babel">
@@ -25,7 +25,6 @@ export default {
       type: String
     }
   },
-  data() {},
   computed: {}
 };
 </script>

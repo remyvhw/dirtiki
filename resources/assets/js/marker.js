@@ -9,11 +9,11 @@ export default class {
         };
 
         renderer.code = function (code, language) {
-            return `</div></section><code-presenter language='${escape(language)}'>${escape(code)}</code-presenter><section class="section"><div class="container content">`;
+            return `</div></section><code-presenter language='${escape(language)}'>${escape(code)}</code-presenter><section class="section"><div class="container">`;
         };
 
         renderer.image = function (href, title, text) {
-            return `</div></section><image-presenter href='${href}' title='${title}'>${text}</image-presenter><section class="section"><div class="container content">`;
+            return `<image-presenter href='${href}' title='${title}'>${text}</image-presenter>`;
         };
 
         window.marked.setOptions({
