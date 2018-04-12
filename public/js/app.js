@@ -7629,7 +7629,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\nimg[data-v-0cb210ef] {\r\n  display: block;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  max-width: 75%;\n}\r\n", ""]);
+exports.push([module.i, "\nimg.centered[data-v-0cb210ef] {\r\n  display: block;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  max-width: 75%;\n}\nimg.lefted[data-v-0cb210ef] {\r\n  float: left;\n}\nimg.righted[data-v-0cb210ef] {\r\n  float: right;\n}\nimg.lefted[data-v-0cb210ef],\r\nimg.righted[data-v-0cb210ef] {\r\n  margin: 2em 2em 2em 0;\r\n  max-width: 30vh;\n}\r\n", ""]);
 
 // exports
 
@@ -7640,6 +7640,20 @@ exports.push([module.i, "\nimg[data-v-0cb210ef] {\r\n  display: block;\r\n  marg
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7664,9 +7678,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: String
     }
   },
-  computed: {},
+  computed: {
+    alignementClass: function alignementClass() {
+      var description = this.$slots.default[0] && this.$slots.default[0].text ? this.$slots.default[0].text : "";
+
+      if (description.startsWith(":") && description.endsWith(":")) {
+        // Todo: implement medium like full width banner
+      } else if (description.startsWith(":")) {
+        return "lefted";
+      } else if (description.endsWith(":")) {
+        return "righted";
+      }
+      return "centered";
+    }
+  },
   render: function render(createElement) {
-    return createElement("img", { attrs: { src: this.href, alt: this.alt, title: this.title } }, []);
+    return createElement("img", {
+      class: this.alignementClass,
+      attrs: { src: this.href, alt: this.alt, title: this.title }
+    }, []);
   }
 });
 
