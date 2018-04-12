@@ -5566,7 +5566,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var component = Vue.component("rendered-markdown", {
       template: "<article><section class='section'><div class='container'>" + template + "</div></section></article>",
       components: {
-        headerPresenter: __webpack_require__(289),
+        headerPresenter: __webpack_require__(181),
         codePresenter: __webpack_require__(190),
         imagePresenter: __webpack_require__(213)
       }
@@ -5577,10 +5577,215 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 181 */,
-/* 182 */,
-/* 183 */,
-/* 184 */,
+/* 181 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(182)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(184)
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-7d743d7f"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/header-presenter.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7d743d7f", Component.options)
+  } else {
+    hotAPI.reload("data-v-7d743d7f", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(183);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("0c6f1952", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7d743d7f\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./header-presenter.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7d743d7f\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./header-presenter.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\nsmall[data-v-7d743d7f] {\r\n  color: hsl(217, 71%, 53%);\r\n  font-size: 0.8em;\n}\nsmall i[data-v-7d743d7f] {\r\n  position: relative;\r\n  top: -1em;\r\n  font-size: 0.8em;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 184 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    tocBox: __webpack_require__(185)
+  },
+  props: {
+    level: { Type: Number, Required: true }
+  },
+  data: function data() {
+    return {
+      showHelper: false,
+      showLink: false,
+      isFirst: null
+    };
+  },
+
+  computed: {
+    anchor: function anchor() {
+      return this.$slots.default[0].text.toLowerCase().replace(/[^\w]+/g, "-");
+    },
+    safeAnchor: function safeAnchor() {
+      return this.anchor + "-" + this._uid;
+    },
+    safeLinkUrl: function safeLinkUrl() {
+      return document.location.href.substr(0, document.location.href.indexOf("#")) + "#" + this.safeAnchor;
+    },
+    linkUrl: function linkUrl() {
+      return document.location.href.substr(0, document.location.href.indexOf("#")) + "#" + this.anchor;
+    }
+  },
+  mounted: function mounted() {
+    this.isFirst = !Object.keys(this.$store.state.parsed.headers).length;
+
+    if (!this.$store.state.parsed.headers[this.anchor]) {
+      this.$store.commit({
+        type: "setParsedHeader",
+        key: this.safeAnchor,
+        header: {
+          title: this.$slots.default[0].text,
+          level: this.level,
+          link: this.safeLinkUrl,
+          chaining: Object.keys(this.$store.state.parsed.headers).length
+        }
+      });
+    }
+  },
+  destroyed: function destroyed() {
+    this.$store.unsetParsedHeader(this.anchor);
+  },
+  render: function render(createElement) {
+    var self = this;
+
+    var anchorA = createElement("a", {
+      domProps: {
+        name: this.anchor,
+        href: "#" + this.anchor
+      }
+    });
+
+    var safeAnchorA = createElement("a", {
+      domProps: {
+        name: this.safeAnchor,
+        href: "#" + this.safeAnchor
+      }
+    });
+
+    var helperSmall = createElement("small", [createElement("i", { class: ["fas", "fa-link"] })]);
+
+    var mainSpanChildren = [this.$slots.default];
+    if (this.showHelper && !this.showLink) mainSpanChildren.push(helperSmall);
+
+    var mainSpan = createElement("span", {
+      on: {
+        mouseover: function mouseover() {
+          self.showHelper = true;
+        },
+        mouseleave: function mouseleave() {
+          self.showHelper = false;
+        },
+        click: function click(e) {
+          self.showLink = true;
+        }
+      }
+    }, mainSpanChildren);
+
+    var linkSpan = createElement("span", [createElement("br"), createElement("small", [self.linkUrl])]);
+
+    var headingContent = [anchorA, safeAnchorA, mainSpan];
+    if (this.showLink) headingContent.push(linkSpan);
+
+    var toc = void 0;
+    if (this.isFirst) {
+      toc = createElement("toc-box");
+    }
+
+    var header = createElement("h" + this.level, headingContent);
+
+    return createElement("div", this.isFirst ? [toc, header] : [header]);
+  }
+});
+
+/***/ }),
 /* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7351,7 +7556,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(216)
 /* template */
-var __vue_template__ = __webpack_require__(217)
+var __vue_template__ = null
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -7444,9 +7649,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
@@ -7462,32 +7664,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: String
     }
   },
-  computed: {}
+  computed: {},
+  render: function render(createElement) {
+    return createElement("img", { attrs: { src: this.href, alt: this.alt, title: this.title } }, []);
+  }
 });
 
 /***/ }),
-/* 217 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("img", { attrs: { src: _vm.href, alt: _vm.alt, title: _vm.title } })
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-0cb210ef", module.exports)
-  }
-}
-
-/***/ }),
+/* 217 */,
 /* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10778,219 +10962,6 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 285 */,
-/* 286 */,
-/* 287 */,
-/* 288 */,
-/* 289 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(290)
-}
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(292)
-/* template */
-var __vue_template__ = null
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-7d743d7f"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/header-presenter.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7d743d7f", Component.options)
-  } else {
-    hotAPI.reload("data-v-7d743d7f", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 290 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(291);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(2)("0c6f1952", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7d743d7f\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./header-presenter.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7d743d7f\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./header-presenter.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 291 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\nsmall[data-v-7d743d7f] {\r\n  color: hsl(217, 71%, 53%);\r\n  font-size: 0.8em;\n}\nsmall i[data-v-7d743d7f] {\r\n  position: relative;\r\n  top: -1em;\r\n  font-size: 0.8em;\n}\r\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 292 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    tocBox: __webpack_require__(185)
-  },
-  props: {
-    level: { Type: Number, Required: true }
-  },
-  data: function data() {
-    return {
-      showHelper: false,
-      showLink: false,
-      isFirst: null
-    };
-  },
-
-  computed: {
-    anchor: function anchor() {
-      return this.$slots.default[0].text.toLowerCase().replace(/[^\w]+/g, "-");
-    },
-    safeAnchor: function safeAnchor() {
-      return this.anchor + "-" + this._uid;
-    },
-    safeLinkUrl: function safeLinkUrl() {
-      return document.location.href.substr(0, document.location.href.indexOf("#")) + "#" + this.safeAnchor;
-    },
-    linkUrl: function linkUrl() {
-      return document.location.href.substr(0, document.location.href.indexOf("#")) + "#" + this.anchor;
-    }
-  },
-  mounted: function mounted() {
-    this.isFirst = !Object.keys(this.$store.state.parsed.headers).length;
-
-    if (!this.$store.state.parsed.headers[this.anchor]) {
-      this.$store.commit({
-        type: "setParsedHeader",
-        key: this.safeAnchor,
-        header: {
-          title: this.$slots.default[0].text,
-          level: this.level,
-          link: this.safeLinkUrl,
-          chaining: Object.keys(this.$store.state.parsed.headers).length
-        }
-      });
-    }
-  },
-  destroyed: function destroyed() {
-    this.$store.unsetParsedHeader(this.anchor);
-  },
-  render: function render(createElement) {
-    var self = this;
-
-    var anchorA = createElement("a", {
-      domProps: {
-        name: this.anchor,
-        href: "#" + this.anchor
-      }
-    });
-
-    var safeAnchorA = createElement("a", {
-      domProps: {
-        name: this.safeAnchor,
-        href: "#" + this.safeAnchor
-      }
-    });
-
-    var helperSmall = createElement("small", [createElement("i", { class: ["fas", "fa-link"] })]);
-
-    var mainSpanChildren = [this.$slots.default];
-    if (this.showHelper && !this.showLink) mainSpanChildren.push(helperSmall);
-
-    var mainSpan = createElement("span", {
-      on: {
-        mouseover: function mouseover() {
-          self.showHelper = true;
-        },
-        mouseleave: function mouseleave() {
-          self.showHelper = false;
-        },
-        click: function click(e) {
-          self.showLink = true;
-        }
-      }
-    }, mainSpanChildren);
-
-    var linkSpan = createElement("span", [createElement("br"), createElement("small", [self.linkUrl])]);
-
-    var headingContent = [anchorA, safeAnchorA, mainSpan];
-    if (this.showLink) headingContent.push(linkSpan);
-
-    var toc = void 0;
-    if (this.isFirst) {
-      toc = createElement("toc-box");
-    }
-
-    var header = createElement("h" + this.level, headingContent);
-
-    return createElement("div", this.isFirst ? [toc, header] : [header]);
-  }
-});
 
 /***/ })
 ],[32]);

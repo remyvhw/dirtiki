@@ -6,9 +6,6 @@ img {
   max-width: 75%;
 }
 </style>
-<template>
-  <div><img :src='href' :alt='alt' :title="title"></div>
-</template>
 
 <script type="text/babel">
 export default {
@@ -25,6 +22,13 @@ export default {
       type: String
     }
   },
-  computed: {}
+  computed: {},
+  render(createElement) {
+    return createElement(
+      "img",
+      { attrs: { src: this.href, alt: this.alt, title: this.title } },
+      []
+    );
+  }
 };
 </script>
