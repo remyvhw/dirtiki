@@ -10,7 +10,6 @@
         </div>
     </section>
 </div>
-<main class="content">
-    <page-viewer page-json="{{ (new App\Http\Resources\PageResource($page))->toJson() }}">{{ $page->body->content }}</page-viewer>
-</main>
+<page-viewer page-json="{{ (new App\Http\Resources\PageResource($page))->toJson() }}">{{ $page->body->content }}</page-viewer>
+
 @endsection

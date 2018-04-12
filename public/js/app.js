@@ -3387,7 +3387,7 @@ var _class = function _class() {
     };
 
     renderer.code = function (code, language) {
-        return "</div></section><code-presenter language='" + escape(language) + "'>" + escape(code) + "</code-presenter><section class=\"section\"><div class=\"container\">";
+        return "</div></section><code-presenter language='" + escape(language) + "'>" + escape(code) + "</code-presenter><section class=\"section\"><div class=\"container content\">";
     };
 
     renderer.image = function (href, title, text) {
